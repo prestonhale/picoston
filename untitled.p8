@@ -1,24 +1,15 @@
 pico-8 cartridge // http://www.pico-8.com
-version 36
+version 38
 __lua__
-function init()
-	printnamefortyler()
-	print_preston()
-	print_michael() 
-end
-
-function print_preston()
-	print("preston")
-end
-
 function print_name_for_tyler()
 	print("michael stinks",40,50)
 end	
-
 function print_michael_name()
 	print("michael jarriel")
 end
-
+function print_different_name()
+	print("Preston")
+end	
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
