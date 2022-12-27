@@ -3,6 +3,7 @@ version 36
 __lua__
 #include tyler.p8
 #include michael.p8
+#include michael.p8
 
 function init()
     print_michael()
