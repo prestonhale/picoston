@@ -20,8 +20,8 @@ SPAWN_FUNCTIONS = {
 
 function _init()
     init_michael(objects)
-	init_preston(objects)
-	init_tyler(objects)
+    init_preston(objects)
+    init_tyler(objects)
 end
 
 function _update()
