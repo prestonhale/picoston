@@ -21,18 +21,19 @@ animal = {
 }
 
 function _init()
-    init_preston(objects)
+	init_preston(objects)
 	init_tyler(objects)
     init_michael(objects)
 end
 
 function _update()
+	
     for obj in all(objects) do
         obj.type.update(obj)
     end
-	if btnp(5) then 
+	if btnp(4) then 
 		
-		add_ostrich_at(0,66) 
+		add_bee_giant_at(0,66) 
 		
 		end
 end
