@@ -2,7 +2,53 @@ pico-8 cartridge // http://www.pico-8.com
 version 38
 __lua__
 
--- BACKGROUND OBJECT
+-- grass obj
+
+grass_type={
+	update=function(self)end,
+	draw=function(self)end
+}
+
+grass={
+	objs={},
+	type=grass_type
+}
+
+for i=0,30 do
+	rand_x=flr(rnd(108))+10
+	rand_y=flr(rnd(85))+10
+	g={
+		x=rand_x,
+		y=rand_y
+	}
+	add(grass.objs,g)
+end
+
+function draw_pixel(x,y)
+	if (pget(x,y)==11) then
+		pset(x,y,3)
+	else
+		pset(x,y,11)
+	end
+end
+
+grass_type.draw = function(self)
+	for g in all(grass.objs) do
+		draw_pixel(g.x+2,g.y)
+		draw_pixel(g.x+4,g.y)
+		draw_pixel(g.x+3,g.y+1)
+
+		draw_pixel(g.x,g.y-2)
+		draw_pixel(g.x+1,g.y-3)
+		draw_pixel(g.x-1,g.y-3)
+
+		draw_pixel(g.x-3,g.y+1)
+		draw_pixel(g.x-4,g.y+2)
+		draw_pixel(g.x-5,g.y+1)
+	end
+end
+
+-- bakground obj
 
 bg_type={
 	update=function(self)end,
@@ -38,7 +84,7 @@ bg_type.draw = function(self)
     end
 end
 
--- GATOR OBJECT
+-- gator obj
 
 gator_type={
 	update=function(self)end,
@@ -60,7 +106,7 @@ gator_type.draw = function(self)
 	spr(self.sprite,self.x,self.y,self.width,self.height)
 end
 
--- GATE OBJECTS
+-- gate obj
 
 gate_type={
 	update=function(self)end,
@@ -126,8 +172,11 @@ gate_type.draw = function(self)
 	spr(self.sprite,self.x,self.y,self.width,self.height)
 end
 
+-- init func
+
 function init_michael(objects)
 	add(objects,bg)
+	add(objects,grass)
 	add(objects,gate)
 	add(objects,gate2)
 	add(objects,gate3)
