@@ -2,7 +2,7 @@ pico-8 cartridge // http://www.pico-8.com
 version 38
 __lua__
 
--- elephant obj
+--- elephant obj ---
 
 elephant_type={
 	update=function(self)end,
@@ -59,13 +59,14 @@ elephant_type.update=function(self)
 			self.stomp_t_increase=true
 		end
 	end
+	remove_if_out_of_bounds(self)
 end
 
 elephant_type.draw=function(self)
 	spr(self.sprite,self.x,self.y,self.width,self.height)
 end
 
--- grass obj
+--- grass obj ---
 
 grass_type={
 	update=function(self)end,
@@ -111,7 +112,7 @@ grass_type.draw = function(self)
 	end
 end
 
--- flower obj
+--- flower obj ---
 
 flower_type = {
 	update=function(self)end,
@@ -147,7 +148,7 @@ flower_type.draw = function(self)
 	end
 end
 
--- bakground obj
+--- bakground obj ---
 
 bg_type={
 	update=function(self)end,
@@ -183,7 +184,7 @@ bg_type.draw = function(self)
     end
 end
 
--- gate obj
+--- gate obj ---
 
 gate_type={
 	update=function(self)end,
@@ -209,7 +210,7 @@ gate_type.draw = function(self)
 	spr(self.sprite,self.x,self.y,self.width,self.height)
 end
 
--- init func
+--- init func ---
 
 function init_michael(objects)
 	add(objects,bg)

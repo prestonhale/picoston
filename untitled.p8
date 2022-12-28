@@ -9,7 +9,6 @@ objects = {}
 
 speed = 1
 
-
 SPAWN_FUNCTIONS = {
     add_ostrich_in_lane,
     add_bee_giant_in_lane,
@@ -37,9 +36,17 @@ function _draw()
     end
 end
 
--- helper functions
+--- helper functions ---
+
 function get_lane_y(lane_index)
     return (lane_index-1)*lane_length
+end
+
+-- temporary to reduce memory leakage
+function remove_if_out_of_bounds(obj)
+    if abs(64-obj.x)>80 or abs(64-obj.y)>80 then
+        del(objects,obj)
+    end
 end
 __gfx__
 0000000055555555555555550000000000000000000000000e000000000000000000000000000000000000000000000000000000000008888880000005444400
