@@ -9,15 +9,13 @@ objects = {}
 
 speed = 1
 
-animal = {
-    x = 0,
-    y = 0,
-    lane_x = 0,
-    lane_y = 0,
-    draw = function()
-    end,
-    update = function()
-    end
+
+SPAWN_FUNCTIONS = {
+    add_ostrich_at,
+    add_ostrich_at,
+    add_ostrich_at,
+    add_ostrich_at,
+    add_ostrich_at
 }
 
 function _init()
