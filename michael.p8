@@ -435,17 +435,36 @@ for i=0,4 do
     gate={
         x=100+(i*4),
         y=-3+(i*21),
+        initial_y=-3+(i*21),
         lane_x=0,
         lane_y=0,
         sprite=13,
         width=2,
-        height=3,
+        height=2,
+        bounce_t=20,
+        c_bounce_t=0,
         type=gate_type
     }
+    if i%2==0 then
+        gate.y+=1
+    end
     add(gates,gate)
 end
 
+gate_type.update=function(self)
+    self.c_bounce_t+=1
+    if self.c_bounce_t>=self.bounce_t then
+        self.c_bounce_t=0
+        if self.y==self.initial_y then
+            self.y+=1
+        else
+            self.y-=1
+        end
+    end
+end
+
 gate_type.draw = function(self)
+    spr(45,self.x,self.initial_y+16,2,1)
     spr(self.sprite,self.x,self.y,self.width,self.height)
 end
 
