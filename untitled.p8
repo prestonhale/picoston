@@ -33,7 +33,7 @@ end
 
 function _draw()
     cls()
-    draw_background2()
+    draw_background()
     for obj in all(objects) do
         obj.type.draw(obj)
     end
@@ -44,22 +44,7 @@ function get_lane_y(lane_index)
     return (lane_index-1)*lane_length
 end
 
-lane_spacing=21
-line_spacing=2
-line_length=6
 function draw_background()
-	cls(3)
-    map()
-    for i=0,4 do
-        curr_lane_x=0
-        while (curr_lane_x < 130) do
-            rect(curr_lane_x,i*lane_spacing+lane_spacing,curr_lane_x+line_spacing,i*lane_spacing+lane_spacing,7)
-            curr_lane_x+=line_length
-        end
-    end
-end
-
-function draw_background2()
 
     cls(0)
 
