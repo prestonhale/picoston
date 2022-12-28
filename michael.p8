@@ -68,56 +68,56 @@ gate_type={
 }
 
 gate={
-	x=106,
-	y=-1,
+	x=100,
+	y=-3,
 	lane_x=0,
 	lane_y=0,
-	sprite=15,
-	width=1,
+	sprite=13,
+	width=2,
 	height=3,
 	type=gate_type
 }
 
 gate2={
-	x=110,
-	y=20,
+	x=104,
+	y=18,
 	lane_x=0,
 	lane_y=0,
-	sprite=15,
-	width=1,
+	sprite=13,
+	width=2,
 	height=3,
 	type=gate_type
 }
 
 gate3={
-	x=114,
-	y=41,
+	x=108,
+	y=39,
 	lane_x=0,
 	lane_y=0,
-	sprite=15,
-	width=1,
+	sprite=13,
+	width=2,
 	height=3,
 	type=gate_type
 }
 
 gate4={
-	x=118,
-	y=62,
+	x=112,
+	y=60,
 	lane_x=0,
 	lane_y=0,
-	sprite=15,
-	width=1,
+	sprite=13,
+	width=2,
 	height=3,
 	type=gate_type
 }
 
 gate5={
-	x=122,
-	y=83,
+	x=116,
+	y=81,
 	lane_x=0,
 	lane_y=0,
-	sprite=15,
-	width=1,
+	sprite=13,
+	width=2,
 	height=3,
 	type=gate_type
 }
