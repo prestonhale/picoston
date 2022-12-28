@@ -38,6 +38,28 @@ bg_type.draw = function(self)
     end
 end
 
+-- GATOR OBJECT
+
+gator_type={
+	update=function(self)end,
+	draw=function(self)end
+}
+
+gator={
+	x=60,
+	y=60,
+	lane_x=0,
+	lane_y=0,
+	sprite=3,
+	width=2,
+	height=2,
+	type=gator_type
+}
+
+gator_type.draw = function(self)
+	spr(self.sprite,self.x,self.y,self.width,self.height)
+end
+
 -- GATE OBJECTS
 
 gate_type={
@@ -46,7 +68,7 @@ gate_type={
 }
 
 gate={
-	x=108,
+	x=106,
 	y=-1,
 	lane_x=0,
 	lane_y=0,
@@ -57,7 +79,7 @@ gate={
 }
 
 gate2={
-	x=112,
+	x=110,
 	y=20,
 	lane_x=0,
 	lane_y=0,
@@ -68,7 +90,7 @@ gate2={
 }
 
 gate3={
-	x=116,
+	x=114,
 	y=41,
 	lane_x=0,
 	lane_y=0,
@@ -79,7 +101,7 @@ gate3={
 }
 
 gate4={
-	x=120,
+	x=118,
 	y=62,
 	lane_x=0,
 	lane_y=0,
@@ -90,7 +112,7 @@ gate4={
 }
 
 gate5={
-	x=124,
+	x=122,
 	y=83,
 	lane_x=0,
 	lane_y=0,
