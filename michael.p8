@@ -51,7 +51,7 @@ gator={
 	lane_x=0,
 	lane_y=0,
 	sprite=3,
-	width=2,
+	width=3,
 	height=2,
 	type=gator_type
 }
