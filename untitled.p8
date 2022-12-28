@@ -11,7 +11,7 @@ speed = 1
 
 
 SPAWN_FUNCTIONS = {
-    add_bee_giant_in_lane,
+    add_ostrich_in_lane,
     add_bee_giant_in_lane,
     add_bee_giant_in_lane,
     add_bee_giant_in_lane,
