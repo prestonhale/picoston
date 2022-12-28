@@ -21,7 +21,7 @@ animal = {
 }
 
 function _init()
-  --  init_preston(objects)
+    init_preston(objects)
 	init_tyler(objects)
     init_michael(objects)
 end
