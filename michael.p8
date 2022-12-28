@@ -50,7 +50,7 @@ gate_type.draw = function(self)
 end
 
 function init_michael(objects)
-	add(objects,gator)
+	//add(objects,gator)
 	add(objects,gate)
 end
 __gfx__
