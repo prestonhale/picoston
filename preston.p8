@@ -75,7 +75,7 @@ ui = {
             end
 
             if btnp(4) then
-                -- spawn
+                add_ostrich_at(5, (self.selected_lane-1)*lane_length)
             end
         end,
 
