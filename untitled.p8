@@ -21,16 +21,17 @@ animal = {
 }
 
 function _init()
+    init_preston(objects)
 end
 
 function _update()
     for obj in all(objects) do
-        obj.update()
+        obj.type.update(obj)
     end
 end
 
 function _draw()
     for obj in all(objects) do
-        obj.draw()
+        obj.type.draw(obj)
     end
 end
