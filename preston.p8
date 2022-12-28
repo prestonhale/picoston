@@ -75,7 +75,7 @@ ui = {
             end
 
             if btnp(4) then
-                add_ostrich_at(5, (self.selected_lane-1)*lane_length)
+                add_ostrich_at(2, (self.selected_lane-1)*lane_length+3)
             end
         end,
 
@@ -86,9 +86,9 @@ ui = {
             end
             -- draw lane highlight
             line(
-                5, 
+                2, 
                 (self.selected_lane-1)*lane_length, 
-                5, 
+                2, 
                 (self.selected_lane-1)*lane_length+lane_length, 
                 10
             )
