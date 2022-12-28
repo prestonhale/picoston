@@ -17,18 +17,23 @@ function init_tyler(objects)
     
 end
 
-function add_ostrich_at(new_x,new_y)
+function add_ostrich_at(new_x,new_y,lane_index)
     ostrich={ 
         x=new_x,
         y=new_y,
-        lane_x = 0,
-        lane_y = 0,
+        lane_index = new_lane_index,
         sprite=64,
         type=ostrich_type
     }
 
-    add(objects,ostrich)
+    function add_ostrich_in_lane(lane_index)
+        new_y=get_lane_y(lane_index)
+        new_x=5
+        add_ostrich_at(new_x,new_y,lane_index)
+    end
     
+    
+    add(objects,ostrich)
 end
 --------------------------------------------------
 bee_giant_type = {
@@ -40,23 +45,27 @@ bee_giant_type = {
         end
         end,
     update = function(self)
-        self.y=2*(sin(self.x/30))
+        self.y=(2*(sin(self.x/30))+get_lane_y(self.lane_index)+3)
         self.x+=3 
         self.timer+=1
         end
     }
 
+function add_bee_giant_in_lane(lane_index)
+    new_y=get_lane_y(lane_index)
+    new_x=5
+    add_bee_giant_at(new_x,new_y,lane_index)
+end
 
 function init_tyler(objects)
     
 end
 
-function add_bee_giant_at(new_x,new_y)
+function add_bee_giant_at(new_x,new_y,new_lane_index)
     bee_giant={ 
         x=new_x,
         y=new_y,
-        lane_x = 0,
-        lane_y = 0,
+        lane_index = new_lane_index,
         sprite=66,
         type=bee_giant_type,
         timer=0
