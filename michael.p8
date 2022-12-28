@@ -12,6 +12,8 @@ gator={
 	lane_x=0,
 	lane_y=0,
 	sprite=1,
+	width=8,
+	height=8,
 	type=gator_type
 }
 
@@ -20,7 +22,7 @@ gator_type.update = function(self)
 end
 
 gator_type.draw = function(self)
-	spr(self.sprite,self.x,self.y)
+	spr(self.sprite,self.x,self.y,2,2)
 end
 
 function init_michael(objects)
