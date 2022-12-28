@@ -5,6 +5,13 @@ __lua__
 #include michael.p8
 #include preston.p8
 
+-- animals
+#include ostrich.p8
+#include bee.p8
+
+-- enemies
+#include enemy.p8
+
 objects = {}
 
 speed = 1
