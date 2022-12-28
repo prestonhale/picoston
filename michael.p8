@@ -101,7 +101,7 @@ gate3={
 }
 
 gate4={
-	x=110,
+	x=112,
 	y=60,
 	lane_x=0,
 	lane_y=0,
@@ -112,7 +112,7 @@ gate4={
 }
 
 gate5={
-	x=114,
+	x=116,
 	y=81,
 	lane_x=0,
 	lane_y=0,
