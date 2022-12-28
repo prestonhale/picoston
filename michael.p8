@@ -130,9 +130,9 @@ for i=0,20 do
 	flwr_rand=flr(rnd(10))+1
 	flwr_sprite=0
 		if (flwr_rand%2==0) then
-			flwr_sprite=6
+			flwr_sprite=5
 		else
-			flwr_sprite=22
+			flwr_sprite=21
 		end
 	flower={
 		x=rand_x,
