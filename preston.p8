@@ -1,5 +1,19 @@
+pico-8 cartridge // http://www.pico-8.com
+version 38
+__lua__
+
 ORANGE = 9
 PURPLE = 2
+
+-- Number of functions must be equal to the number of buttons
+-- IMPORTANT: Functions must take ONLY the arguments (x,y)
+BUTTON_SPAWN_FUNCTIONS = {
+    spawn_ostrich_at,
+    spawn_ostrich_at,
+    spawn_ostrich_at,
+    spawn_ostrich_at,
+    spawn_ostrich_at,
+}
 
 -- config
 first_button_x = 15
@@ -75,7 +89,8 @@ ui = {
             end
 
             if btnp(4) then
-                add_ostrich_at(2, (self.selected_lane-1)*lane_length+3)
+                local spawn_function = SPAWN_FUNCTIONS[1]
+                spawn_function(2, get_lane_y(self.selected_lane)+3)
             end
         end,
 
@@ -87,14 +102,18 @@ ui = {
             -- draw lane highlight
             line(
                 2, 
-                (self.selected_lane-1)*lane_length, 
+                get_lane_y(self.selected_lane), 
                 2, 
-                (self.selected_lane-1)*lane_length+lane_length, 
+                get_lane_y(self.selected_lane)+lane_length, 
                 10
             )
         end
     }
 }
+
+function get_lane_y(lane_index)
+    return (lane_index-1)*lane_length
+end
 
 function init_preston(objects)
     for i=0,4 do
