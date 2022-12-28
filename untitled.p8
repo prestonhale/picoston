@@ -76,7 +76,7 @@ function draw_background2()
                 end
             else
                 for k=0,4 do
-                    rectfill(j*bg_sq_val+k+y_offset-x_offset,i*21,j*bg_sq_val+bg_sq_val+k+y_offset-x_offset,i*21+(k*5),3)
+                    rectfill(j*bg_sq_val+k+y_offset-x_offset,i*21,j*bg_sq_val+bg_sq_val+k+y_offset-x_offset,i*21+(k*5),14)
                 end
             end
             swap*=-1
