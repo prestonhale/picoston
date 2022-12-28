@@ -48,6 +48,42 @@ grass_type.draw = function(self)
 	end
 end
 
+-- flower obj
+
+flower_type = {
+	update=function(self)end,
+	draw=function(self)end
+}
+
+flowers={
+	objs={},
+	type=flower_type
+}
+
+for i=0,20 do
+	rand_x=flr(rnd(108))+10
+	rand_y=flr(rnd(85))+10
+	flwr_rand=flr(rnd(10))+1
+	flwr_sprite=0
+		if (flwr_rand%2==0) then
+			flwr_sprite=6
+		else
+			flwr_sprite=22
+		end
+	flower={
+		x=rand_x,
+		y=rand_y,
+		sprite=flwr_sprite
+	}
+	add(flowers.objs,flower)
+end
+
+flower_type.draw = function(self)
+	for flower in all(flowers.objs) do
+		spr(flower.sprite,flower.x,flower.y)
+	end
+end
+
 -- bakground obj
 
 bg_type={
@@ -177,6 +213,7 @@ end
 function init_michael(objects)
 	add(objects,bg)
 	add(objects,grass)
+	add(objects,flowers)
 	add(objects,gate)
 	add(objects,gate2)
 	add(objects,gate3)
