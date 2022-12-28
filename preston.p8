@@ -1,9 +1,13 @@
 ui = {
-    update = function(self)
-    end,
-    draw = function(self)
-        print("tyler")
-    end
+    type = {
+        update = function(self)
+        end,
+        draw = function(self)
+            print("tyler")
+        end
+    }
 }
 
-add(objects, ui)
+function init_preston(objects)
+    add(objects, ui)
+end
