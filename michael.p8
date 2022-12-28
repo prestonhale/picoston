@@ -137,14 +137,52 @@ for i=0,20 do
 	flower={
 		x=rand_x,
 		y=rand_y,
+		bounce_t=flr(rnd(3))+9,
+		c_bounce_t=0,
+		bounce_dir="right",
+		pos="left",
 		sprite=flwr_sprite
 	}
 	add(flowers.objs,flower)
 end
 
+flower_type.update = function(self)
+	for flower in all(flowers.objs) do
+		flower.c_bounce_t+=1
+		if flower.c_bounce_t>=flower.bounce_t then
+			flower.c_bounce_t=0
+			if (flower.bounce_dir=="right") then
+				if (flower.pos=="left") then
+					flower.pos="middle"
+				elseif (flower.pos=="middle") then
+					flower.pos="right"
+				else
+					flower.pos="middle"
+					flower.bounce_dir="left"
+				end
+			else
+				if (flower.pos=="right") then
+					flower.pos="middle"
+				elseif (flower.pos=="middle") then
+					flower.pos="left"
+				else
+					flower.pos="middle"
+					flower.bounce_dir="right"
+				end
+			end
+		end
+	end
+end
+
 flower_type.draw = function(self)
 	for flower in all(flowers.objs) do
-		spr(flower.sprite,flower.x,flower.y)
+		if (flower.pos=="left") then
+			spr(flower.sprite,flower.x-1,flower.y-1)
+		elseif (flower.pos=="middle") then
+			spr(flower.sprite,flower.x,flower.y)
+		else
+			spr(flower.sprite,flower.x+1,flower.y-1)
+		end
 	end
 end
 
@@ -184,6 +222,154 @@ bg_type.draw = function(self)
     end
 end
 
+--- wind_machine obj ---
+
+wind_machine_type={
+	update=function(self)end,
+	draw=function(self)end
+}
+
+wind_machine={
+	spawn_t=60,
+	c_spawn_t=0,
+	type=wind_machine_type
+}
+
+wind_machine_type.update=function(self)
+	self.c_spawn_t+=1
+	if self.c_spawn_t>=self.spawn_t then
+
+		self.c_spawn_t=0
+		self.spawn_t=rnd(rnd(50))+70
+		
+		wind_randx=flr(rnd(80))-10
+		wind_randy=flr(rnd(70))+20
+
+		wind={
+		x=wind_randx,
+		y=wind_randy,
+		initial_y=wind_randy,
+		loop_t=10,
+		c_loop_t=0,
+		looping=false,
+		looping_check=false,
+		origin_x=0,
+		origin_y=0,
+		radius=7,
+		angle=0.75,
+		hori_speed=5,
+		angle_speed=0.08,
+		ending=false,
+		last_x=wind_randx,
+		check_x=wind_randx,
+		last_y=wind_randy,
+		check_y=wind_randy,
+		last_angle=0.75,
+		check_angle=0.75,
+		type=wind_type
+		}
+
+		add(objects,wind)
+	end
+end
+
+--- wind obj ---
+
+wind_type={
+	update=function(self)end,
+	draw=function(self)end
+}
+
+wind_type.update = function(self)
+
+	if not self.looping then
+		self.x+=self.hori_speed
+		self.c_loop_t+=1
+		if self.c_loop_t>=self.loop_t then
+			if not self.ending then
+				self.c_loop_t=0
+				self.looping=true
+				self.origin_x=self.x
+				self.origin_y=self.y-self.radius
+			else
+				del(objects,self)
+			end
+		end
+	else
+		self.x=self.origin_x+cos(self.angle)*self.radius
+		self.y=self.origin_y+sin(self.angle)*self.radius
+		self.angle+=self.angle_speed
+		if self.angle>=1.75 then
+			self.looping=false
+			self.angle=0.75
+			self.ending=true
+			self.y=self.initial_y
+		end
+	end
+
+	self.check_x=self.x
+	self.check_y=self.y
+	self.check_angle=self.angle
+
+	if not self.looping_check then
+		while self.check_x>self.last_x do
+			self.check_x-=1
+			air={
+				x=self.check_x,
+				y=self.check_y,
+				death_t=10,
+				type=air_type
+			}
+			add(objects,air)
+		end
+	else
+		while self.check_angle>self.last_angle do
+			self.check_angle-=0.01
+			-- needed to remove annoying pixel sticking out
+			-- on right side during loop
+			if self.check_angle<0.99 or self.check_angle>1 then
+				air={
+					x=self.origin_x+cos(self.check_angle)*self.radius,
+					y=self.origin_y+sin(self.check_angle)*self.radius,
+					death_t=10,
+					type=air_type
+				}
+				add(objects,air)
+			end
+		end
+	end
+
+	self.last_x=self.x
+	self.last_y=self.y
+	self.last_angle=self.angle
+
+	-- needed at bottom to ensure the while loop adds previous
+	-- air objs even on step where looping is changed
+	if (self.looping) then
+		self.looping_check=true
+	else
+		self.looping_check=false
+	end
+end
+
+--- air obj ---
+
+air_type={
+	update=function(self)end,
+	draw=function(self)end
+}
+
+air_type.update = function(self)
+	self.death_t-=1
+	if self.death_t<=0 then
+		del(objects,self)
+	end
+end
+
+air_type.draw = function(self)
+	pset(self.x,self.y,7)
+end
+
 --- gate obj ---
 
 gate_type={
@@ -219,4 +405,5 @@ function init_michael(objects)
 	for gate in all(gates) do
 		add(objects,gate)
 	end
+	add(objects,wind_machine)
 end

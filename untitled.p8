@@ -24,7 +24,6 @@ function _init()
 end
 
 function _update()
-	
     for obj in all(objects) do
         obj.type.update(obj)
     end
