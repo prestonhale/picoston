@@ -5,16 +5,6 @@ __lua__
 ORANGE = 9
 PURPLE = 2
 
--- Number of functions must be equal to the number of buttons
--- IMPORTANT: Functions must take ONLY the arguments (x,y)
-BUTTON_SPAWN_FUNCTIONS = {
-    spawn_ostrich_at,
-    spawn_ostrich_at,
-    spawn_ostrich_at,
-    spawn_ostrich_at,
-    spawn_ostrich_at,
-}
-
 -- config
 first_button_x = 15
 first_button_y = 112
@@ -89,8 +79,8 @@ ui = {
             end
 
             if btnp(4) then
-                local spawn_function = SPAWN_FUNCTIONS[1]
-                spawn_function(2, get_lane_y(self.selected_lane)+3)
+                local spawn_function = SPAWN_FUNCTIONS[self.selected_button]
+                spawn_function(self.selected_lane)
             end
         end,
 
@@ -110,10 +100,6 @@ ui = {
         end
     }
 }
-
-function get_lane_y(lane_index)
-    return (lane_index-1)*lane_length
-end
 
 function init_preston(objects)
     for i=0,4 do
