@@ -8,8 +8,11 @@ button_width = 8
 button_buffer = 14
 button_size = 10
 
+lane_length = 21
+
 ui = {
-    selected_button=1,
+    selected_lane = 1,
+    selected_button = 1,
     buttons = {},
     add_button = function(ui, x, y)
         local button = {
@@ -41,6 +44,7 @@ ui = {
         update = function(self)
             self.old_button = self.selected_button
 
+            -- Select animal button
             if btnp(0) then
                 self.selected_button -= 1
             elseif btnp(1) then
@@ -53,15 +57,41 @@ ui = {
             if self.selected_button > #self.buttons then
                 self.selected_button = 1
             end
-
             self.buttons[self.old_button].highlighted = false
             self.buttons[self.selected_button].highlighted = true
+
+            -- Select lane
+            if btnp(2) then
+                self.selected_lane -= 1
+            elseif btnp(3) then
+                self.selected_lane += 1
+            end
+
+            if self.selected_lane < 1 then
+                self.selected_lane = 5
+            end
+            if self.selected_lane > 5 then
+                self.selected_lane = 1
+            end
+
+            if btnp(4) then
+                -- spawn
+            end
         end,
+
         draw = function(self)
             -- draw buttons
             for btn in all(self.buttons) do
                 btn.draw(btn)
             end
+            -- draw lane highlight
+            line(
+                5, 
+                (self.selected_lane-1)*lane_length, 
+                5, 
+                (self.selected_lane-1)*lane_length+lane_length, 
+                10
+            )
         end
     }
 }
