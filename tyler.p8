@@ -3,21 +3,14 @@ version 38
 __lua__
 ostrich_type = {
     draw = function(self)
-        spr(self.sprite,self.x,self.y)
+        spr(self.sprite,self.x,self.y,2,2)
         end,
     update = function(self)
         self.x+=2    
         end
     }
 
-ostrich={
-        x = 0,
-        y = 0,
-        lane_x = 0,
-        lane_y = 57,
-        sprite=1,
-        type=ostrich_type
-        }    
+
 function init_tyler(objects)
     
 end
@@ -27,11 +20,39 @@ function add_ostrich_at(new_x,new_y)
         x=new_x,
         y=new_y,
         lane_x = 0,
-        lane_y = 57,
-        sprite=65,
+        lane_y = 0,
+        sprite=66,
         type=ostrich_type
     }
 
     add(objects,ostrich)
+    
+end
+--------------------------------------------------
+bee_giant_type = {
+    draw = function(self)
+        spr(self.sprite,self.x,self.y,2,2)
+        end,
+    update = function(self)
+        self.x=sin()    
+        end
+    }
+
+
+function init_tyler(objects)
+    
+end
+
+function add_bee_giant_at(new_x,new_y)
+    bee_giant={ 
+        x=new_x,
+        y=new_y,
+        lane_x = 0,
+        lane_y = 0,
+        sprite=64,
+        type=bee_giant_type
+    }
+
+    add(objects,bee_giant)
     
 end
