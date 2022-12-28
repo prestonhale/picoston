@@ -190,60 +190,20 @@ gate_type={
 	draw=function(self)end
 }
 
-gate={
-	x=100,
-	y=-3,
-	lane_x=0,
-	lane_y=0,
-	sprite=13,
-	width=2,
-	height=3,
-	type=gate_type
-}
-
-gate2={
-	x=104,
-	y=18,
-	lane_x=0,
-	lane_y=0,
-	sprite=13,
-	width=2,
-	height=3,
-	type=gate_type
-}
-
-gate3={
-	x=108,
-	y=39,
-	lane_x=0,
-	lane_y=0,
-	sprite=13,
-	width=2,
-	height=3,
-	type=gate_type
-}
-
-gate4={
-	x=112,
-	y=60,
-	lane_x=0,
-	lane_y=0,
-	sprite=13,
-	width=2,
-	height=3,
-	type=gate_type
-}
-
-gate5={
-	x=116,
-	y=81,
-	lane_x=0,
-	lane_y=0,
-	sprite=13,
-	width=2,
-	height=3,
-	type=gate_type
-}
+gates={}
+for i=0,4 do
+	gate={
+		x=100+(i*4),
+		y=-3+(i*21),
+		lane_x=0,
+		lane_y=0,
+		sprite=13,
+		width=2,
+		height=3,
+		type=gate_type
+	}
+	add(gates,gate)
+end
 
 gate_type.draw = function(self)
 	spr(self.sprite,self.x,self.y,self.width,self.height)
@@ -255,9 +215,7 @@ function init_michael(objects)
 	add(objects,bg)
 	add(objects,grass)
 	add(objects,flowers)
-	add(objects,gate)
-	add(objects,gate2)
-	add(objects,gate3)
-	add(objects,gate4)
-	add(objects,gate5)
+	for gate in all(gates) do
+		add(objects,gate)
+	end
 end
