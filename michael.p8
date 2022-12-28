@@ -69,7 +69,7 @@ gate_type={
 
 gate={
 	x=100,
-	y=-5,
+	y=-3,
 	lane_x=0,
 	lane_y=0,
 	sprite=13,
@@ -80,7 +80,7 @@ gate={
 
 gate2={
 	x=104,
-	y=16,
+	y=18,
 	lane_x=0,
 	lane_y=0,
 	sprite=13,
@@ -91,7 +91,7 @@ gate2={
 
 gate3={
 	x=108,
-	y=37,
+	y=39,
 	lane_x=0,
 	lane_y=0,
 	sprite=13,
@@ -102,7 +102,7 @@ gate3={
 
 gate4={
 	x=110,
-	y=58,
+	y=60,
 	lane_x=0,
 	lane_y=0,
 	sprite=13,
@@ -113,7 +113,7 @@ gate4={
 
 gate5={
 	x=114,
-	y=79,
+	y=81,
 	lane_x=0,
 	lane_y=0,
 	sprite=13,
