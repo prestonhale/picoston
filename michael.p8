@@ -6,27 +6,52 @@ gator_type={
 	draw=function(self)end
 }
 
+gate_type={
+	update=function(self)end,
+	draw=function(self)end
+}
+
 gator={
 	x=5,
 	y=66,
 	lane_x=0,
 	lane_y=0,
 	sprite=1,
-	width=8,
-	height=8,
+	width=2,
+	height=2,
 	type=gator_type
+}
+
+gate={
+	x=117,
+	y=65,
+	lane_x=0,
+	lane_y=0,
+	sprite=15,
+	width=1,
+	height=3,
+	type=gate_type
 }
 
 gator_type.update = function(self)
 	--todo
 end
 
+gate_type.update = function(self)
+	--todo
+end
+
 gator_type.draw = function(self)
-	spr(self.sprite,self.x,self.y,2,2)
+	spr(self.sprite,self.x,self.y,self.width,self.height)
+end
+
+gate_type.draw = function(self)
+	spr(self.sprite,self.x,self.y,self.width,self.height)
 end
 
 function init_michael(objects)
-	add(objects,gator)
+	//add(objects,gator)
+	add(objects,gate)
 end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
