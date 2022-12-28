@@ -41,15 +41,15 @@ end
 
 -- helper functions
 
-lane_buffer=20
-lane_spacing=3
+lane_spacing=20
+line_spacing=3
 function draw_background()
 				cls(3)
 	   map()
 	   for i=0,3 do
 	   	curr_lane_x=0
 	   	while (curr_lane_x < 130) do
-	   		rect(curr_lane_x,i*lane_buffer+lane_buffer,curr_lane_x+lane_spacing,i*lane_buffer+lane_buffer,7)
+	   		rect(curr_lane_x,i*lane_spacing+lane_spacing,curr_lane_x+line_spacing,i*lane_spacing+lane_spacing,7)
 	   		curr_lane_x+=9
 	   	end
 	   end
