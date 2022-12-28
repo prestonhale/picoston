@@ -33,6 +33,50 @@ gate={
 	type=gate_type
 }
 
+gate={
+	x=117,
+	y=65,
+	lane_x=0,
+	lane_y=0,
+	sprite=15,
+	width=1,
+	height=3,
+	type=gate_type
+}
+
+gate={
+	x=117,
+	y=65,
+	lane_x=0,
+	lane_y=0,
+	sprite=15,
+	width=1,
+	height=3,
+	type=gate_type
+}
+
+gate={
+	x=117,
+	y=65,
+	lane_x=0,
+	lane_y=0,
+	sprite=15,
+	width=1,
+	height=3,
+	type=gate_type
+}
+
+gate={
+	x=117,
+	y=65,
+	lane_x=0,
+	lane_y=0,
+	sprite=15,
+	width=1,
+	height=3,
+	type=gate_type
+}
+
 gator_type.update = function(self)
 	--todo
 end
@@ -50,7 +94,7 @@ gate_type.draw = function(self)
 end
 
 function init_michael(objects)
-	//add(objects,gator)
+	--add(objects,gator)
 	add(objects,gate)
 end
 __gfx__
