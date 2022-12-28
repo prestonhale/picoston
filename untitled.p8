@@ -31,6 +31,7 @@ function _update()
 end
 
 function _draw()
+    cls()
     for obj in all(objects) do
         obj.type.draw(obj)
     end
