@@ -101,6 +101,30 @@ ui = {
     }
 }
 
+enemy_spawner = {
+    -- config
+    chance_to_spawn = 0.03,
+    enemy_sprite = 128,
+
+    time_since_spawn = 0,
+    update = function(self)
+        if time_since_spawn < 8 then -- don't spawn too fast
+            return
+        end 
+
+        if rnd(1) < self.chance_to_spawn then
+            self.spawn_enemy()
+        end
+
+        time_since_spawn +=1
+    end,
+    draw = function()
+    end,
+    spawn_enemy = function()
+
+    end, 
+}
+
 function init_preston(objects)
     for i=0,4 do
         ui.add_button(
