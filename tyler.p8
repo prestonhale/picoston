@@ -8,7 +8,8 @@ ostrich_type = {
         spr(self.sprite,self.x,self.y,2,2)
         end,
     update = function(self)
-        self.x+=2    
+        self.x+=2   
+        self.y=get_lane_y(self.lane_index)+3 
         end
     }
 
@@ -17,7 +18,7 @@ function init_tyler(objects)
     
 end
 
-function add_ostrich_at(new_x,new_y,lane_index)
+function add_ostrich_at(new_x,new_y,new_lane_index)
     ostrich={ 
         x=new_x,
         y=new_y,
@@ -25,21 +26,22 @@ function add_ostrich_at(new_x,new_y,lane_index)
         sprite=64,
         type=ostrich_type
     }
-
+end
     function add_ostrich_in_lane(lane_index)
         new_y=get_lane_y(lane_index)
         new_x=5
         add_ostrich_at(new_x,new_y,lane_index)
-    end
+    
     
     
     add(objects,ostrich)
-end
+    end
+
 --------------------------------------------------
 bee_giant_type = {
     draw = function(self)
         spr(self.sprite,self.x,self.y,2,2)
-        if self.timer==4 
+        if self.timer==2 
         then self.sprite=68 
         self.timer=0 else self.sprite=66
         end
@@ -57,9 +59,9 @@ function add_bee_giant_in_lane(lane_index)
     add_bee_giant_at(new_x,new_y,lane_index)
 end
 
-function init_tyler(objects)
+--function init_tyler(objects)
     
-end
+--end
 
 function add_bee_giant_at(new_x,new_y,new_lane_index)
     bee_giant={ 
