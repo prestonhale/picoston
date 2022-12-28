@@ -6,4 +6,6 @@ ui = {
     end
 }
 
-add(objects, ui)
+function init_preston(objects)
+    add(objects, ui)
+end
