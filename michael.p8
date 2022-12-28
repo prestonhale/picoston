@@ -23,7 +23,40 @@ gator={
 }
 
 gate={
-	x=117,
+	x=110,
+	y=1,
+	lane_x=0,
+	lane_y=0,
+	sprite=15,
+	width=1,
+	height=3,
+	type=gate_type
+}
+
+gate2={
+	x=110,
+	y=23,
+	lane_x=0,
+	lane_y=0,
+	sprite=15,
+	width=1,
+	height=3,
+	type=gate_type
+}
+
+gate3={
+	x=110,
+	y=44,
+	lane_x=0,
+	lane_y=0,
+	sprite=15,
+	width=1,
+	height=3,
+	type=gate_type
+}
+
+gate4={
+	x=110,
 	y=65,
 	lane_x=0,
 	lane_y=0,
@@ -33,42 +66,9 @@ gate={
 	type=gate_type
 }
 
-gate={
-	x=117,
-	y=65,
-	lane_x=0,
-	lane_y=0,
-	sprite=15,
-	width=1,
-	height=3,
-	type=gate_type
-}
-
-gate={
-	x=117,
-	y=65,
-	lane_x=0,
-	lane_y=0,
-	sprite=15,
-	width=1,
-	height=3,
-	type=gate_type
-}
-
-gate={
-	x=117,
-	y=65,
-	lane_x=0,
-	lane_y=0,
-	sprite=15,
-	width=1,
-	height=3,
-	type=gate_type
-}
-
-gate={
-	x=117,
-	y=65,
+gate5={
+	x=110,
+	y=86,
 	lane_x=0,
 	lane_y=0,
 	sprite=15,
@@ -96,6 +96,10 @@ end
 function init_michael(objects)
 	--add(objects,gator)
 	add(objects,gate)
+	add(objects,gate2)
+	add(objects,gate3)
+	add(objects,gate4)
+	add(objects,gate5)
 end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
