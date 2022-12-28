@@ -7,8 +7,8 @@ gator_type={
 }
 
 gator={
-	x=0,
-	y=0,
+	x=60,
+	y=60,
 	lane_x=0,
 	lane_y=0,
 	sprite=1,
