@@ -2,6 +2,40 @@ pico-8 cartridge // http://www.pico-8.com
 version 38
 __lua__
 
+--- shadow obj ---
+
+shadow_type={
+	update=function(self)end,
+	draw=function(self)end
+}
+
+function add_shadow(obj,x_offset,y_offset,w,h,col)
+	shadow={
+		x=obj.x+x_offset,
+		y=obj.y+y_offset,
+		xoff=x_offset,
+		yoff=y_offset,
+		width=w,
+		height=h,
+		parent=obj,
+		color=col,
+		type=shadow_type
+	}
+	add(objects,shadow)
+end
+
+shadow_type.update=function(self)
+	if self.parent!=nil then
+		self.x=self.parent.x+self.xoff
+	else
+		del(objects,self)
+	end
+end
+
+shadow_type.draw=function(self)
+	ovalfill(self.x,self.y,self.x+self.width,self.y+self.height,self.color)
+end
+
 --- elephant obj ---
 
 elephant_type={
@@ -10,7 +44,7 @@ elephant_type={
 }
 
 function add_elephant_in_lane(lane_index)
-	new_y=get_lane_y(lane_index)+1
+	new_y=get_lane_y(lane_index)
 	new_x=5
 	add_elephant_at(new_x,new_y,lane_index)
 end
@@ -30,6 +64,7 @@ function add_elephant_at(new_x,new_y,new_lane_index)
 		anim_t=5,
 		curr_anim_t=0
 	}
+	add_shadow(elephant,0,12,15,5,5)
 	add(objects,elephant)
 end
 
