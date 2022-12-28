@@ -1,5 +1,5 @@
 pico-8 cartridge // http://www.pico-8.com
-version 36
+version 38
 __lua__
 #include tyler.p8
 #include michael.p8
@@ -21,7 +21,8 @@ animal = {
 }
 
 function _init()
-    init_preston(objects)
+  --  init_preston(objects)
+	init_tyler(objects)
 end
 
 function _update()
@@ -31,6 +32,7 @@ function _update()
 end
 
 function _draw()
+	cls()
     for obj in all(objects) do
         obj.type.draw(obj)
     end
