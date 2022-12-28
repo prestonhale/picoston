@@ -45,15 +45,15 @@ lane_spacing=21
 line_spacing=2
 line_length=6
 function draw_background()
-				cls(3)
-	   map()
-	   for i=0,4 do
-	   	curr_lane_x=0
-	   	while (curr_lane_x < 130) do
-	   		rect(curr_lane_x,i*lane_spacing+lane_spacing,curr_lane_x+line_spacing,i*lane_spacing+lane_spacing,7)
-	   		curr_lane_x+=line_length
-	   	end
-	   end
+	cls(3)
+    map()
+    for i=0,4 do
+        curr_lane_x=0
+        while (curr_lane_x < 130) do
+            rect(curr_lane_x,i*lane_spacing+lane_spacing,curr_lane_x+line_spacing,i*lane_spacing+lane_spacing,7)
+            curr_lane_x+=line_length
+        end
+    end
 end
 __gfx__
 00000000555555555555555500000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
