@@ -15,6 +15,8 @@ button_size = 10
 lane_length = 21
 
 ui = {
+    x=0,
+    y=0,
     selected_lane = 1,
     selected_button = 1,
     buttons = {},
@@ -104,8 +106,30 @@ ui = {
 enemy_type = {
     sprite_1 = 128,
     sprite_2 = 130,
+
+    collide = function(self)
+        for i=1,#objects do
+            other = objects[i]
+            if other != self 
+                and other.type.collideable
+                and self.x < other.x + 16 
+                and self.x + 16 > other.x
+                and self.y < other.y + 16
+                and self.y + 16 > other.y
+            then
+                -- del(objects, self)
+                self.colliding = true
+                other.type.collide(other, self)
+                return
+            end
+        end
+    end,
+
     update = function(self)
-        self.x -= 1
+        if not self.colliding then
+            self.x -= 1
+        end
+        self.y = get_lane_y(self.lane_index)+3
         self.sprite_timer += 1
         if self.sprite_timer > 10 then
             if self.sprite == self.type.sprite_1 then
@@ -115,7 +139,9 @@ enemy_type = {
             end
             self.sprite_timer = 0
         end
+        self.type.collide(self)
     end,
+
     draw = function(self)
         spr(self.sprite, self.x, get_lane_y(self.lane_index)+3, 2, 2)
     end
@@ -148,6 +174,7 @@ enemy_spawner = {
         lane_index = flr(rnd(6))
         enemy = {
             sprite = enemy_type.sprite_1,
+            colliding = false,
             x=100,
             y=0,
             sprite_timer=0,

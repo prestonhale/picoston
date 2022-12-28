@@ -49,16 +49,24 @@ end
 
 --------------------------------------------------
 bee_giant_type = {
+    collideable = true,
+    collide = function(self, other)
+        self.colliding = true
+    end,
     draw = function(self)
         spr(self.sprite,self.x,self.y,2,2)
-        if self.timer==2 
-        then self.sprite=68 
-        self.timer=0 else self.sprite=66
+        if self.timer==2 then 
+            self.sprite=68 
+            self.timer=0 
+        else 
+            self.sprite=66
         end
-        end,
+    end,
     update = function(self)
-        self.y=(2*(sin(self.x/30))+get_lane_y(self.lane_index)+3)
-        self.x+=3 
+        if not self.colliding then
+            self.y=(2*(sin(self.x/30))+get_lane_y(self.lane_index)+3)
+            self.x+=3 
+        end
         self.timer+=1
         end
     }
