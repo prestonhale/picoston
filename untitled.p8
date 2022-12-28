@@ -30,6 +30,11 @@ function _update()
     for obj in all(objects) do
         obj.type.update(obj)
     end
+	if btnp(5) then 
+		print("true")
+		add_ostrich_at(0,56) 
+		
+		end
 end
 
 function _draw()
