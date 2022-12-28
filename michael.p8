@@ -11,6 +11,15 @@ gate_type={
 	draw=function(self)end
 }
 
+bg_type={
+	update=function(self)end,
+	draw=function(self)end
+}
+
+bg={
+	type=bg_type
+}
+
 gator={
 	x=5,
 	y=66,
@@ -85,6 +94,31 @@ gate_type.update = function(self)
 	--todo
 end
 
+bg_type.draw = function(self)
+	cls(0)
+
+    swap=-1
+    y_offset=0
+    bg_sq_val=23
+    x_offset=23
+
+    for i=0,4 do
+        for j=0,6 do
+            if swap==-1 then
+                for k=0,4 do
+                    rectfill(j*bg_sq_val+k+y_offset-x_offset,i*21,j*bg_sq_val+bg_sq_val+k+y_offset-x_offset,i*21+(k*5),11)
+                end
+            else
+                for k=0,4 do
+                    rectfill(j*bg_sq_val+k+y_offset-x_offset,i*21,j*bg_sq_val+bg_sq_val+k+y_offset-x_offset,i*21+(k*5),3)
+                end
+            end
+            swap*=-1
+        end
+        y_offset+=4
+    end
+end
+
 gator_type.draw = function(self)
 	spr(self.sprite,self.x,self.y,self.width,self.height)
 end
@@ -94,7 +128,7 @@ gate_type.draw = function(self)
 end
 
 function init_michael(objects)
-	--add(objects,gator)
+	add(objects,bg)
 	add(objects,gate)
 	add(objects,gate2)
 	add(objects,gate3)

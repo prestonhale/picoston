@@ -19,9 +19,9 @@ SPAWN_FUNCTIONS = {
 }
 
 function _init()
+    init_michael(objects)
 	init_preston(objects)
 	init_tyler(objects)
-    init_michael(objects)
 end
 
 function _update()
@@ -32,8 +32,6 @@ function _update()
 end
 
 function _draw()
-    cls()
-    draw_background()
     for obj in all(objects) do
         obj.type.draw(obj)
     end
@@ -42,32 +40,6 @@ end
 -- helper functions
 function get_lane_y(lane_index)
     return (lane_index-1)*lane_length
-end
-
-function draw_background()
-
-    cls(0)
-
-    swap=-1
-    y_offset=0
-    bg_sq_val=23
-    x_offset=23
-
-    for i=0,4 do
-        for j=0,6 do
-            if swap==-1 then
-                for k=0,4 do
-                    rectfill(j*bg_sq_val+k+y_offset-x_offset,i*21,j*bg_sq_val+bg_sq_val+k+y_offset-x_offset,i*21+(k*5),11)
-                end
-            else
-                for k=0,4 do
-                    rectfill(j*bg_sq_val+k+y_offset-x_offset,i*21,j*bg_sq_val+bg_sq_val+k+y_offset-x_offset,i*21+(k*5),3)
-                end
-            end
-            swap*=-1
-        end
-        y_offset+=4
-    end
 end
 __gfx__
 00000000555555555555555500999900000000000000000000000000000000000000000000000000000000000000000000000000000000000000000044444444
