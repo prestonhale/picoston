@@ -11,11 +11,11 @@ speed = 1
 
 
 SPAWN_FUNCTIONS = {
-    add_ostrich_at,
-    add_ostrich_at,
-    add_ostrich_at,
-    add_ostrich_at,
-    add_ostrich_at
+    add_ostrich_in_lane,
+    add_bee_giant_in_lane,
+    add_ostrich_in_lane,
+    add_ostrich_in_lane,
+    add_ostrich_in_lane
 }
 
 function _init()
@@ -29,11 +29,6 @@ function _update()
     for obj in all(objects) do
         obj.type.update(obj)
     end
-	if btnp(4) then 
-		
-		add_bee_giant_at(0,66) 
-		
-		end
 end
 
 function _draw()
@@ -45,6 +40,9 @@ function _draw()
 end
 
 -- helper functions
+function get_lane_y(lane_index)
+    return (lane_index-1)*lane_length
+end
 
 lane_spacing=21
 line_spacing=2
