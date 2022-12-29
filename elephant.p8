@@ -59,7 +59,7 @@ end
 function add_elephant_in_lane(lane_index)
     local elephant = elephant:new()
     elephant.x = 5
-    elephant.y = get_lane_y(lane_index)
+    elephant.y = get_lane_y(lane_index)+1
     elephant.lane_index=lane_index
     elephant.collider = collider:new()
     add(objects,elephant)
