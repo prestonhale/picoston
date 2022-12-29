@@ -8,6 +8,7 @@ __lua__
 -- animals
 #include ostrich.p8
 #include bee.p8
+#include elephant.p8
 
 -- enemies
 #include enemy.p8
@@ -33,9 +34,8 @@ function _init()
 end
 
 function _update()
-    
     for obj in all(objects) do
-        obj.type.update(obj)
+        obj:update()
     end
 
     check_collisions()
@@ -44,7 +44,7 @@ end
 
 function _draw()
     for obj in all(objects) do
-        obj.type.draw(obj)
+        obj:draw()
     end
     print(debug)
 end
@@ -54,16 +54,16 @@ function check_collisions()
         for j=i+1,#objects do
             obj=objects[i]
             other=objects[j]
-            if  obj.type.is_collideable
-                and other.type.is_collideable
+            if  obj.is_collideable
+                and other.is_collideable
                 and obj.lane_index == other.lane_index
                 and obj.x < other.x + 16 
                 and obj.x + 16 > other.x
                 and obj.y < other.y + 16
                 and obj.y + 16 > other.y
             then
-                obj.type.collide(obj, other)
-                other.type.collide(other, obj)
+                obj.collide(obj, other)
+                other.collide(other, obj)
             end
         end
     end

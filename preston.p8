@@ -46,61 +46,59 @@ ui = {
         }
         add(ui.buttons, button)
     end,
-    type = {
-        update = function(self)
-            self.old_button = self.selected_button
+    update = function(self)
+        self.old_button = self.selected_button
 
-            -- Select animal button
-            if btnp(0) then
-                self.selected_button -= 1
-            elseif btnp(1) then
-                self.selected_button += 1
-            end
-
-            if self.selected_button < 1 then
-                self.selected_button = #self.buttons
-            end
-            if self.selected_button > #self.buttons then
-                self.selected_button = 1
-            end
-            self.buttons[self.old_button].highlighted = false
-            self.buttons[self.selected_button].highlighted = true
-
-            -- Select lane
-            if btnp(2) then
-                self.selected_lane -= 1
-            elseif btnp(3) then
-                self.selected_lane += 1
-            end
-
-            if self.selected_lane < 1 then
-                self.selected_lane = 5
-            end
-            if self.selected_lane > 5 then
-                self.selected_lane = 1
-            end
-
-            if btnp(4) then
-                local spawn_function = SPAWN_FUNCTIONS[self.selected_button]
-                spawn_function(self.selected_lane)
-            end
-        end,
-
-        draw = function(self)
-            -- draw buttons
-            for btn in all(self.buttons) do
-                btn.draw(btn)
-            end
-            -- draw lane highlight
-            line(
-                2, 
-                get_lane_y(self.selected_lane), 
-                2, 
-                get_lane_y(self.selected_lane)+lane_length, 
-                10
-            )
+        -- Select animal button
+        if btnp(0) then
+            self.selected_button -= 1
+        elseif btnp(1) then
+            self.selected_button += 1
         end
-    }
+
+        if self.selected_button < 1 then
+            self.selected_button = #self.buttons
+        end
+        if self.selected_button > #self.buttons then
+            self.selected_button = 1
+        end
+        self.buttons[self.old_button].highlighted = false
+        self.buttons[self.selected_button].highlighted = true
+
+        -- Select lane
+        if btnp(2) then
+            self.selected_lane -= 1
+        elseif btnp(3) then
+            self.selected_lane += 1
+        end
+
+        if self.selected_lane < 1 then
+            self.selected_lane = 5
+        end
+        if self.selected_lane > 5 then
+            self.selected_lane = 1
+        end
+
+        if btnp(4) then
+            local spawn_function = SPAWN_FUNCTIONS[self.selected_button]
+            spawn_function(self.selected_lane)
+        end
+    end,
+
+    draw = function(self)
+        -- draw buttons
+        for btn in all(self.buttons) do
+            btn.draw(btn)
+        end
+        -- draw lane highlight
+        line(
+            2, 
+            get_lane_y(self.selected_lane), 
+            2, 
+            get_lane_y(self.selected_lane)+lane_length, 
+            10
+        )
+    end
 }
 
 function init_preston(objects)
