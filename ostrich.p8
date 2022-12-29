@@ -29,27 +29,30 @@ function ostrich:draw()
 end
 
 function ostrich:update()
-    self.x+=1   
-    self.y=.5*(sin(self.x/40))+get_lane_y(self.lane_index)+3
+    local can_move = self.collider:can_move(self)
+    if can_move then 
+        self.x+=1   
+        self.y=.5*(sin(self.x/40))+get_lane_y(self.lane_index)+3
+    end
     self.timer+=1
+    self.collider:update()
 end
 
 
 function init_tyler(objects)
-    
 end
 
 function add_ostrich_at(new_x,new_y,new_lane_index)
 end
 
 
-
 function add_ostrich_in_lane(lane_index)
-    ostrich = ostrich:new()
+    local ostrich = ostrich:new()
     ostrich.collider=collider:new()
     ostrich.y=get_lane_y(lane_index)
     ostrich.x=5
     ostrich.lane_index=lane_index
+    ostrich.collider = collider:new()
     add_ostrich_at(new_x,new_y,lane_index)
     add(objects,ostrich)
     
