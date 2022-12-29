@@ -13,7 +13,7 @@ monkey={
     timer=0,
     is_friendly=true,
     pwidth=9,
-    cost=1
+    cost=1,
     poop=false
 }
 
