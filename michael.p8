@@ -32,88 +32,14 @@ function move_shadow(obj)
     end
 end
 
---------------------
---- elephant obj ---
---------------------
-
-elephant_type={
-    update=function(self)end,
-    draw=function(self)end
-}
-
-function add_elephant_in_lane(lane_index)
-    new_y=get_lane_y(lane_index)
-    new_x=5
-    add_elephant_at(new_x,new_y,lane_index)
-end
-
-function add_elephant_at(new_x,new_y,new_lane_index)
-    elephant={
-        x=new_x,
-        y=new_y,
-        lane_index=new_lane_index,
-        sprite=3,
-        width=2,
-        height=2,
-        type=elephant_type,
-        stomp_t=15,
-        curr_stomp_t=0,
-        stomp_t_increase=true,
-        anim_t=5,
-        curr_anim_t=0,
-        shadow=nil
-    }
-    add_shadow(elephant,1,13,13,4,5)
-    add(objects,elephant)
-end
-
-elephant_type.update=function(self)
-    if self.stomp_t_increase then
-        self.curr_stomp_t+=1
-        self.curr_anim_t+=1
-        self.x+=1
-        if self.curr_stomp_t>=self.stomp_t then
-            self.curr_stomp_t=self.stomp_t
-            self.stomp_t_increase=false
-        end
-        if self.curr_anim_t>=self.anim_t then
-            if self.sprite==3 then
-                self.sprite=35
-                self.y-=1
-            else
-                self.sprite=3
-                self.y+=1
-            end
-            self.curr_anim_t=0
-        end
-    else
-        self.curr_stomp_t-=1
-        if self.curr_stomp_t<=0 then
-            self.curr_stomp_t=0
-            self.stomp_t_increase=true
-        end
-    end
-    remove_if_out_of_bounds(self)
-    move_shadow(self)
-end
-
-elephant_type.draw=function(self)
-    draw_shadow(self)
-    spr(self.sprite,self.x,self.y,self.width,self.height)
-end
 
 -----------------
 --- grass obj ---
 -----------------
 
-grass_type={
-    update=function(self)end,
-    draw=function(self)end
-}
-
 grass={
     objs={},
-    type=grass_type
+    update=function(self)end,
 }
 
 for i=0,30 do
@@ -134,7 +60,7 @@ function draw_pixel(x,y)
     end
 end
 
-grass_type.draw = function(self)
+function grass:draw()
     for g in all(grass.objs) do
         draw_pixel(g.x+2,g.y)
         draw_pixel(g.x+4,g.y)
@@ -154,14 +80,8 @@ end
 --- flower obj ---
 ------------------
 
-flower_type = {
-    update=function(self)end,
-    draw=function(self)end
-}
-
 flowers={
     objs={},
-    type=flower_type
 }
 
 for i=0,20 do
@@ -186,7 +106,7 @@ for i=0,20 do
     add(flowers.objs,flower)
 end
 
-flower_type.update = function(self)
+function flowers:update()
     for flower in all(flowers.objs) do
         flower.c_bounce_t+=1
         if flower.c_bounce_t>=flower.bounce_t then
@@ -214,7 +134,7 @@ flower_type.update = function(self)
     end
 end
 
-flower_type.draw = function(self)
+function flowers:draw()
     for flower in all(flowers.objs) do
         if (flower.pos=="left") then
             spr(flower.sprite,flower.x-1,flower.y-1)
@@ -230,16 +150,11 @@ end
 --- bakground obj ---
 ---------------------
 
-bg_type={
-    update=function(self)end,
-    draw=function(self)end
-}
-
 bg={
-    type=bg_type
+    update=function(self)end
 }
 
-bg_type.draw = function(self)
+bg.draw = function(self)
     cls(0)
 
     swap=-1
@@ -264,72 +179,36 @@ bg_type.draw = function(self)
     end
 end
 
-------------------------
---- wind_generator obj ---
-------------------------
-
-wind_generator_type={
-    update=function(self)end,
-    draw=function(self)end
-}
-
-wind_generator={
-    spawn_t=60,
-    c_spawn_t=0,
-    type=wind_generator_type
-}
-
-wind_generator_type.update=function(self)
-    self.c_spawn_t+=1
-    if self.c_spawn_t>=self.spawn_t then
-
-        self.c_spawn_t=0
-        self.spawn_t=rnd(rnd(50))+70
-        
-        wind_randx=flr(rnd(80))-10
-        wind_randy=flr(rnd(70))+20
-
-        wind={
-        x=wind_randx,
-        y=wind_randy,
-        initial_y=wind_randy,
-        loop_t=10,
-        c_loop_t=0,
-        looping=false,
-        looping_check=false,
-        origin_x=0,
-        origin_y=0,
-        radius=7,
-        angle=0.75,
-        hori_speed=5,
-        angle_speed=0.08,
-        ending=false,
-        last_x=wind_randx,
-        check_x=wind_randx,
-        last_y=wind_randy,
-        check_y=wind_randy,
-        last_angle=0.75,
-        check_angle=0.75,
-        type=wind_type,
-        air_particles={},
-        done_moving=false
-        }
-
-        add(objects,wind)
-    end
-end
-
 ----------------
 --- wind obj ---
 ----------------
 
-wind_type={
-    update=function(self)end,
-    draw=function(self)end
+wind={
+    loop_t=10,
+    c_loop_t=0,
+    looping=false,
+    looping_check=false,
+    origin_x=0,
+    origin_y=0,
+    radius=7,
+    angle=0.75,
+    hori_speed=5,
+    angle_speed=0.08,
+    ending=false,
+    last_angle=0.75,
+    check_angle=0.75,
+    air_particles={},
+    done_moving=false
 }
 
-wind_type.update = function(self)
+function wind:new()
+    obj = obj or {}
+    setmetatable(obj, self)
+    self.__index = self
+    return obj
+end
 
+function wind:update()
     if not self.looping then
         if (self.done_moving==false) then
             self.x+=self.hori_speed
@@ -367,8 +246,7 @@ wind_type.update = function(self)
             air={
                 x=self.check_x,
                 y=self.check_y,
-                death_t=10,
-                type=air_type
+                death_t=10
             }
             add(self.air_particles,air)
         end
@@ -381,8 +259,7 @@ wind_type.update = function(self)
                 air={
                     x=self.origin_x+cos(self.check_angle)*self.radius,
                     y=self.origin_y+sin(self.check_angle)*self.radius,
-                    death_t=10,
-                    type=air_type
+                    death_t=10
                 }
                 add(self.air_particles,air)
             end
@@ -413,43 +290,67 @@ wind_type.update = function(self)
     end
 end
 
-wind_type.draw=function(self)
+function wind:draw()
     for particle in all(self.air_particles) do
         pset(particle.x,particle.y,7)
+    end
+end
+
+------------------------
+--- wind_generator obj ---
+------------------------
+
+wind_generator={
+    spawn_t=60,
+    c_spawn_t=0,
+    draw=function(self)end
+}
+
+function wind_generator:update()
+    self.c_spawn_t+=1
+    if self.c_spawn_t>=self.spawn_t then
+
+        self.c_spawn_t=0
+        self.spawn_t=rnd(rnd(50))+70
+        
+        wind_randx=flr(rnd(80))-10
+        wind_randy=flr(rnd(70))+20
+
+        wind = wind:new()
+        wind.x = wind_randx
+        wind.y = wind_randy
+        wind.last_x=wind_randx
+        wind.check_x=wind_randx
+        wind.last_y=wind_randy
+        wind.check_y=wind_randy
+        wind.initial_y=wind_randy
+
+        add(objects,wind)
     end
 end
 
 ----------------
 --- gate obj ---
 ----------------
-
-gate_type={
-    update=function(self)end,
-    draw=function(self)end
+gate={
+    lane_x=0,
+    lane_y=0,
+    sprite=13,
+    width=2,
+    height=2,
+    bounce_t=20,
+    c_bounce_t=0,
 }
 
-gates={}
-for i=0,4 do
-    gate={
-        x=100+(i*4),
-        y=-3+(i*21),
-        initial_y=-3+(i*21),
-        lane_x=0,
-        lane_y=0,
-        sprite=13,
-        width=2,
-        height=2,
-        bounce_t=20,
-        c_bounce_t=0,
-        type=gate_type
-    }
-    if i%2==0 then
-        gate.y+=1
-    end
-    add(gates,gate)
+function gate:new()
+    obj = obj or {}
+    setmetatable(obj, self)
+    self.__index = self
+    return obj
 end
 
-gate_type.update=function(self)
+
+function gate:update()
     self.c_bounce_t+=1
     if self.c_bounce_t>=self.bounce_t then
         self.c_bounce_t=0
@@ -461,11 +362,22 @@ gate_type.update=function(self)
     end
 end
 
-gate_type.draw = function(self)
+function gate:draw()
     spr(45,self.x,self.initial_y+16,2,1)
     spr(self.sprite,self.x,self.y,self.width,self.height)
 end
 
+gates={}
+for i=0,4 do
+    g = gate:new()
+    g.x=100+(i*4)
+    g.y=-3+(i*21)
+    g.initial_y=-3+(i*21)
+    if i%2==0 then
+        g.y+=1
+    end
+    add(gates,g)
+end
 -----------------
 --- init func ---
 -----------------
