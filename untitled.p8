@@ -67,6 +67,7 @@ function _draw()
     for obj in all(foreground) do
         obj:draw()
     end
+    print(poop,0,0)
 end
 
 function check_collisions()

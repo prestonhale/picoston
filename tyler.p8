@@ -14,6 +14,7 @@ monkey={
     is_friendly=true,
     pwidth=9,
     cost=1
+    poop=false
 }
 
 function monkey:new(obj)
@@ -40,6 +41,11 @@ function monkey:update()
     if can_move then
         self.x+=1
     end
+    if not can_move and not self.poop then
+        new_poop(self.x,self.lane_index)
+        self.poop=true     
+    end
+    
     self.y=.5*(sin(self.x/40))+get_lane_y(self.lane_index)+8
     self.timer+=1
     self.collider:update()
@@ -56,4 +62,30 @@ function add_monkey_in_lane(lane_index)
     add(objects,monkey)
     
 
+end
+
+poop={}
+function poop:new(obj)
+    obj = obj or {}
+    setmetatable(obj, self)
+    self.__index = self
+    return obj
+end
+
+function poop:draw()
+    rectfill(self.x+1,self.y+1,self.x+5,self.y+5,8)    
+end
+
+function poop:update()
+   self.x+=1
+end
+
+function new_poop(new_x,lane_index)
+    local poop = poop:new()
+    poop.collider=collider:new()
+    poop.y=get_lane_y(lane_index)
+    poop.x=new_x
+    poop.lane_index=lane_index
+    poop.collider = collider:new()
+    add(objects,poop)
 end
