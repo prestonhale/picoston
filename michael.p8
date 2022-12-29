@@ -43,8 +43,8 @@ grass={
 }
 
 for i=0,30 do
-    rand_x=flr(rnd(108))+10
-    rand_y=flr(rnd(85))+10
+    rand_x=flr(rnd(114))+8
+    rand_y=flr(rnd(77))+25
     g={
         x=rand_x,
         y=rand_y
@@ -85,8 +85,8 @@ flowers={
 }
 
 for i=0,20 do
-    rand_x=flr(rnd(108))+10
-    rand_y=flr(rnd(85))+10
+    rand_x=flr(rnd(114))+8
+    rand_y=flr(rnd(77))+25
     flwr_rand=flr(rnd(10))+1
     flwr_sprite=0
         if (flwr_rand%2==0) then
