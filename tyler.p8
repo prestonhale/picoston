@@ -6,7 +6,7 @@ function init_tyler(objects)
     
 end
 
-monkey={ 
+monkey=animal:new{ 
     x=new_x,
     y=new_y,
     sprite=98,
@@ -14,7 +14,7 @@ monkey={
     is_friendly=true,
     pwidth=9,
     cost=1,
-    poop=false
+    poop=false,
 }
 
 function monkey:new(obj)
