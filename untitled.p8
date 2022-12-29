@@ -27,6 +27,14 @@ SPAWN_FUNCTIONS = {
     add_bee_giant_in_lane
 }
 
+ANIMAL_COST = {
+    0,
+    1,
+    4,
+    0,
+    0
+}
+
 function _init()
     init_michael(objects)
     init_preston(objects)

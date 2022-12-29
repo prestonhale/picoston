@@ -20,7 +20,7 @@ ui = {
     selected_lane = 1,
     selected_button = 1,
     buttons = {},
-    add_button = function(ui, x, y)
+    add_button = function(num, ui, x, y)
         local button = {
             x=x,
             y=y,
@@ -41,6 +41,13 @@ ui = {
                         self.y+button_size, 
                         PURPLE
                     )
+                end
+                if self.can_spawn and ANIMAL_COST[num] > points then
+                    rectfill(self.x, 
+                    self.y, 
+                    self.x+button_size, 
+                    self.y+button_size, 
+                    5)
                 end
             end
         }
@@ -82,7 +89,10 @@ ui = {
 
             if btnp(4) then
                 local spawn_function = SPAWN_FUNCTIONS[self.selected_button]
-                spawn_function(self.selected_lane)
+                no_spawn = spawn_function(self.selected_lane)
+                if no_spawn then
+                    self.buttons[self.selected_button].can_spawn = no_spawn       
+                end
             end
         end,
 
@@ -106,6 +116,7 @@ ui = {
 function init_preston(objects)
     for i=0,4 do
         ui.add_button(
+            i+1,
             ui,
             first_button_x + i * (button_width + button_buffer), 
             first_button_y
