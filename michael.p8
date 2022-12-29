@@ -157,26 +157,36 @@ bg={
 
 bg.draw = function(self)
     cls(0)
+    rectfill(0,0,127,20,12)
 
     swap=-1
-    y_offset=0
-    bg_sq_val=23
-    x_offset=23
+    x_val=22
+    y_val=13
+    x_offset=-1
+    y_offset=20
 
     for i=0,4 do
         for j=0,6 do
             if swap==-1 then
-                for k=0,4 do
-                    rectfill(j*bg_sq_val+k+y_offset-x_offset,i*21,j*bg_sq_val+bg_sq_val+k+y_offset-x_offset,i*21+(k*5),11)
-                end
+                rectfill(
+                    (j*x_val)+x_offset,
+                    (i*y_val)+y_offset-i,
+                    (j*x_val)+x_val-1+x_offset,
+                    (i*y_val)+y_val+y_offset-1,
+                    11
+                )
             else
-                for k=0,4 do
-                    rectfill(j*bg_sq_val+k+y_offset-x_offset,i*21,j*bg_sq_val+bg_sq_val+k+y_offset-x_offset,i*21+(k*5),3)
-                end
+                rectfill(
+                    (j*x_val)+x_offset,
+                    (i*y_val)+y_offset-i,
+                    (j*x_val)+x_val-1+x_offset,
+                    (i*y_val)+y_val+y_offset-1,
+                    3
+                )
             end
             swap*=-1
         end
-        y_offset+=4
+        y_val+=1
     end
 end
 
