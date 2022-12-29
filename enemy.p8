@@ -47,6 +47,7 @@ enemy_type = {
         if self.health <=0 then
             del(objects, self)
         end
+        remove_if_out_of_bounds(self)
         
     end,
 
