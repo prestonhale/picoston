@@ -62,7 +62,7 @@ ui = {
                     ((animal_sprites[num] % 16)*8),
                     (flr(animal_sprites[num] / 16)*8),
                     16,16,
-                    self.x-button_offset+1,self.y-button_offset+1,
+                    self.x-button_offset,self.y-button_offset,
                     animal_size,animal_size
                 )   
             end
