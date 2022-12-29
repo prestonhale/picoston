@@ -12,7 +12,9 @@ button_width = 8
 button_buffer = 14
 button_size = 10
 
-lane_length = 21
+-- used to help draw lane highlight
+lane_y_starts = {20,33,48,65,84}
+lane_heights = {12,14,16,18,20}
 
 ui = {
     x=0,
@@ -101,12 +103,12 @@ ui = {
             btn.draw(btn)
         end
         -- draw lane highlight
-        line(
-            2, 
-            get_lane_y(self.selected_lane), 
-            2, 
-            get_lane_y(self.selected_lane)+lane_length, 
-            10
+        rect(
+            0, 
+            lane_y_starts[self.selected_lane], 
+            20, 
+            lane_y_starts[self.selected_lane]+lane_heights[self.selected_lane], 
+            7
         )
     end
 }

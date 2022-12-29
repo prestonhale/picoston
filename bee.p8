@@ -11,7 +11,8 @@ bee_giant={
     colliding = {},
     sprite=66,
     timer=0,
-    cost=1
+    cost=1,
+    pwidth=16
 }
 
 
@@ -53,6 +54,8 @@ function bee_giant:update()
     if self.health <=0 then
         del(objects, self)
     end
+
+    remove_if_out_of_bounds(self)
 end
     
 function bee_giant:do_damage(coll)

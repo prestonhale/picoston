@@ -6,7 +6,9 @@ ostrich={
     x=new_x,
     y=new_y,
     sprite=64,
-    timer=0
+    timer=0,
+    is_friendly=true,
+    pwidth=12
 }
 
 function ostrich:new(obj)
@@ -30,21 +32,14 @@ end
 
 function ostrich:update()
     local can_move = self.collider:can_move(self)
-    if can_move then 
-        self.x+=1   
-        self.y=.5*(sin(self.x/40))+get_lane_y(self.lane_index)+3
+    if can_move then
+        self.x+=1
     end
+    self.y=.5*(sin(self.x/40))+get_lane_y(self.lane_index)+1
     self.timer+=1
     self.collider:update()
+    remove_if_out_of_bounds(self)
 end
-
-
-function init_tyler(objects)
-end
-
-function add_ostrich_at(new_x,new_y,new_lane_index)
-end
-
 
 function add_ostrich_in_lane(lane_index)
     local ostrich = ostrich:new()
@@ -53,7 +48,6 @@ function add_ostrich_in_lane(lane_index)
     ostrich.x=5
     ostrich.lane_index=lane_index
     ostrich.collider = collider:new()
-    add_ostrich_at(new_x,new_y,lane_index)
     add(objects,ostrich)
     
 
