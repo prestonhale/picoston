@@ -74,13 +74,16 @@ function check_collisions()
             if (other.pwidth==nil) then
                 other.pwidth=16
             end
+            if (obj.pwidth==nil) then
+                obj.pwidth=16
+            end
             if  obj.collider
                 and other.collider
                 and obj.lane_index == other.lane_index
                 and obj.x < other.x + other.pwidth 
-                and obj.x + other.pwidth > other.x
+                and obj.x + obj.pwidth > other.x
                 and obj.y < other.y + other.pwidth
-                and obj.y + other.pwidth > other.y
+                and obj.y + obj.pwidth > other.y
             then
                 obj.collider:collide(other)
                 other.collider:collide(obj)
