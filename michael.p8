@@ -192,6 +192,50 @@ bg.draw = function(self)
     end
 end
 
+--------------------------
+--- wind_generator obj ---
+--------------------------
+
+wind_generator={
+    spawn_t=60,
+    c_spawn_t=0
+}
+
+function wind_generator:new(obj)
+    obj = obj or {}
+    setmetatable(obj, self)
+    self.__index = self
+    return obj
+end
+
+function wind_generator:update()
+    self.c_spawn_t+=1
+    if self.c_spawn_t>=self.spawn_t then
+
+        self.c_spawn_t=0
+        self.spawn_t=rnd(rnd(50))+70
+        
+        wind_randx=flr(rnd(80))-10
+        wind_randy=flr(rnd(70))+20
+
+        w=wind:new()
+        w.x=wind_randx
+        w.y=wind_randy
+        w.initial_y=wind_randy
+        w.last_x=wind_randx
+        w.check_x=wind_randx
+        w.last_y=wind_randy
+        w.check_y=wind_randy
+        add(objects,w)
+    end
+end
+function wind_generator:draw()end
+
+function add_wind_generator()
+    wind_generator=wind_generator:new()
+    add(objects,wind_generator)
+end
+
 ----------------
 --- wind obj ---
 ----------------
@@ -214,7 +258,7 @@ wind={
     done_moving=false
 }
 
-function wind:new()
+function wind:new(obj)
     obj = obj or {}
     setmetatable(obj, self)
     self.__index = self
@@ -309,88 +353,6 @@ function wind:draw()
     end
 end
 
-------------------------
---- wind_generator obj ---
-------------------------
-
-wind_generator={
-    spawn_t=60,
-    c_spawn_t=0,
-    draw=function(self)end
-}
-
-function wind_generator:update()
-    self.c_spawn_t+=1
-    if self.c_spawn_t>=self.spawn_t then
-
-        self.c_spawn_t=0
-        self.spawn_t=rnd(rnd(50))+70
-        
-        wind_randx=flr(rnd(80))-10
-        wind_randy=flr(rnd(70))+20
-
-        wind = wind:new()
-        wind.x = wind_randx
-        wind.y = wind_randy
-        wind.last_x=wind_randx
-        wind.check_x=wind_randx
-        wind.last_y=wind_randy
-        wind.check_y=wind_randy
-        wind.initial_y=wind_randy
-
-        add(objects,wind)
-    end
-end
-
-----------------
---- gate obj ---
-----------------
-gate={
-    lane_x=0,
-    lane_y=0,
-    sprite=13,
-    width=2,
-    height=2,
-    bounce_t=20,
-    c_bounce_t=0,
-}
-
-function gate:new()
-    obj = obj or {}
-    setmetatable(obj, self)
-    self.__index = self
-    return obj
-end
-
-
-function gate:update()
-    self.c_bounce_t+=1
-    if self.c_bounce_t>=self.bounce_t then
-        self.c_bounce_t=0
-        if self.y==self.initial_y then
-            self.y+=1
-        else
-            self.y-=1
-        end
-    end
-end
-
-function gate:draw()
-    spr(45,self.x,self.initial_y+16,2,1)
-    spr(self.sprite,self.x,self.y,self.width,self.height)
-end
-
-gates={}
-for i=0,4 do
-    g = gate:new()
-    g.x=100+(i*4)
-    g.y=-3+(i*21)
-    g.initial_y=-3+(i*21)
-    if i%2==0 then
-        g.y+=1
-    end
-    add(gates,g)
-end
 -----------------
 --- init func ---
 -----------------
@@ -399,8 +361,5 @@ function init_michael(objects)
     add(objects,bg)
     add(objects,grass)
     add(objects,flowers)
-    -- for gate in all(gates) do
-    --     add(objects,gate)
-    -- end
-    -- add(objects,wind_generator)
+    add_wind_generator()
 end
