@@ -1,5 +1,5 @@
 pico-8 cartridge // http://www.pico-8.com
-version 39
+version 38
 __lua__
 
 bee_giant_type = {
@@ -27,7 +27,7 @@ bee_giant_type = {
         end
 
         if can_move then 
-            self.y=(2*(sin(self.x/30))+get_lane_y(self.lane_index)+3)
+            self.y=(2*(sin(self.x/30))+get_lane_y(self.lane_index)+3)-5
             self.x+=3 
         end
 
@@ -67,7 +67,7 @@ function add_bee_giant_at(new_x,new_y,new_lane_index)
             self.colliding[coll] = nil
         end
     end
-
+    add_shadow(bee_giant,3,14,10,3,5)
     add(objects,bee_giant)
     
 end
