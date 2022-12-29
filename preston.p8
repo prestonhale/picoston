@@ -16,6 +16,8 @@ button_size = 10
 lane_y_starts = {20,33,48,65,84}
 lane_heights = {12,14,16,18,20}
 
+animal_sprites={64,66,3,66,66}
+
 ui = {
     x=0,
     y=0,
@@ -35,14 +37,16 @@ ui = {
                     self.y+button_size, 
                     ORANGE
                 )
+                if self.highlighted!=true then sspr(((animal_sprites[num]% 16)*8),(flr(animal_sprites[num]/16)*8),16,16,self.x+1,self.y+1,8,8) end
                 if self.highlighted then
                     rect(
-                        self.x, 
-                        self.y, 
-                        self.x+button_size, 
-                        self.y+button_size, 
+                        self.x-1, 
+                        self.y-1, 
+                        self.x+button_size+1, 
+                        self.y+button_size+1, 
                         PURPLE
                     )
+                    sspr(((animal_sprites[num]% 16)*8),(flr(animal_sprites[num]/16)*8),16,16,self.x-3,self.y-3,16,16)    
                 end
                 if self.can_spawn and ANIMAL_COST[num] > points then
                     rectfill(self.x, 
@@ -51,6 +55,7 @@ ui = {
                     self.y+button_size, 
                     5)
                 end
+            
             end
         }
         add(ui.buttons, button)
@@ -120,6 +125,7 @@ function init_preston(objects)
             ui,
             first_button_x + i * (button_width + button_buffer), 
             first_button_y
+            
         )
     end
     add(objects, ui)
