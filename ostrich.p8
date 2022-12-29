@@ -8,7 +8,7 @@ ostrich={
     sprite=64,
     timer=0,
     is_friendly=true,
-    pwidth=12
+    pwidth=10
 }
 
 function ostrich:new(obj)
@@ -19,7 +19,7 @@ function ostrich:new(obj)
 end
 
 function ostrich:draw()
-    spr(self.sprite,self.x,self.y,2,2)
+    sspr(((self.sprite% 16)*8), (flr(self.sprite/16)*8),16,16,self.x,self.y,15,15)
     if self.timer==18 then 
         if self.sprite==96 then
             self.sprite=64

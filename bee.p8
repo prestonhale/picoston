@@ -12,7 +12,7 @@ bee_giant={
     sprite=66,
     timer=0,
     cost=1,
-    pwidth=16
+    pwidth=10
 }
 
 
@@ -25,7 +25,7 @@ end
 
 
 function bee_giant:draw()
-    spr(self.sprite,self.x,self.y,2,2)
+    sspr(((self.sprite% 16)*8), (flr(self.sprite/16)*8),16,16,self.x,self.y,8,8)
     if self.timer==2 then 
         self.sprite=68 
         self.timer=0 
