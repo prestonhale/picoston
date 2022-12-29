@@ -14,7 +14,8 @@ elephant={
     anim_t=5,
     curr_anim_t=0,
     shadow=nil,
-    is_friendly=true
+    is_friendly=true,
+    pwidth=16
 }
 
 function elephant:new(obj)

@@ -7,7 +7,8 @@ ostrich={
     y=new_y,
     sprite=64,
     timer=0,
-    is_friendly=true
+    is_friendly=true,
+    pwidth=12
 }
 
 function ostrich:new(obj)

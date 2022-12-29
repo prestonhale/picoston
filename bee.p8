@@ -11,7 +11,8 @@ bee_giant={
     colliding = {},
     sprite=66,
     timer=0,
-    cost=1
+    cost=1,
+    pwidth=16
 }
 
 
