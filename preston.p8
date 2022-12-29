@@ -4,6 +4,7 @@ __lua__
 
 ORANGE = 9
 PURPLE = 2
+DARK_GREY = 5
 
 -- config
 first_button_x = 15
@@ -11,6 +12,7 @@ first_button_y = 112
 button_width = 8
 button_buffer = 14
 button_size = 10
+button_grow = 3
 
 -- used to help draw lane highlight
 lane_y_starts = {20,33,48,65,84}
@@ -30,33 +32,39 @@ ui = {
             y=y,
             highlighted = false,
             draw = function(self)
-                rectfill(
-                    self.x, 
-                    self.y, 
-                    self.x+button_size, 
-                    self.y+button_size, 
-                    ORANGE
-                )
+                local button_size = button_size
+                local button_offset = 0
+                local animal_size = 8
+                local rect_color = ORANGE
                 if self.highlighted then
+                    button_size = button_size + button_grow
+                    button_offset = button_grow
+                    animal_size = 16
                     rect(
-                        self.x-1, 
-                        self.y-1, 
-                        self.x+button_size+1, 
-                        self.y+button_size+1, 
+                        self.x-1-button_offset, 
+                        self.y-1-button_offset, 
+                        self.x+1+button_size, 
+                        self.y+1+button_size, 
                         PURPLE
                     )
-                end
+                end                   
                 if ANIMAL_COST[num] > points then
-                    rectfill(self.x, 
-                    self.y, 
+                    rect_color = DARK_GREY
+                end
+                rectfill(
+                    self.x-button_offset, 
+                    self.y-button_offset, 
                     self.x+button_size, 
                     self.y+button_size, 
-                    5)
-                end
-                sspr(((animal_sprites[num]% 16)*8),(flr(animal_sprites[num]/16)*8),16,16,self.x+1,self.y+1,8,8)                    
-                if self.highlighted and ANIMAL_COST[num] <= points then
-                    sspr(((animal_sprites[num]% 16)*8),(flr(animal_sprites[num]/16)*8),16,16,self.x-3,self.y-3,16,16)   
-                end
+                    rect_color
+                )
+                sspr(
+                    ((animal_sprites[num] % 16)*8),
+                    (flr(animal_sprites[num] / 16)*8),
+                    16,16,
+                    self.x-button_offset+1,self.y-button_offset+1,
+                    animal_size,animal_size
+                )   
             end
         }
         add(ui.buttons, button)
