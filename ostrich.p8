@@ -6,7 +6,8 @@ ostrich={
     x=new_x,
     y=new_y,
     sprite=64,
-    timer=0
+    timer=0,
+    is_friendly=true
 }
 
 function ostrich:new(obj)
@@ -30,9 +31,12 @@ end
 
 function ostrich:update()
     local can_move = self.collider:can_move(self)
-    self.x+=1   
+    if can_move then
+        self.x+=1   
+    end
     self.y=.5*(sin(self.x/40))+get_lane_y(self.lane_index)+1
     self.timer+=1
+    self.collider:update()
     remove_if_out_of_bounds(self)
 end
 

@@ -13,7 +13,8 @@ elephant={
     stomp_t_increase=true,
     anim_t=5,
     curr_anim_t=0,
-    shadow=nil
+    shadow=nil,
+    is_friendly=true
 }
 
 function elephant:new(obj)
@@ -24,10 +25,13 @@ function elephant:new(obj)
 end
 
 function elephant:update()
+    local can_move = self.collider:can_move(self)
     if self.stomp_t_increase then
         self.curr_stomp_t+=1
         self.curr_anim_t+=1
-        self.x+=1
+        if can_move then
+            self.x+=1
+        end
         if self.curr_stomp_t>=self.stomp_t then
             self.curr_stomp_t=self.stomp_t
             self.stomp_t_increase=false
@@ -49,6 +53,7 @@ function elephant:update()
             self.stomp_t_increase=true
         end
     end
+    self.collider:update()
     remove_if_out_of_bounds(self)
 end
 
@@ -57,10 +62,10 @@ function elephant:draw()
 end
 
 function add_elephant_in_lane(lane_index)
-    local elephant = elephant:new()
-    elephant.x = 5
-    elephant.y = get_lane_y(lane_index)+1
-    elephant.lane_index=lane_index
-    elephant.collider = collider:new()
-    add(objects,elephant)
+    local e = elephant:new()
+    e.x = 5
+    e.y = get_lane_y(lane_index)+1
+    e.lane_index=lane_index
+    e.collider = collider:new()
+    add(objects,e)
 end
