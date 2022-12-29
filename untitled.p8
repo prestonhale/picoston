@@ -79,8 +79,8 @@ function check_collisions()
                 and obj.lane_index == other.lane_index
                 and obj.x < other.x + other.pwidth 
                 and obj.x + other.pwidth > other.x
-                and obj.y < other.y + other.pwidth
-                and obj.y + other.pwidth > other.y
+                and obj.y < other.y + 16
+                and obj.y + 16 > other.y
             then
                 obj.collider:collide(other)
                 other.collider:collide(obj)
