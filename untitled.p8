@@ -1,5 +1,5 @@
 pico-8 cartridge // http://www.pico-8.com
-version 39
+version 38
 __lua__
 #include tyler.p8
 #include michael.p8
