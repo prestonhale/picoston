@@ -12,7 +12,8 @@ monkey={
     sprite=98,
     timer=0,
     is_friendly=true,
-    pwidth=9
+    pwidth=9,
+    cost=1
 }
 
 function monkey:new(obj)

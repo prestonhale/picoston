@@ -1,10 +1,12 @@
 pico-8 cartridge // http://www.pico-8.com
 version 38
 __lua__
+#include animal.p8
 #include tyler.p8
 #include michael.p8
 #include preston.p8
 #include evan.p8
+
 
 #include collider.p8
 
@@ -24,7 +26,7 @@ ANIMALS = {
     ostrich,
     bee_giant,
     elephant,
-    bee_giant,
+    monkey,
     bee_giant
 }
 
