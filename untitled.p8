@@ -20,14 +20,20 @@ objects = {}
 
 speed = 1
 
-debug = "no debug"
-
 SPAWN_FUNCTIONS = {
     add_ostrich_in_lane,
     add_bee_giant_in_lane,
     add_elephant_in_lane,
     add_bee_giant_in_lane,
     add_bee_giant_in_lane
+}
+
+ANIMAL_COST = {
+    0,
+    1,
+    4,
+    0,
+    0
 }
 
 function _init()
