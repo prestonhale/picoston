@@ -37,7 +37,6 @@ ui = {
                     self.y+button_size, 
                     ORANGE
                 )
-                if self.highlighted!=true then sspr(((animal_sprites[num]% 16)*8),(flr(animal_sprites[num]/16)*8),16,16,self.x+1,self.y+1,8,8) end
                 if self.highlighted then
                     rect(
                         self.x-1, 
@@ -46,7 +45,6 @@ ui = {
                         self.y+button_size+1, 
                         PURPLE
                     )
-                    sspr(((animal_sprites[num]% 16)*8),(flr(animal_sprites[num]/16)*8),16,16,self.x-3,self.y-3,16,16)    
                 end
                 if self.can_spawn and ANIMAL_COST[num] > points then
                     rectfill(self.x, 
@@ -54,6 +52,12 @@ ui = {
                     self.x+button_size, 
                     self.y+button_size, 
                     5)
+                else
+                    if self.highlighted then
+                        sspr(((animal_sprites[num]% 16)*8),(flr(animal_sprites[num]/16)*8),16,16,self.x-3,self.y-3,16,16)
+                    else
+                        sspr(((animal_sprites[num]% 16)*8),(flr(animal_sprites[num]/16)*8),16,16,self.x+1,self.y+1,8,8)
+                    end
                 end
             
             end
