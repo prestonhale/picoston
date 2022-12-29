@@ -1,10 +1,10 @@
 pico-8 cartridge // http://www.pico-8.com
 version 38
 __lua__
+
 elephant={
     x=new_x,
     y=new_y,
-    lane_index=new_lane_index,
     sprite=3,
     width=2,
     height=2,
@@ -65,7 +65,7 @@ function add_elephant_in_lane(lane_index)
 end
 
 function add_elephant_at(new_x,new_y,new_lane_index)
-    elephant = elephant:new()
+    local elephant = elephant:new()
     elephant.x = new_x
     elephant.y = new_y
     elephant.lane_index=new_lane_index

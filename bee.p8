@@ -34,16 +34,7 @@ end
 
 
 function bee_giant:update()
-    local can_move = true
-    for k,v in pairs(self.collider.colliding_with) do
-        self:do_damage(k)
-        if not k.is_friendly then 
-            can_move = false
-        end
-        if k.is_friendly and k.x>self.x then
-            can_move = false
-        end
-    end
+    local can_move = self.collider:can_move(self)
 
     -- bee always buzzes up and down even if it can't move forward
     self.y=(2*(sin(self.timer/60))+get_lane_y(self.lane_index)+3)
@@ -77,7 +68,7 @@ end
 
 
 function add_bee_giant_at(new_x,new_y,new_lane_index)
-    bee_giant = bee_giant:new()
+    local bee_giant = bee_giant:new()
     bee_giant.x = new_x
     bee_giant.y = new_y
     bee_giant.lane_index = new_lane_index
