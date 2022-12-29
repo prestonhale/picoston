@@ -68,7 +68,17 @@ function enemy:update()
     remove_if_out_of_bounds(self)
 end
 
+function convert(val,s1,e1,s2,e2)
+	prop=(val-s1)/(e1-s1)
+	return prop*(e2-s2)+s2
+end
+
 function enemy:draw()
+    if self.health<100 then
+        rect(self.x+1,self.y-5,self.x+16,self.y-3,7)
+        length = convert(self.health,0,100,0,13)
+        line(self.x+2,self.y-4,self.x+2+length,self.y-4,8)
+    end
     spr(self.sprite, self.x,self.y, 2, 2)
 end
 
