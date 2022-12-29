@@ -9,7 +9,7 @@ __lua__
 function add_shadow(obj,x_offset,y_offset,w,h,col)
     shadow_obj={
         x=obj.x+x_offset,
-        y=obj.y+y_offset,
+        y=get_lane_y(obj.lane_index)+y_offset,
         xoff=x_offset,
         yoff=y_offset,
         width=w,
@@ -43,8 +43,8 @@ grass={
 }
 
 for i=0,30 do
-    rand_x=flr(rnd(108))+10
-    rand_y=flr(rnd(85))+10
+    rand_x=flr(rnd(114))+8
+    rand_y=flr(rnd(77))+25
     g={
         x=rand_x,
         y=rand_y
@@ -85,8 +85,8 @@ flowers={
 }
 
 for i=0,20 do
-    rand_x=flr(rnd(108))+10
-    rand_y=flr(rnd(85))+10
+    rand_x=flr(rnd(114))+8
+    rand_y=flr(rnd(77))+25
     flwr_rand=flr(rnd(10))+1
     flwr_sprite=0
         if (flwr_rand%2==0) then
@@ -157,27 +157,83 @@ bg={
 
 bg.draw = function(self)
     cls(0)
+    rectfill(0,0,127,20,12)
+    line(0,19,127,19,10)
+    circfill(80,19,10,10)
 
     swap=-1
-    y_offset=0
-    bg_sq_val=23
-    x_offset=23
+    x_val=22
+    y_val=13
+    x_offset=-1
+    y_offset=20
 
     for i=0,4 do
         for j=0,6 do
             if swap==-1 then
-                for k=0,4 do
-                    rectfill(j*bg_sq_val+k+y_offset-x_offset,i*21,j*bg_sq_val+bg_sq_val+k+y_offset-x_offset,i*21+(k*5),11)
-                end
+                rectfill(
+                    (j*x_val)+x_offset,
+                    (i*y_val)+y_offset-i,
+                    (j*x_val)+x_val-1+x_offset,
+                    (i*y_val)+y_val+y_offset-1,
+                    11
+                )
             else
-                for k=0,4 do
-                    rectfill(j*bg_sq_val+k+y_offset-x_offset,i*21,j*bg_sq_val+bg_sq_val+k+y_offset-x_offset,i*21+(k*5),3)
-                end
+                rectfill(
+                    (j*x_val)+x_offset,
+                    (i*y_val)+y_offset-i,
+                    (j*x_val)+x_val-1+x_offset,
+                    (i*y_val)+y_val+y_offset-1,
+                    3
+                )
             end
             swap*=-1
         end
-        y_offset+=4
+        y_val+=1
     end
+end
+
+--------------------------
+--- wind_generator obj ---
+--------------------------
+
+wind_generator={
+    spawn_t=60,
+    c_spawn_t=0
+}
+
+function wind_generator:new(obj)
+    obj = obj or {}
+    setmetatable(obj, self)
+    self.__index = self
+    return obj
+end
+
+function wind_generator:update()
+    self.c_spawn_t+=1
+    if self.c_spawn_t>=self.spawn_t then
+
+        self.c_spawn_t=0
+        self.spawn_t=rnd(rnd(50))+70
+        
+        wind_randx=flr(rnd(80))-10
+        wind_randy=flr(rnd(70))+20
+
+        w=wind:new()
+        w.x=wind_randx
+        w.y=wind_randy
+        w.initial_y=wind_randy
+        w.last_x=wind_randx
+        w.check_x=wind_randx
+        w.last_y=wind_randy
+        w.check_y=wind_randy
+        add(objects,w)
+    end
+end
+function wind_generator:draw()end
+
+function add_wind_generator()
+    wind_generator=wind_generator:new()
+    add(objects,wind_generator)
 end
 
 ----------------
@@ -202,7 +258,7 @@ wind={
     done_moving=false
 }
 
-function wind:new()
+function wind:new(obj)
     obj = obj or {}
     setmetatable(obj, self)
     self.__index = self
@@ -297,88 +353,6 @@ function wind:draw()
     end
 end
 
-------------------------
---- wind_generator obj ---
-------------------------
-
-wind_generator={
-    spawn_t=60,
-    c_spawn_t=0,
-    draw=function(self)end
-}
-
-function wind_generator:update()
-    self.c_spawn_t+=1
-    if self.c_spawn_t>=self.spawn_t then
-
-        self.c_spawn_t=0
-        self.spawn_t=rnd(rnd(50))+70
-        
-        wind_randx=flr(rnd(80))-10
-        wind_randy=flr(rnd(70))+20
-
-        wind = wind:new()
-        wind.x = wind_randx
-        wind.y = wind_randy
-        wind.last_x=wind_randx
-        wind.check_x=wind_randx
-        wind.last_y=wind_randy
-        wind.check_y=wind_randy
-        wind.initial_y=wind_randy
-
-        add(objects,wind)
-    end
-end
-
-----------------
---- gate obj ---
-----------------
-gate={
-    lane_x=0,
-    lane_y=0,
-    sprite=13,
-    width=2,
-    height=2,
-    bounce_t=20,
-    c_bounce_t=0,
-}
-
-function gate:new()
-    obj = obj or {}
-    setmetatable(obj, self)
-    self.__index = self
-    return obj
-end
-
-
-function gate:update()
-    self.c_bounce_t+=1
-    if self.c_bounce_t>=self.bounce_t then
-        self.c_bounce_t=0
-        if self.y==self.initial_y then
-            self.y+=1
-        else
-            self.y-=1
-        end
-    end
-end
-
-function gate:draw()
-    spr(45,self.x,self.initial_y+16,2,1)
-    spr(self.sprite,self.x,self.y,self.width,self.height)
-end
-
-gates={}
-for i=0,4 do
-    g = gate:new()
-    g.x=100+(i*4)
-    g.y=-3+(i*21)
-    g.initial_y=-3+(i*21)
-    if i%2==0 then
-        g.y+=1
-    end
-    add(gates,g)
-end
 -----------------
 --- init func ---
 -----------------
@@ -387,8 +361,5 @@ function init_michael(objects)
     add(objects,bg)
     add(objects,grass)
     add(objects,flowers)
-    for gate in all(gates) do
-        add(objects,gate)
-    end
-    -- add(objects,wind_generator)
+    add_wind_generator()
 end

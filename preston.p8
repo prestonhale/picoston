@@ -12,7 +12,11 @@ button_width = 8
 button_buffer = 14
 button_size = 10
 
-lane_length = 21
+-- used to help draw lane highlight
+lane_y_starts = {20,33,48,65,84}
+lane_heights = {12,14,16,18,20}
+
+animal_sprites={64,66,3,66,66}
 
 ui = {
     x=0,
@@ -25,7 +29,7 @@ ui = {
             x=x,
             y=y,
             highlighted = false,
-            draw = function(self) 
+            draw = function(self)
                 rectfill(
                     self.x, 
                     self.y, 
@@ -35,19 +39,23 @@ ui = {
                 )
                 if self.highlighted then
                     rect(
-                        self.x, 
-                        self.y, 
-                        self.x+button_size, 
-                        self.y+button_size, 
+                        self.x-1, 
+                        self.y-1, 
+                        self.x+button_size+1, 
+                        self.y+button_size+1, 
                         PURPLE
                     )
                 end
-                if self.can_spawn and ANIMAL_COST[num] > points then
+                if ANIMAL_COST[num] > points then
                     rectfill(self.x, 
                     self.y, 
                     self.x+button_size, 
                     self.y+button_size, 
                     5)
+                end
+                sspr(((animal_sprites[num]% 16)*8),(flr(animal_sprites[num]/16)*8),16,16,self.x+1,self.y+1,8,8)                    
+                if self.highlighted and ANIMAL_COST[num] <= points then
+                    sspr(((animal_sprites[num]% 16)*8),(flr(animal_sprites[num]/16)*8),16,16,self.x-3,self.y-3,16,16)   
                 end
             end
         }
@@ -101,12 +109,12 @@ ui = {
             btn.draw(btn)
         end
         -- draw lane highlight
-        line(
-            2, 
-            get_lane_y(self.selected_lane), 
-            2, 
-            get_lane_y(self.selected_lane)+lane_length, 
-            10
+        rect(
+            0, 
+            lane_y_starts[self.selected_lane], 
+            20, 
+            lane_y_starts[self.selected_lane]+lane_heights[self.selected_lane], 
+            7
         )
     end
 }
@@ -118,6 +126,7 @@ function init_preston(objects)
             ui,
             first_button_x + i * (button_width + button_buffer), 
             first_button_y
+            
         )
     end
     add(objects, ui)

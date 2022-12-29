@@ -16,10 +16,10 @@ enemy = {
     sprite = 128,
     colliding = {},
     health=100,
-    x=100,
+    x=127,
     y=0,
     sprite_timer=0,
-    lane_index=lane_index,
+    lane_index=lane_index
 }
 
 function enemy:new(e)
@@ -64,10 +64,12 @@ function enemy:update()
     if self.health <=0 then
         del(objects, self)
     end
+
+    remove_if_out_of_bounds(self)
 end
 
 function enemy:draw()
-    spr(self.sprite, self.x, get_lane_y(self.lane_index)+3, 2, 2)
+    spr(self.sprite, self.x,self.y, 2, 2)
 end
 
 enemy_spawner = {
@@ -92,7 +94,7 @@ enemy_spawner = {
     draw = function(self)
     end,
     spawn_enemy = function(self)
-        local e = {lane_index = flr(rnd(6))}
+        local e = {lane_index = flr(rnd(5))+1}
         e = enemy:new(e)
         e.collider = collider:new()
         add(objects, e)

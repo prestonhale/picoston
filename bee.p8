@@ -11,7 +11,8 @@ bee_giant={
     colliding = {},
     sprite=66,
     timer=0,
-    cost=1
+    cost=1,
+    pwidth=10
 }
 
 
@@ -24,7 +25,7 @@ end
 
 
 function bee_giant:draw()
-    spr(self.sprite,self.x,self.y,2,2)
+    sspr(((self.sprite% 16)*8), (flr(self.sprite/16)*8),16,16,self.x,self.y,8,8)
     if self.timer==2 then 
         self.sprite=68 
         self.timer=0 
@@ -37,14 +38,24 @@ end
 function bee_giant:update()
     local can_move = self.collider:can_move(self)
 
+    for k,v in pairs(self.collider.colliding_with) do
+        self.do_damage(self,k)
+    end
+
     -- bee always buzzes up and down even if it can't move forward
-    self.y=(2*(sin(self.timer/60))+get_lane_y(self.lane_index)+3)
+    self.y=(2*(sin(self.timer/60))+get_lane_y(self.lane_index)+3)+5
     if can_move then 
 
-        self.y=(2*(sin(self.x/30))+get_lane_y(self.lane_index)+3)-5
+        self.y=(2*(sin(self.x/30))+get_lane_y(self.lane_index)+3)+1
 
-        self.x+=3 
+        
     end
+    if not can_move then 
+        self.x+=1
+    else
+        self.x+=3
+    end    
+
 
     self.timer+=1
 
@@ -53,6 +64,8 @@ function bee_giant:update()
     if self.health <=0 then
         del(objects, self)
     end
+
+    remove_if_out_of_bounds(self)
 end
     
 function bee_giant:do_damage(coll)
