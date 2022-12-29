@@ -31,8 +31,9 @@ bee_giant_type = {
             end
         end
 
+        -- bee always buzzes up and down even if it can't move forward
+        self.y=(2*(sin(self.timer/60))+get_lane_y(self.lane_index)+3)
         if can_move then 
-            self.y=(2*(sin(self.x/30))+get_lane_y(self.lane_index)+3)
             self.x+=3 
         end
 
@@ -70,9 +71,6 @@ function add_bee_giant_at(new_x,new_y,new_lane_index)
         debug=coll
         if coll.type.is_friendly then return end
         coll.health -= 5
-        if coll.health <= 0 then
-            self.colliding[coll] = nil
-        end
     end
 
     add(objects,bee_giant)
