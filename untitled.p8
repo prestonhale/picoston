@@ -55,7 +55,6 @@ function _draw()
     for obj in all(objects) do
         obj:draw()
     end
-    print(debug, 0, 0)
 end
 
 function check_collisions()
