@@ -31,7 +31,7 @@ end
 function ostrich:update()
     local can_move = self.collider:can_move(self)
     self.x+=1   
-    self.y=.5*(sin(self.x/40))+get_lane_y(self.lane_index)
+    self.y=.5*(sin(self.x/40))+get_lane_y(self.lane_index)+1
     self.timer+=1
     remove_if_out_of_bounds(self)
 end
