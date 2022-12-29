@@ -134,6 +134,7 @@ function flowers:update()
     end
 end
 
+
 function flowers:draw()
     for flower in all(flowers.objs) do
         if (flower.pos=="left") then
@@ -389,5 +390,5 @@ function init_michael(objects)
     for gate in all(gates) do
         add(objects,gate)
     end
-    add(objects,wind_generator)
+    -- add(objects,wind_generator)
 end

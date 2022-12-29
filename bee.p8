@@ -22,11 +22,6 @@ function bee_giant:new(obj)
 end
 
 
-function bee_giant:collide(obj)
-    self.colliding[other] = 1
-end
-
-
 function bee_giant:draw()
     spr(self.sprite,self.x,self.y,2,2)
     if self.timer==2 then 
@@ -40,7 +35,7 @@ end
 
 function bee_giant:update()
     local can_move = true
-    for k,v in pairs(self.colliding) do
+    for k,v in pairs(self.collider.colliding_with) do
         self:do_damage(k)
         if not k.is_friendly then 
             can_move = false
@@ -61,7 +56,7 @@ function bee_giant:update()
 
     self.timer+=1
 
-    self.colliding = {}
+    self.collider:update()
 
     if self.health <=0 then
         del(objects, self)
@@ -69,7 +64,6 @@ function bee_giant:update()
 end
     
 function bee_giant:do_damage(coll)
-    debug=coll
     if coll.is_friendly then return end
     coll.health -= 5
 end
@@ -87,6 +81,7 @@ function add_bee_giant_at(new_x,new_y,new_lane_index)
     bee_giant.x = new_x
     bee_giant.y = new_y
     bee_giant.lane_index = new_lane_index
+    bee_giant.collider = collider:new()
     add_shadow(bee_giant,3,14,10,3,5)
     add(objects,bee_giant)
 end

@@ -69,6 +69,7 @@ function add_elephant_at(new_x,new_y,new_lane_index)
     elephant.x = new_x
     elephant.y = new_y
     elephant.lane_index=new_lane_index
+    elephant.collider = collider:new()
     add_shadow(elephant,1,13,13,4,5)
     add(objects,elephant)
 end
