@@ -19,7 +19,7 @@ enemy = {
     x=120,
     y=0,
     sprite_timer=0,
-    lane_index=lane_index,
+    lane_index=lane_index
 }
 
 function enemy:new(e)
@@ -69,7 +69,7 @@ function enemy:update()
 end
 
 function enemy:draw()
-    spr(self.sprite, self.x, get_lane_y(self.lane_index)+3, 2, 2)
+    spr(self.sprite, self.x,self.y, 2, 2)
 end
 
 enemy_spawner = {

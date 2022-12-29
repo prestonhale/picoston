@@ -9,7 +9,7 @@ __lua__
 function add_shadow(obj,x_offset,y_offset,w,h,col)
     shadow_obj={
         x=obj.x+x_offset,
-        y=obj.y+y_offset,
+        y=get_lane_y(obj.lane_index)+y_offset,
         xoff=x_offset,
         yoff=y_offset,
         width=w,

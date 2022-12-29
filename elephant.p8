@@ -3,8 +3,8 @@ version 38
 __lua__
 
 elephant={
-    x=new_x,
-    y=new_y,
+    x=0,
+    y=0,
     sprite=3,
     width=2,
     height=2,
@@ -49,28 +49,18 @@ function elephant:update()
             self.stomp_t_increase=true
         end
     end
-    move_shadow(self)
     remove_if_out_of_bounds(self)
 end
 
 function elephant:draw()
-    draw_shadow(self)
     spr(self.sprite,self.x,self.y,self.width,self.height)
 end
 
 function add_elephant_in_lane(lane_index)
-    new_y=get_lane_y(lane_index)
-    new_x=5
-    add_elephant_at(new_x,new_y,lane_index)
-end
-
-function add_elephant_at(new_x,new_y,new_lane_index)
     local elephant = elephant:new()
-    elephant.x = new_x
-    elephant.y = new_y
-    elephant.lane_index=new_lane_index
+    elephant.x = 5
+    elephant.y = get_lane_y(lane_index)
+    elephant.lane_index=lane_index
     elephant.collider = collider:new()
-    add_shadow(elephant,1,13,13,4,5)
     add(objects,elephant)
 end
-
