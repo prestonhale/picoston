@@ -6,6 +6,8 @@ __lua__
 #include preston.p8
 #include evan.p8
 
+#include collider.p8
+
 -- animals
 #include ostrich.p8
 #include bee.p8
@@ -42,11 +44,11 @@ function _init()
 end
 
 function _update()
+    check_collisions()
+
     for obj in all(objects) do
         obj:update()
     end
-
-    check_collisions()
 end
 
 function _draw()
@@ -61,16 +63,16 @@ function check_collisions()
         for j=i+1,#objects do
             obj=objects[i]
             other=objects[j]
-            if  obj.is_collideable
-                and other.is_collideable
+            if  obj.collider
+                and other.collider
                 and obj.lane_index == other.lane_index
                 and obj.x < other.x + 16 
                 and obj.x + 16 > other.x
                 and obj.y < other.y + 16
                 and obj.y + 16 > other.y
             then
-                obj.collide(obj, other)
-                other.collide(other, obj)
+                obj.collider:collide(other)
+                other.collider:collide(obj)
             end
         end
     end

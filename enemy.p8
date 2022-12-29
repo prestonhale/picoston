@@ -34,7 +34,7 @@ end
 
 function enemy:update()
     local can_move=true
-    for k,v in pairs(self.colliding) do
+    for k,v in pairs(self.collider.colliding_with) do
         self.do_damage(self, k)
         if k.is_friendly then 
             can_move = false
@@ -58,8 +58,8 @@ function enemy:update()
         end
         self.sprite_timer = 0
     end
-    
-    self.colliding = {}
+
+    self.collider:update()
     
     if self.health <=0 then
         del(objects, self)
@@ -68,9 +68,6 @@ end
 
 function enemy:draw()
     spr(self.sprite, self.x, get_lane_y(self.lane_index)+3, 2, 2)
-end
-
-function enemy:collide()
 end
 
 enemy_spawner = {
@@ -83,7 +80,7 @@ enemy_spawner = {
     update = function(self)
         self.time_since_spawn +=1
 
-        if self.time_since_spawn < 8 then -- don't spawn too fast
+        if self.time_since_spawn < 10 then -- don't spawn too fast
             return
         end 
 
@@ -96,7 +93,8 @@ enemy_spawner = {
     end,
     spawn_enemy = function(self)
         local e = {lane_index = flr(rnd(6))}
-        local e = enemy:new(e)
+        e = enemy:new(e)
+        e.collider = collider:new()
         add(objects, e)
     end
 }
