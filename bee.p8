@@ -39,10 +39,10 @@ function bee_giant:update()
     local can_move = self.collider:can_move(self)
 
     -- bee always buzzes up and down even if it can't move forward
-    self.y=(2*(sin(self.timer/60))+get_lane_y(self.lane_index)+3)
+    self.y=(2*(sin(self.timer/60))+get_lane_y(self.lane_index)+3)+5
     if can_move then 
 
-        self.y=(2*(sin(self.x/30))+get_lane_y(self.lane_index)+3)-5
+        self.y=(2*(sin(self.x/30))+get_lane_y(self.lane_index)+3)+1
 
         self.x+=3 
     end
