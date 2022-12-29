@@ -158,6 +158,8 @@ bg={
 bg.draw = function(self)
     cls(0)
     rectfill(0,0,127,20,12)
+    line(0,19,127,19,10)
+    circfill(80,19,10,10)
 
     swap=-1
     x_val=22
