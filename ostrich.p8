@@ -1,7 +1,7 @@
 pico-8 cartridge // http://www.pico-8.com
 version 38
 __lua__
-    
+
 ostrich={ 
     x=new_x,
     y=new_y,
@@ -34,12 +34,15 @@ function ostrich:update()
     self.timer+=1
 end
 
+
 function init_tyler(objects)
     
 end
 
 function add_ostrich_at(new_x,new_y,new_lane_index)
 end
+
+
 
 function add_ostrich_in_lane(lane_index)
     ostrich = ostrich:new()
