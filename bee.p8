@@ -11,6 +11,7 @@ bee_giant_type = {
     end,
 
     draw = function(self)
+        draw_shadow(self)
         spr(self.sprite,self.x,self.y,2,2)
         if self.timer==2 then 
             self.sprite=68 
@@ -47,7 +48,7 @@ bee_giant_type = {
         if self.health <=0 then
             del(objects, self)
         end
-
+        move_shadow(self)
     end
 }
 
@@ -67,7 +68,8 @@ function add_bee_giant_at(new_x,new_y,new_lane_index)
         lane_index = new_lane_index,
         sprite=66,
         type=bee_giant_type,
-        timer=0
+        timer=0,
+        shadow=nil
     }
 
     function bee_giant:do_damage(coll)
