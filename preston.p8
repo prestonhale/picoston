@@ -36,7 +36,9 @@ ui = {
                 local button_offset = 0
                 local animal_size = 8
                 local rect_color = ORANGE
+                local sprite_offset = {x=2, y=1}
                 if self.highlighted then
+                    sprite_offset = {x=0, y=0}
                     button_size = button_size + button_grow
                     button_offset = button_grow
                     animal_size = 16
@@ -62,7 +64,7 @@ ui = {
                     ((animal_sprites[num] % 16)*8),
                     (flr(animal_sprites[num] / 16)*8),
                     16,16,
-                    self.x-button_offset,self.y-button_offset,
+                    self.x-button_offset+sprite_offset.x,self.y-button_offset+sprite_offset.y,
                     animal_size,animal_size
                 )   
             end
