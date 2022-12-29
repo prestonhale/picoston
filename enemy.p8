@@ -6,22 +6,14 @@ enemy_type = {
     sprite_1 = 128,
     sprite_2 = 130,
 
+    is_friendly=false,
+
+    colliding = false,
+    is_collideable = true,
+    damage = 1,
+
     collide = function(self)
-        for i=1,#objects do
-            other = objects[i]
-            if other != self 
-                and other.type.collideable
-                and self.x < other.x + 16 
-                and self.x + 16 > other.x
-                and self.y < other.y + 16
-                and self.y + 16 > other.y
-            then
-                -- del(objects, self)
-                self.colliding = true
-                other.type.collide(other, self)
-                return
-            end
-        end
+        self.colliding = true
     end,
 
     update = function(self)
@@ -38,7 +30,11 @@ enemy_type = {
             end
             self.sprite_timer = 0
         end
-        self.type.collide(self)
+        
+        if self.health <=0 then
+            del(objects, self)
+        end
+        
     end,
 
     draw = function(self)
@@ -57,13 +53,13 @@ enemy_spawner = {
         update = function(self)
             self.time_since_spawn +=1
 
-            -- if self.time_since_spawn < 8 then -- don't spawn too fast
-            --     return
-            -- end 
+            if self.time_since_spawn < 8 then -- don't spawn too fast
+                return
+            end 
 
             if rnd(1) < self.chance_to_spawn then
                 self.spawn_enemy(self)
-                time_since_spawn = 0
+                self.time_since_spawn = 0
             end
         end,
         draw = function(self)
@@ -74,6 +70,7 @@ enemy_spawner = {
         enemy = {
             sprite = enemy_type.sprite_1,
             colliding = false,
+            health=100,
             x=100,
             y=0,
             sprite_timer=0,

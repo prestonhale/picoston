@@ -36,6 +36,8 @@ function _update()
     for obj in all(objects) do
         obj.type.update(obj)
     end
+
+    check_collisions()
 end
 
 function _draw()
@@ -43,6 +45,26 @@ function _draw()
         obj.type.draw(obj)
     end
     print(debug)
+end
+
+function check_collisions()
+    for i=1,#objects do
+        for j=i+1,#objects do
+            obj=objects[i]
+            other=objects[j]
+            if  obj.type.is_collideable
+                and other.type.is_collideable
+                and obj.lane_index == other.lane_index
+                and obj.x < other.x + 16 
+                and obj.x + 16 > other.x
+                and obj.y < other.y + 16
+                and obj.y + 16 > other.y
+            then
+                obj.type.collide(obj, other)
+                other.type.collide(other, obj)
+            end
+        end
+    end
 end
 
 --- helper functions ---

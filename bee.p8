@@ -3,10 +3,13 @@ version 39
 __lua__
 
 bee_giant_type = {
-    collideable = true,
+    is_collideable = true,
+    is_friendly=true,
+
     collide = function(self, other)
-        self.colliding = true
+        self.colliding[other] = 1
     end,
+
     draw = function(self)
         spr(self.sprite,self.x,self.y,2,2)
         if self.timer==2 then 
@@ -17,13 +20,25 @@ bee_giant_type = {
         end
     end,
     update = function(self)
-        if not self.colliding then
+        can_move = true
+        for k,v in pairs(self.colliding) do
+            self.do_damage(self, k)
+            can_move = false
+        end
+
+        if can_move then 
             self.y=(2*(sin(self.x/30))+get_lane_y(self.lane_index)+3)
             self.x+=3 
         end
+
         self.timer+=1
+
+        if self.health <=0 then
+            del(objects, self)
         end
-    }
+
+    end
+}
 
 function add_bee_giant_in_lane(lane_index)
     new_y=get_lane_y(lane_index)
@@ -36,11 +51,22 @@ function add_bee_giant_at(new_x,new_y,new_lane_index)
     bee_giant={ 
         x=new_x,
         y=new_y,
+        health = 100,
+        colliding = {},
         lane_index = new_lane_index,
         sprite=66,
         type=bee_giant_type,
         timer=0
     }
+
+    function bee_giant:do_damage(coll)
+        debug=coll
+        if coll.type.is_friendly then return end
+        coll.health -= 5
+        if coll.health <= 0 then
+            self.colliding[coll] = nil
+        end
+    end
 
     add(objects,bee_giant)
     
