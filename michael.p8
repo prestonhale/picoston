@@ -3,39 +3,33 @@ version 38
 __lua__
 
 ------------------
---- shadow obj ---
+--- shadow code ---
 ------------------
 
-shadow_type={
-    update=function(self)end,
-    draw=function(self)end
-}
-
 function add_shadow(obj,x_offset,y_offset,w,h,col)
-    shadow={
+    shadow_obj={
         x=obj.x+x_offset,
         y=obj.y+y_offset,
         xoff=x_offset,
         yoff=y_offset,
         width=w,
         height=h,
-        parent=obj,
-        color=col,
-        type=shadow_type
+        color=col
     }
-    add(objects,shadow)
+    obj.shadow=shadow_obj
 end
 
-shadow_type.update=function(self)
-    if self.parent!=nil then
-        self.x=self.parent.x+self.xoff
-    else
-        del(objects,self)
+function draw_shadow(obj)
+    if obj.shadow!=nil then
+        ovalfill(obj.shadow.x,obj.shadow.y,obj.shadow.x+obj.shadow.width,obj.shadow.y+obj.shadow.height,obj.shadow.color)
     end
 end
 
-shadow_type.draw=function(self)
-    ovalfill(self.x,self.y,self.x+self.width,self.y+self.height,self.color)
+function move_shadow(obj)
+    if obj.shadow!=nil then
+        obj.shadow.x=obj.x
+        obj.shadow.x=obj.x+obj.shadow.xoff
+    end
 end
 
 --------------------
@@ -66,9 +60,10 @@ function add_elephant_at(new_x,new_y,new_lane_index)
         curr_stomp_t=0,
         stomp_t_increase=true,
         anim_t=5,
-        curr_anim_t=0
+        curr_anim_t=0,
+        shadow=nil
     }
-    add_shadow(elephant,0,12,15,5,5)
+    add_shadow(elephant,1,13,13,4,5)
     add(objects,elephant)
 end
 
@@ -99,9 +94,11 @@ elephant_type.update=function(self)
         end
     end
     remove_if_out_of_bounds(self)
+    move_shadow(self)
 end
 
 elephant_type.draw=function(self)
+    draw_shadow(self)
     spr(self.sprite,self.x,self.y,self.width,self.height)
 end
 
@@ -268,21 +265,21 @@ bg_type.draw = function(self)
 end
 
 ------------------------
---- wind_machine obj ---
+--- wind_generator obj ---
 ------------------------
 
-wind_machine_type={
+wind_generator_type={
     update=function(self)end,
     draw=function(self)end
 }
 
-wind_machine={
+wind_generator={
     spawn_t=60,
     c_spawn_t=0,
-    type=wind_machine_type
+    type=wind_generator_type
 }
 
-wind_machine_type.update=function(self)
+wind_generator_type.update=function(self)
     self.c_spawn_t+=1
     if self.c_spawn_t>=self.spawn_t then
 
@@ -313,7 +310,9 @@ wind_machine_type.update=function(self)
         check_y=wind_randy,
         last_angle=0.75,
         check_angle=0.75,
-        type=wind_type
+        type=wind_type,
+        air_particles={},
+        done_moving=false
         }
 
         add(objects,wind)
@@ -332,7 +331,9 @@ wind_type={
 wind_type.update = function(self)
 
     if not self.looping then
-        self.x+=self.hori_speed
+        if (self.done_moving==false) then
+            self.x+=self.hori_speed
+        end
         self.c_loop_t+=1
         if self.c_loop_t>=self.loop_t then
             if not self.ending then
@@ -341,7 +342,7 @@ wind_type.update = function(self)
                 self.origin_x=self.x
                 self.origin_y=self.y-self.radius
             else
-                del(objects,self)
+                self.done_moving=true
             end
         end
     else
@@ -369,7 +370,7 @@ wind_type.update = function(self)
                 death_t=10,
                 type=air_type
             }
-            add(objects,air)
+            add(self.air_particles,air)
         end
     else
         while self.check_angle>self.last_angle do
@@ -383,7 +384,7 @@ wind_type.update = function(self)
                     death_t=10,
                     type=air_type
                 }
-                add(objects,air)
+                add(self.air_particles,air)
             end
         end
     end
@@ -399,26 +400,23 @@ wind_type.update = function(self)
     else
         self.looping_check=false
     end
-end
 
----------------
---- air obj ---
----------------
+    for particle in all (self.air_particles) do
+        particle.death_t-=1
+        if particle.death_t<=0 then
+            del(self.air_particles,particle)
+        end
+    end
 
-air_type={
-    update=function(self)end,
-    draw=function(self)end
-}
-
-air_type.update = function(self)
-    self.death_t-=1
-    if self.death_t<=0 then
+    if #self.air_particles==0 then
         del(objects,self)
     end
 end
 
-air_type.draw = function(self)
-    pset(self.x,self.y,7)
+wind_type.draw=function(self)
+    for particle in all(self.air_particles) do
+        pset(particle.x,particle.y,7)
+    end
 end
 
 ----------------
@@ -479,5 +477,5 @@ function init_michael(objects)
     for gate in all(gates) do
         add(objects,gate)
     end
-    --add(objects,wind_machine)
+    add(objects,wind_generator)
 end
