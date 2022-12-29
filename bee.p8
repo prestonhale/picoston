@@ -23,7 +23,12 @@ bee_giant_type = {
         can_move = true
         for k,v in pairs(self.colliding) do
             self.do_damage(self, k)
-            can_move = false
+            if not k.type.is_friendly then 
+                can_move = false
+            end
+            if k.type.is_friendly and k.x>self.x then
+                can_move = false
+            end
         end
 
         if can_move then 
@@ -32,6 +37,8 @@ bee_giant_type = {
         end
 
         self.timer+=1
+
+        self.colliding = {}
 
         if self.health <=0 then
             del(objects, self)
