@@ -53,6 +53,8 @@ function bee_giant:update()
     if self.health <=0 then
         del(objects, self)
     end
+
+    remove_if_out_of_bounds(self)
 end
     
 function bee_giant:do_damage(coll)

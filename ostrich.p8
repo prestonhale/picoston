@@ -33,6 +33,7 @@ function ostrich:update()
     self.x+=1   
     self.y=.5*(sin(self.x/40))+get_lane_y(self.lane_index)+3
     self.timer+=1
+    remove_if_out_of_bounds(self)
 end
 
 

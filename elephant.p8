@@ -49,8 +49,8 @@ function elephant:update()
             self.stomp_t_increase=true
         end
     end
-    remove_if_out_of_bounds(self)
     move_shadow(self)
+    remove_if_out_of_bounds(self)
 end
 
 function elephant:draw()
