@@ -33,7 +33,7 @@ function enemy:do_damage(coll)
 end
 
 function enemy:update()
-    local can_move=true
+    local can_move = true
     for k,v in pairs(self.collider.colliding_with) do
         self.do_damage(self, k)
         if k.is_friendly then 
