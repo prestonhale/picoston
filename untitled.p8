@@ -36,6 +36,14 @@ ANIMAL_COST = {
     0
 }
 
+LANE_Y_VALUES = {
+    12,
+    27,
+    43,
+    61,
+    83
+}
+
 function _init()
     init_michael(objects)
     init_preston(objects)
@@ -80,7 +88,7 @@ end
 --- helper functions ---
 
 function get_lane_y(lane_index)
-    return (lane_index-1)*lane_length
+    return LANE_Y_VALUES[lane_index]
 end
 
 -- temporary to reduce memory leakage

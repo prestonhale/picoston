@@ -92,7 +92,7 @@ enemy_spawner = {
     draw = function(self)
     end,
     spawn_enemy = function(self)
-        local e = {lane_index = flr(rnd(6))}
+        local e = {lane_index = flr(rnd(5))+1}
         e = enemy:new(e)
         e.collider = collider:new()
         add(objects, e)

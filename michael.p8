@@ -399,8 +399,8 @@ function init_michael(objects)
     add(objects,bg)
     add(objects,grass)
     add(objects,flowers)
-    for gate in all(gates) do
-        add(objects,gate)
-    end
+    -- for gate in all(gates) do
+    --     add(objects,gate)
+    -- end
     -- add(objects,wind_generator)
 end
