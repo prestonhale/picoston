@@ -29,7 +29,7 @@ ui = {
             x=x,
             y=y,
             highlighted = false,
-            draw = function(self) 
+            draw = function(self)
                 rectfill(
                     self.x, 
                     self.y, 
@@ -46,20 +46,17 @@ ui = {
                         PURPLE
                     )
                 end
-                if self.can_spawn and ANIMAL_COST[num] > points then
+                if ANIMAL_COST[num] > points then
                     rectfill(self.x, 
                     self.y, 
                     self.x+button_size, 
                     self.y+button_size, 
                     5)
-                else
-                    if self.highlighted then
-                        sspr(((animal_sprites[num]% 16)*8),(flr(animal_sprites[num]/16)*8),16,16,self.x-3,self.y-3,16,16)
-                    else
-                        sspr(((animal_sprites[num]% 16)*8),(flr(animal_sprites[num]/16)*8),16,16,self.x+1,self.y+1,8,8)
-                    end
                 end
-            
+                sspr(((animal_sprites[num]% 16)*8),(flr(animal_sprites[num]/16)*8),16,16,self.x+1,self.y+1,8,8)                    
+                if self.highlighted and ANIMAL_COST[num] <= points then
+                    sspr(((animal_sprites[num]% 16)*8),(flr(animal_sprites[num]/16)*8),16,16,self.x-3,self.y-3,16,16)   
+                end
             end
         }
         add(ui.buttons, button)
