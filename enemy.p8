@@ -8,18 +8,28 @@ enemy_type = {
 
     is_friendly=false,
 
-    colliding = false,
     is_collideable = true,
     damage = 1,
 
-    collide = function(self)
-        self.colliding = true
+    collide = function(self, other)
+        self.colliding[other] = 1
     end,
 
     update = function(self)
-        if not self.colliding then
+        for k,v in pairs(self.colliding) do
+            self.do_damage(self, k)
+            if k.type.is_friendly then 
+                can_move = false
+            end
+            if not k.type.is_friendly and k.x<self.x then
+                can_move = false
+            end
+        end
+
+        if can_move then
             self.x -= 1
         end
+
         self.y = get_lane_y(self.lane_index)+3
         self.sprite_timer += 1
         if self.sprite_timer > 10 then
@@ -30,6 +40,8 @@ enemy_type = {
             end
             self.sprite_timer = 0
         end
+        
+        self.colliding = {}
         
         if self.health <=0 then
             del(objects, self)
@@ -69,7 +81,7 @@ enemy_spawner = {
         lane_index = flr(rnd(6))
         enemy = {
             sprite = enemy_type.sprite_1,
-            colliding = false,
+            colliding = {},
             health=100,
             x=100,
             y=0,
@@ -77,6 +89,11 @@ enemy_spawner = {
             lane_index=lane_index,
             type=enemy_type
         }
+
+        function enemy:do_damage(coll) 
+
+        end 
+
         add(objects, enemy)
     end, 
 }

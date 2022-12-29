@@ -23,15 +23,26 @@ bee_giant_type = {
         can_move = true
         for k,v in pairs(self.colliding) do
             self.do_damage(self, k)
-            can_move = false
+            if not k.type.is_friendly then 
+                can_move = false
+            end
+            if k.type.is_friendly and k.x>self.x then
+                can_move = false
+            end
         end
 
+        -- bee always buzzes up and down even if it can't move forward
+        self.y=(2*(sin(self.timer/60))+get_lane_y(self.lane_index)+3)
         if can_move then 
+
             self.y=(2*(sin(self.x/30))+get_lane_y(self.lane_index)+3)-5
+
             self.x+=3 
         end
 
         self.timer+=1
+
+        self.colliding = {}
 
         if self.health <=0 then
             del(objects, self)
@@ -63,9 +74,6 @@ function add_bee_giant_at(new_x,new_y,new_lane_index)
         debug=coll
         if coll.type.is_friendly then return end
         coll.health -= 5
-        if coll.health <= 0 then
-            self.colliding[coll] = nil
-        end
     end
     add_shadow(bee_giant,3,14,10,3,5)
     add(objects,bee_giant)
