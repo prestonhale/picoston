@@ -60,7 +60,17 @@ function _update()
 end
 
 function _draw()
+    local foreground = {}
     for obj in all(objects) do
+        -- don't render yet if obj is tagged "foreground"
+        if obj.foreground then 
+            add(foreground, obj) 
+            return
+        end
+        obj:draw()
+    end
+    -- draw foreground objects
+    for obj in all(foreground) do
         obj:draw()
     end
 end
