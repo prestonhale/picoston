@@ -49,6 +49,7 @@ bee_giant_type = {
             del(objects, self)
         end
         move_shadow(self)
+        remove_if_out_of_bounds(self)
     end
 }
 
@@ -69,7 +70,8 @@ function add_bee_giant_at(new_x,new_y,new_lane_index)
         sprite=66,
         type=bee_giant_type,
         timer=0,
-        shadow=nil
+        shadow=nil,
+        cost=1
     }
 
     function bee_giant:do_damage(coll)
@@ -79,5 +81,6 @@ function add_bee_giant_at(new_x,new_y,new_lane_index)
     end
     add_shadow(bee_giant,3,14,10,3,5)
     add(objects,bee_giant)
+    points-=bee_giant.cost
     
 end
