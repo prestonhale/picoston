@@ -18,8 +18,6 @@ objects = {}
 
 speed = 1
 
-debug = "no debug"
-
 SPAWN_FUNCTIONS = {
     add_ostrich_in_lane,
     add_bee_giant_in_lane,

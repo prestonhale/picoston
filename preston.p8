@@ -88,7 +88,10 @@ ui = {
 
         if btnp(4) then
             local spawn_function = SPAWN_FUNCTIONS[self.selected_button]
-            spawn_function(self.selected_lane)
+            no_spawn = spawn_function(self.selected_lane)
+            if no_spawn then
+                self.buttons[self.selected_button].can_spawn = no_spawn       
+            end
         end
     end,
 

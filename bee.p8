@@ -10,7 +10,8 @@ bee_giant={
     health = 100,
     colliding = {},
     sprite=66,
-    timer=0
+    timer=0,
+    cost=1
 }
 
 
@@ -69,26 +70,26 @@ function bee_giant:update()
 end
     
 function bee_giant:do_damage(coll)
-    debug=coll
     if coll.is_friendly then return end
     coll.health -= 5
 end
 
 
 function add_bee_giant_in_lane(lane_index)
-    if bee_giant_type.cost <= points then
+    if bee_giant.cost <= points then
         new_y=get_lane_y(lane_index)
         new_x=5
         add_bee_giant_at(new_x,new_y,lane_index)
+        points -= 1
         return 0
     else
-        return bee_giant_type.cost
+        return bee_giant.cost
     end
 end
 
 
 function add_bee_giant_at(new_x,new_y,new_lane_index)
-    bee_giant = bee_giant:new()
+    local bee_giant = bee_giant:new()
     bee_giant.x = new_x
     bee_giant.y = new_y
     bee_giant.lane_index = new_lane_index

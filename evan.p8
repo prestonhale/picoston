@@ -17,6 +17,6 @@ scoreboard = {
 }
 
 function init_evan(objects)
-    points = 0
+    points = 1
     add(objects, scoreboard)
 end
