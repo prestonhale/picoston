@@ -3,39 +3,33 @@ version 38
 __lua__
 
 ------------------
---- shadow obj ---
+--- shadow code ---
 ------------------
 
-shadow_type={
-    update=function(self)end,
-    draw=function(self)end
-}
-
 function add_shadow(obj,x_offset,y_offset,w,h,col)
-    shadow={
+    shadow_obj={
         x=obj.x+x_offset,
         y=obj.y+y_offset,
         xoff=x_offset,
         yoff=y_offset,
         width=w,
         height=h,
-        parent=obj,
-        color=col,
-        type=shadow_type
+        color=col
     }
-    add(objects,shadow)
+    obj.shadow=shadow_obj
 end
 
-shadow_type.update=function(self)
-    if self.parent!=nil then
-        self.x=self.parent.x+self.xoff
-    else
-        del(objects,self)
+function draw_shadow(obj)
+    if obj.shadow!=nil then
+        ovalfill(obj.shadow.x,obj.shadow.y,obj.shadow.x+obj.shadow.width,obj.shadow.y+obj.shadow.height,obj.shadow.color)
     end
 end
 
-shadow_type.draw=function(self)
-    ovalfill(self.x,self.y,self.x+self.width,self.y+self.height,self.color)
+function move_shadow(obj)
+    if obj.shadow!=nil then
+        obj.shadow.x=obj.x
+        obj.shadow.x=obj.x+obj.shadow.xoff
+    end
 end
 
 --------------------
@@ -66,9 +60,10 @@ function add_elephant_at(new_x,new_y,new_lane_index)
         curr_stomp_t=0,
         stomp_t_increase=true,
         anim_t=5,
-        curr_anim_t=0
+        curr_anim_t=0,
+        shadow=nil
     }
-    add_shadow(elephant,0,12,15,5,5)
+    add_shadow(elephant,1,13,13,4,5)
     add(objects,elephant)
 end
 
@@ -99,9 +94,11 @@ elephant_type.update=function(self)
         end
     end
     remove_if_out_of_bounds(self)
+    move_shadow(self)
 end
 
 elephant_type.draw=function(self)
+    draw_shadow(self)
     spr(self.sprite,self.x,self.y,self.width,self.height)
 end
 
