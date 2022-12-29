@@ -31,12 +31,15 @@ ui = {
             x=x,
             y=y,
             highlighted = false,
+            animal_type = ANIMALS[num],
             draw = function(self)
                 local button_size = button_size
                 local button_offset = 0
                 local animal_size = 8
                 local rect_color = ORANGE
+                local sprite_offset = {x=2, y=1}
                 if self.highlighted then
+                    sprite_offset = {x=0, y=0}
                     button_size = button_size + button_grow
                     button_offset = button_grow
                     animal_size = 16
@@ -48,7 +51,7 @@ ui = {
                         PURPLE
                     )
                 end                   
-                if ANIMAL_COST[num] > points then
+                if self.animal_type.cost > points then
                     rect_color = DARK_GREY
                 end
                 rectfill(
@@ -62,7 +65,7 @@ ui = {
                     ((animal_sprites[num] % 16)*8),
                     (flr(animal_sprites[num] / 16)*8),
                     16,16,
-                    self.x-button_offset+1,self.y-button_offset+1,
+                    self.x-button_offset+sprite_offset.x,self.y-button_offset+sprite_offset.y,
                     animal_size,animal_size
                 )   
             end
@@ -103,8 +106,7 @@ ui = {
         end
 
         if btnp(4) then
-            local spawn_function = SPAWN_FUNCTIONS[self.selected_button]
-            no_spawn = spawn_function(self.selected_lane)
+            no_spawn = add_in_lane(ANIMALS[self.selected_button], self.selected_lane)
             if no_spawn then
                 self.buttons[self.selected_button].can_spawn = no_spawn       
             end

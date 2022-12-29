@@ -2,7 +2,8 @@ pico-8 cartridge // http://www.pico-8.com
 version 38
 __lua__
 
-bee_giant={ 
+
+bee_giant=animal:new{ 
     x=0,
     y=0,
     is_friendly=true,
@@ -14,15 +15,6 @@ bee_giant={
     cost=1,
     pwidth=10
 }
-
-
-function bee_giant:new(obj)
-    obj = obj or {}
-    setmetatable(obj, self)
-    self.__index = self
-    return obj
-end
-
 
 function bee_giant:draw()
     sspr(((self.sprite% 16)*8), (flr(self.sprite/16)*8),16,16,self.x,self.y,8,8)
@@ -66,33 +58,4 @@ function bee_giant:update()
     end
 
     remove_if_out_of_bounds(self)
-end
-    
-function bee_giant:do_damage(coll)
-    if coll.is_friendly then return end
-    coll.health -= 5
-end
-
-
-function add_bee_giant_in_lane(lane_index)
-    if bee_giant.cost <= points then
-        new_y=get_lane_y(lane_index)
-        new_x=5
-        add_bee_giant_at(new_x,new_y,lane_index)
-        points -= 1
-        return 0
-    else
-        return bee_giant.cost
-    end
-end
-
-
-function add_bee_giant_at(new_x,new_y,new_lane_index)
-    local bee_giant = bee_giant:new()
-    bee_giant.x = new_x
-    bee_giant.y = new_y
-    bee_giant.lane_index = new_lane_index
-    bee_giant.collider = collider:new()
-    add_shadow(bee_giant,3,14,10,3,5)
-    add(objects,bee_giant)
 end
