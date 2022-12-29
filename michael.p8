@@ -479,5 +479,5 @@ function init_michael(objects)
     for gate in all(gates) do
         add(objects,gate)
     end
-    add(objects,wind_machine)
+    --add(objects,wind_machine)
 end
