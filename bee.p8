@@ -44,8 +44,14 @@ function bee_giant:update()
 
         self.y=(2*(sin(self.x/30))+get_lane_y(self.lane_index)+3)+1
 
-        self.x+=3 
+        
     end
+    if not can_move then 
+        self.x+=1
+    else
+        self.x+=3
+    end    
+
 
     self.timer+=1
 
