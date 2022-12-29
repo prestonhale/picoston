@@ -32,7 +32,8 @@ animal = {
     shadow=nil,
     is_friendly=true,
     cost=0,
-    pwidth=0
+    pwidth=0,
+    dmg=1
 }
 
 function animal:new(obj)
@@ -46,6 +47,10 @@ function animal:draw()
     spr(self.sprite,self.x,self.y,self.width,self.height)
 end
 
+function animal:do_damage(coll)
+    if coll.is_friendly then return end
+    coll.health -= self.dmg
+end
 
 function add_in_lane(animal_type, lane_index)
     if animal_type.cost <= points then

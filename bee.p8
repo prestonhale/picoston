@@ -59,8 +59,3 @@ function bee_giant:update()
 
     remove_if_out_of_bounds(self)
 end
-    
-function bee_giant:do_damage(coll)
-    if coll.is_friendly then return end
-    coll.health -= 5
-end
