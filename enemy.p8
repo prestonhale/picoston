@@ -16,6 +16,7 @@ enemy_type = {
     end,
 
     update = function(self)
+        local can_move=true
         for k,v in pairs(self.colliding) do
             self.do_damage(self, k)
             if k.type.is_friendly then 

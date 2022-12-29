@@ -20,7 +20,7 @@ bee_giant_type = {
         end
     end,
     update = function(self)
-        can_move = true
+        local can_move = true
         for k,v in pairs(self.colliding) do
             self.do_damage(self, k)
             if not k.type.is_friendly then 
