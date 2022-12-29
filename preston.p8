@@ -16,7 +16,7 @@ button_size = 10
 lane_y_starts = {20,33,48,65,84}
 lane_heights = {12,14,16,18,20}
 
-animal_sprites={64,66,3,66,66}
+animal_sprites={64,66,3,98,66}
 
 ui = {
     x=0,
