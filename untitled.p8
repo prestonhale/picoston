@@ -20,20 +20,12 @@ objects = {}
 
 speed = 1
 
-SPAWN_FUNCTIONS = {
-    add_ostrich_in_lane,
-    add_bee_giant_in_lane,
-    add_elephant_in_lane,
-    add_bee_giant_in_lane,
-    add_bee_giant_in_lane
-}
-
-ANIMAL_COST = {
-    0,
-    1,
-    4,
-    0,
-    0
+ANIMALS = {
+    ostrich,
+    bee_giant,
+    elephant,
+    bee_giant,
+    bee_giant
 }
 
 LANE_Y_VALUES = {

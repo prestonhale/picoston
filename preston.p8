@@ -29,6 +29,7 @@ ui = {
             x=x,
             y=y,
             highlighted = false,
+            animal_type = ANIMALS[num],
             draw = function(self)
                 rectfill(
                     self.x, 
@@ -46,7 +47,7 @@ ui = {
                         PURPLE
                     )
                 end
-                if ANIMAL_COST[num] > points then
+                if self.animal_type.cost > points then
                     rectfill(self.x, 
                     self.y, 
                     self.x+button_size, 
@@ -54,7 +55,7 @@ ui = {
                     5)
                 end
                 sspr(((animal_sprites[num]% 16)*8),(flr(animal_sprites[num]/16)*8),16,16,self.x+1,self.y+1,8,8)                    
-                if self.highlighted and ANIMAL_COST[num] <= points then
+                if self.highlighted and self.animal_type.cost <= points then
                     sspr(((animal_sprites[num]% 16)*8),(flr(animal_sprites[num]/16)*8),16,16,self.x-3,self.y-3,16,16)   
                 end
             end
@@ -95,8 +96,7 @@ ui = {
         end
 
         if btnp(4) then
-            local spawn_function = SPAWN_FUNCTIONS[self.selected_button]
-            no_spawn = spawn_function(self.selected_lane)
+            no_spawn = add_in_lane(ANIMALS[self.selected_button], self.selected_lane)
             if no_spawn then
                 self.buttons[self.selected_button].can_spawn = no_spawn       
             end
