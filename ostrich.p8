@@ -46,9 +46,12 @@ end
 
 function add_ostrich_in_lane(lane_index)
     ostrich = ostrich:new()
+    ostrich.collider=collider:new()
     ostrich.y=get_lane_y(lane_index)
     ostrich.x=5
     ostrich.lane_index=lane_index
     add_ostrich_at(new_x,new_y,lane_index)
     add(objects,ostrich)
+    
+
 end
