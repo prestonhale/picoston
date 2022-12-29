@@ -367,8 +367,7 @@ wind_type.update = function(self)
             air={
                 x=self.check_x,
                 y=self.check_y,
-                death_t=10,
-                type=air_type
+                death_t=10
             }
             add(self.air_particles,air)
         end
@@ -381,8 +380,7 @@ wind_type.update = function(self)
                 air={
                     x=self.origin_x+cos(self.check_angle)*self.radius,
                     y=self.origin_y+sin(self.check_angle)*self.radius,
-                    death_t=10,
-                    type=air_type
+                    death_t=10
                 }
                 add(self.air_particles,air)
             end
