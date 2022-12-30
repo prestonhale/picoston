@@ -109,14 +109,14 @@ ui = {
             -- don't spawn animal if something is already in the spawning space
             open_space = true
             for obj in all(objects) do
-                if obj.lane_index != nil and obj.lane_index == self.selected_lane and obj.x < 14 then
+                if obj.lane_index != nil and obj.lane_index == self.selected_lane and obj.x < 16 then
                     open_space = false
                 end
             end
             if open_space then
                 no_spawn = add_in_lane(ANIMALS[self.selected_button], self.selected_lane)
             end
-            
+
             if no_spawn then
                 self.buttons[self.selected_button].can_spawn = no_spawn       
             end
