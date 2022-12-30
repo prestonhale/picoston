@@ -113,8 +113,10 @@ blue_whale=animal:new{
     sprite=102,
     timer=0,
     is_friendly=true,
-    pwidth=9,
-    cost=1,
+    pwidth=128,
+    cost=0,
+    dmg=999,
+    speed=1
     
 }
 
@@ -133,7 +135,9 @@ function blue_whale:draw()
         elseif self.sprite==102 then
             self.sprite=102        
         end
+        self.speed+=3
         self.timer=0 
+        self.x+=self.speed
     end
 end
 
