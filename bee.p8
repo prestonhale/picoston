@@ -30,7 +30,7 @@ end
 function bee_giant:update()
     local can_move = true
     for k,v in pairs(self.collider.colliding_with) do
-        if not k.is_friendly then 
+        if not k.is_friendly and not k.is_projectile then 
             can_move = false
         end
         self.do_damage(self,k)
