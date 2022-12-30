@@ -34,7 +34,7 @@ function monkey:draw()
         rect(self.x-5,self.y-5,self.x+6,self.y-3,7)
         length = convert(self.health,0,self.max_health,0,10)
         line(self.x-4,self.y-4,self.x+5,self.y-4,6)
-        line(self.x-4,self.y-4,self.x-4+length,self.y-4,14)
+        line(self.x-4,self.y-4,self.x-4+length,self.y-4,3)
     end
     sspr(((self.sprite% 16)*8), (flr(self.sprite/16)*8),16,16,self.x,self.y,8,8)
     if self.timer==18 then 
@@ -130,8 +130,8 @@ blue_whale=animal:new{
     cost=0,
     dmg=999,
     speed=1,
-    health=10000
-    
+    health=1000000,
+    max_health=1000000
 }
 
 function blue_whale:new(obj)
