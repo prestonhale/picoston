@@ -135,9 +135,17 @@ function bg:draw()
 
     -- lanes
     y_offset=20
+    local lane_spr = 132
+    local sx, sy = get_sprite_coords(lane_spr)
+    sx, sy = (lane_spr % 16) * 8, flr(lane_spr \ 16) * 8
     for i=0,4 do
         for j=0,7 do
-            spr(132,j*16,(i*17)+y_offset,2,3)
+            sspr(
+                sx, sy,
+                16, 16,
+                j*16, lane_y_starts(i+1),
+                16, lane_height
+            )
         end
     end
 end

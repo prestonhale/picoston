@@ -14,8 +14,11 @@ button_buffer = 14
 button_size = 10
 button_grow = 3
 
--- used to help draw lane highlight
-lane_y_starts = {20,37,54,71,88}
+-- Lane is indexed starting at 1
+function lane_y_starts(lane_index)
+    return lane_offset + ((lane_index-1) * lane_height)
+end
+-- lane_y_starts = {20,37,54,71,88}
 
 animal_sprites={64,66,3,98,71}
 
@@ -134,13 +137,50 @@ ui = {
         -- draw lane highlight
         rect(
             0, 
-            lane_y_starts[self.selected_lane], 
+            lane_y_starts(self.selected_lane), 
             20, 
-            lane_y_starts[self.selected_lane]+16, 
+            lane_y_starts(self.selected_lane)+16, 
             7
         )
     end
 }
+
+-------------
+--- Gates ---
+-------------
+gate = {
+    full_health_spr = 134,
+    destroyed_spr = 135,
+    health = 100,
+    is_friendly = false,
+    x=120
+}
+
+function gate:new(obj)
+    obj = obj or {}
+    setmetatable(obj, self)
+    self.__index = self
+    return obj
+end
+
+function gate:update()
+    if self.health <= 0 then self.collider = nil end
+    if self.collider then self.collider:update() end
+end
+
+function gate:draw()
+    local sprite = self.full_health_spr
+    if self.health <= 0 then sprite=self.destroyed_spr end
+    local sx, sy = get_sprite_coords(sprite)
+    sspr(
+        sx, sy,
+        8, 16, 
+        self.x, self.y,
+        8, lane_height
+    )
+    -- TODO: Health bar
+end
+
 
 function init_preston(objects)
     for i=0,4 do
@@ -151,6 +191,13 @@ function init_preston(objects)
             first_button_y
             
         )
+    end
+    for i=0,4 do
+        local gate = gate:new()
+        gate.y = lane_y_starts(i+1)
+        gate.collider = collider:new()
+        gate.lane_index = i+1
+        add(objects, gate)
     end
     add(objects, ui)
     add(objects, enemy_spawner)
