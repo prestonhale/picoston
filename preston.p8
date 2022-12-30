@@ -164,7 +164,8 @@ function gate:new(obj)
 end
 
 function gate:update()
-    self.collider:update()
+    if self.health <= 0 then self.collider = nil end
+    if self.collider then self.collider:update() end
 end
 
 function gate:draw()
