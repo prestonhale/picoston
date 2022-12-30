@@ -170,5 +170,5 @@ function blue_whale:update()
     
     self.timer+=1
     self.collider:update()
-    
+    remove_if_out_of_bounds(self)
 end
