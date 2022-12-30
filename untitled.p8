@@ -1,5 +1,5 @@
 pico-8 cartridge // http://www.pico-8.com
-version 39
+version 38
 __lua__
 #include animal.p8
 #include tyler.p8
@@ -58,7 +58,7 @@ function _update()
         obj:update()
     end
 
-    debug = stat(1)
+    -- debug = stat(1)
 end
 
 function _draw()
@@ -118,7 +118,6 @@ end
 -- temporary to reduce memory leakage
 function remove_if_out_of_bounds(obj)
     if abs(64-obj.x)>80 or abs(64-obj.y)>80 then
-        -- win = true
         del(objects,obj)
     end
 end

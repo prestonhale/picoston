@@ -22,29 +22,31 @@ function init_evan(objects)
 end
 
 
+gates_destroyed = 0
 function check_win()
+    if gates_destroyed >= 5 then
+        win = true
+    end
+    debug = gates_destroyed
     if win == true then
         rectfill(47,47,82,57,3) 
         print('you win!', 50,50,10)
-        enemy_spawner.chance_to_spawn = 0
         points=99
+
+        enemy_spawner.chance_to_spawn = 0
         bee_giant.chance_to_spawn = 0.8
         ostrich.chance_to_spawn = 0.6
         elephant.chance_to_spawn = 0.2
         monkey.chance_to_spawn = 0.5
         blue_whale.chance_to_spawn = 0.02
+
         if frame%5==0 then  
             for animal in all(ANIMALS) do
-                if rnd(1)+.01 <= animal.chance_to_spawn then
+                if rnd(1)+.0001 <= animal.chance_to_spawn then
                     local lane = flr(rnd(5))+1
                     add_in_lane(animal, lane)
                 end
             end    
-       
-            
-            -- local animal = ANIMALS[flr(rnd(4))+1]
-            -- local lane = flr(rnd(5))+1
-            -- add_in_lane(animal, lane)
         end
     end
 end

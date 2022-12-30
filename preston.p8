@@ -154,7 +154,8 @@ gate = {
     health = 100,
     is_friendly = false,
     is_gate = true,
-    x=120
+    x=120,
+    destroyed = false
 }
 
 function gate:new(obj)
@@ -165,7 +166,13 @@ function gate:new(obj)
 end
 
 function gate:update()
-    if self.health <= 0 then self.collider = nil end
+    if self.health <= 0 then
+        if not self.destroyed then
+            gates_destroyed += 1
+        end
+        self.destroyed = true
+        self.collider = nil
+    end
     if self.collider then self.collider:update() end
 end
 
