@@ -61,7 +61,7 @@ function monkey:update()
 end
 
 poop={
-    is_friendly=true,
+    is_projectile=true,
     pwidth=5,  
     dmg=25
 }
@@ -91,7 +91,7 @@ function poop:update()
 end
 
 function poop:do_damage(coll)
-    if coll.is_friendly then return end
+    if coll.is_friendly or coll.is_projectile then return end
     coll.health -= self.dmg
 end
 
