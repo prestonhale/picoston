@@ -103,3 +103,50 @@ function new_poop(new_x,lane_index)
     poop.collider = collider:new()
     add(objects,poop)
 end
+
+------------------------------------------------
+
+blue_whale=animal:new{ 
+    x=new_x,
+    y=new_y,
+    sprite=102,
+    timer=0,
+    is_friendly=true,
+    pwidth=9,
+    cost=1,
+    
+}
+
+function blue_whale:new(obj)
+    obj = obj or {}
+    setmetatable(obj, self)
+    self.__index = self
+    return obj
+end
+
+function blue_whale:draw()
+    sspr(((self.sprite% 16)*8), (flr(self.sprite/16)*8),48,16,self.x,self.y-12,140,32)
+    if self.timer==18 then 
+        if self.sprite==102 then
+            self.sprite=102
+        elseif self.sprite==102 then
+            self.sprite=102        
+        end
+        self.timer=0 
+    end
+end
+
+function blue_whale:update()
+    local can_move = self.collider:can_move(self)
+    
+    if can_move then
+        
+    end
+    
+   
+
+    self.y=.5*(sin(self.x/40))+get_lane_y(self.lane_index)+8
+    self.timer+=1
+    self.collider:update()
+    
+end
