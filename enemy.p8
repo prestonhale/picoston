@@ -49,7 +49,7 @@ function enemy:update()
     end
 
     if can_move then
-        self.x -= 1
+        self.x -= 0.5
     end
 
     self.y = get_lane_y(self.lane_index)+3
@@ -92,7 +92,7 @@ end
 
 enemy_spawner = {
     -- config
-    chance_to_spawn = 0.03,
+    chance_to_spawn = 0.02,
     enemy_sprite = 128,
 
     -- state
@@ -100,7 +100,7 @@ enemy_spawner = {
     update = function(self)
         self.time_since_spawn +=1
 
-        if self.time_since_spawn < 10 then -- don't spawn too fast
+        if self.time_since_spawn < 20 then -- don't spawn too fast
             return
         end 
 

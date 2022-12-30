@@ -45,7 +45,7 @@ function bee_giant:update()
     if not can_move then 
         self.x+=1
     else
-        self.x+=3
+        self.x+=2
     end    
 
 

@@ -42,7 +42,7 @@ function elephant:update()
         self.curr_stomp_t+=1
         self.curr_anim_t+=1
         if can_move then
-            self.x+=1
+            self.x+=0.5
         end
         if self.curr_stomp_t>=self.stomp_t then
             self.curr_stomp_t=self.stomp_t

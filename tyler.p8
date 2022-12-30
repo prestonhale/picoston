@@ -54,7 +54,7 @@ function monkey:update()
     local can_move = self.collider:can_move(self)
     self.poopagain_t+=1
     if can_move then
-        self.x+=1
+        self.x+=0.5
     end
     if not can_move and not self.poop then
         new_poop(self.x,self.lane_index)
