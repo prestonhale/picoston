@@ -15,8 +15,7 @@ button_size = 10
 button_grow = 3
 
 -- used to help draw lane highlight
-lane_y_starts = {20,33,48,65,84}
-lane_heights = {12,14,16,18,20}
+lane_y_starts = {20,37,54,71,88}
 
 animal_sprites={64,66,3,98,71}
 
@@ -106,7 +105,21 @@ ui = {
         end
 
         if btnp(4) then
-            no_spawn = add_in_lane(ANIMALS[self.selected_button], self.selected_lane)
+
+            -- don't spawn animal if something is already in the spawning space
+            open_space = true
+            for obj in all(objects) do
+                if obj.lane_index != nil and obj.lane_index == self.selected_lane and obj.x < 12 then
+                    -- bees and blue whales will ignore this check
+                    if animal_sprites[self.selected_button] != 71 and animal_sprites[self.selected_button] != 66 then
+                        open_space = false
+                    end
+                end
+            end
+            if open_space then
+                no_spawn = add_in_lane(ANIMALS[self.selected_button], self.selected_lane)
+            end
+
             if no_spawn then
                 self.buttons[self.selected_button].can_spawn = no_spawn       
             end
@@ -123,7 +136,7 @@ ui = {
             0, 
             lane_y_starts[self.selected_lane], 
             20, 
-            lane_y_starts[self.selected_lane]+lane_heights[self.selected_lane], 
+            lane_y_starts[self.selected_lane]+16, 
             7
         )
     end

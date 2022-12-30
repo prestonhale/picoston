@@ -49,7 +49,7 @@ function enemy:update()
     end
 
     if can_move then
-        self.x -= 1
+        self.x -= 0.5
     end
 
     self.y = get_lane_y(self.lane_index)+3
@@ -80,7 +80,10 @@ end
 function enemy:draw()
     if self.health<100 then
         rect(self.x+4,self.y-5,self.x+15,self.y-3,7)
-        length = convert(self.health,0,self.max_health,0,10)
+        length = convert(self.health,0,self.max_health,0,9)
+        if length < 0 then
+            length=0
+        end
         line(self.x+5,self.y-4,self.x+14,self.y-4,6)
         line(self.x+5,self.y-4,self.x+5+length,self.y-4,8)
     end
@@ -89,7 +92,7 @@ end
 
 enemy_spawner = {
     -- config
-    chance_to_spawn = 0.03,
+    chance_to_spawn = 0.02,
     enemy_sprite = 128,
 
     -- state
@@ -97,7 +100,7 @@ enemy_spawner = {
     update = function(self)
         self.time_since_spawn +=1
 
-        if self.time_since_spawn < 10 then -- don't spawn too fast
+        if self.time_since_spawn < 20 then -- don't spawn too fast
             return
         end 
 

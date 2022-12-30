@@ -2,37 +2,6 @@ pico-8 cartridge // http://www.pico-8.com
 version 38
 __lua__
 
-------------------
---- shadow code ---
-------------------
-
-function add_shadow(obj,x_offset,y_offset,w,h,col)
-    shadow_obj={
-        x=obj.x+x_offset,
-        y=get_lane_y(obj.lane_index)+y_offset,
-        xoff=x_offset,
-        yoff=y_offset,
-        width=w,
-        height=h,
-        color=col
-    }
-    obj.shadow=shadow_obj
-end
-
-function draw_shadow(obj)
-    if obj.shadow!=nil then
-        ovalfill(obj.shadow.x,obj.shadow.y,obj.shadow.x+obj.shadow.width,obj.shadow.y+obj.shadow.height,obj.shadow.color)
-    end
-end
-
-function move_shadow(obj)
-    if obj.shadow!=nil then
-        obj.shadow.x=obj.x
-        obj.shadow.x=obj.x+obj.shadow.xoff
-    end
-end
-
-
 -----------------
 --- grass obj ---
 -----------------
@@ -155,40 +124,21 @@ bg={
     update=function(self)end
 }
 
-bg.draw = function(self)
+function bg:draw()
+
     cls(0)
-    rectfill(0,0,127,20,12)
+
+    -- sky and sun
+    rectfill(0,0,127,19,12)
     line(0,19,127,19,10)
-    circfill(80,19,10,10)
+    circfill(85,18,10,10)
 
-    swap=-1
-    x_val=22
-    y_val=13
-    x_offset=-1
+    -- lanes
     y_offset=20
-
     for i=0,4 do
-        for j=0,6 do
-            if swap==-1 then
-                rectfill(
-                    (j*x_val)+x_offset,
-                    (i*y_val)+y_offset-i,
-                    (j*x_val)+x_val-1+x_offset,
-                    (i*y_val)+y_val+y_offset-1,
-                    11
-                )
-            else
-                rectfill(
-                    (j*x_val)+x_offset,
-                    (i*y_val)+y_offset-i,
-                    (j*x_val)+x_val-1+x_offset,
-                    (i*y_val)+y_val+y_offset-1,
-                    3
-                )
-            end
-            swap*=-1
+        for j=0,7 do
+            spr(132,j*16,(i*17)+y_offset,2,3)
         end
-        y_val+=1
     end
 end
 

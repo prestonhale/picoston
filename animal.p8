@@ -51,6 +51,5 @@ function add_at(animal_type,new_x,new_y,new_lane_index)
     new_animal.y = new_y
     new_animal.lane_index = new_lane_index
     new_animal.collider = collider:new()
-    add_shadow(new_animal,3,14,10,3,5)
     add(objects,new_animal)
 end

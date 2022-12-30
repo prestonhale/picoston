@@ -32,7 +32,10 @@ end
 function monkey:draw()
     if self.health<self.max_health then
         rect(self.x-5,self.y-5,self.x+6,self.y-3,7)
-        length = convert(self.health,0,self.max_health,0,10)
+        length = convert(self.health,0,self.max_health,0,9)
+        if length < 0 then
+            length=0
+        end
         line(self.x-4,self.y-4,self.x+5,self.y-4,6)
         line(self.x-4,self.y-4,self.x-4+length,self.y-4,3)
     end
@@ -51,7 +54,7 @@ function monkey:update()
     local can_move = self.collider:can_move(self)
     self.poopagain_t+=1
     if can_move then
-        self.x+=1
+        self.x+=0.5
     end
     if not can_move and not self.poop then
         new_poop(self.x,self.lane_index)
@@ -164,8 +167,8 @@ function blue_whale:update()
     
    
 
-    self.y=.5*(sin(self.x/40))+get_lane_y(self.lane_index)+8
+    
     self.timer+=1
     self.collider:update()
-    
+    remove_if_out_of_bounds(self)
 end
