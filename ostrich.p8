@@ -9,7 +9,8 @@ ostrich=animal:new{
     timer=0,
     is_friendly=true,
     cost=1,
-    pwidth=6
+    pwidth=6,
+    dmg=2
 }
 
 function ostrich:draw()
@@ -26,6 +27,11 @@ end
 
 function ostrich:update()
     local can_move = self.collider:can_move(self)
+
+    for k,v in pairs(self.collider.colliding_with) do
+        self.do_damage(self,k)
+    end
+
     if can_move then
         self.x+=1
     end

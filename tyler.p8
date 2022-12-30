@@ -63,7 +63,7 @@ end
 poop={
     is_friendly=true,
     pwidth=5,  
-    dmg=10
+    dmg=25
 }
 
 function poop:new(obj)
