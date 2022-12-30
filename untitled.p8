@@ -20,6 +20,8 @@ __lua__
 
 objects = {}
 
+win = true
+
 speed = 1
 
 ANIMALS = {
@@ -71,6 +73,7 @@ function _draw()
     end
     print(debug)
     print(#objects)
+    check_win()
 end
 
 function check_collisions()
@@ -109,6 +112,7 @@ end
 -- temporary to reduce memory leakage
 function remove_if_out_of_bounds(obj)
     if abs(64-obj.x)>80 or abs(64-obj.y)>80 then
+        win = true
         del(objects,obj)
     end
 end

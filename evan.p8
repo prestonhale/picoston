@@ -12,10 +12,21 @@ scoreboard = {
     end,
     draw = function(self)
         spr(192, 0, 105, 2, 2)
+        print(points, 4, 108)
     end
 }
 
 function init_evan(objects)
     points = 1
     add(objects, scoreboard)
+end
+
+
+function check_win()
+    if win == true then 
+        print('you win!', 50,50,10)
+        --100 times
+        --randomly select lane
+        --randomly select animal
+    end
 end
