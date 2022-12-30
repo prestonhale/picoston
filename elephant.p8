@@ -27,7 +27,7 @@ function elephant:draw()
         rect(self.x+2,self.y-5,self.x+13,self.y-3,7)
         length = convert(self.health,0,self.max_health,0,10)
         line(self.x+3,self.y-4,self.x+12,self.y-4,6)
-        line(self.x+3,self.y-4,self.x+3+length,self.y-4,14)
+        line(self.x+3,self.y-4,self.x+3+length,self.y-4,3)
     end
     spr(self.sprite,self.x,self.y,self.width,self.height)
 end
