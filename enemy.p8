@@ -43,7 +43,7 @@ function enemy:update()
         if k.is_friendly then 
             can_move = false
         end
-        if not k.is_friendly and k.x<self.x then
+        if not k.is_friendly and k.x<self.x and not k.is_gate then
             can_move = false
         end
     end

@@ -153,6 +153,7 @@ gate = {
     destroyed_spr = 135,
     health = 100,
     is_friendly = false,
+    is_gate = true,
     x=120
 }
 
