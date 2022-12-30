@@ -11,8 +11,8 @@ ostrich=animal:new{
     cost=1,
     pwidth=6,
     dmg=2,
-    health=100,
-    max_health=100
+    health=90,
+    max_health=90
 }
 
 function ostrich:draw()
