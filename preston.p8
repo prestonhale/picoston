@@ -15,8 +15,7 @@ button_size = 10
 button_grow = 3
 
 -- used to help draw lane highlight
-lane_y_starts = {20,33,48,65,84}
-lane_heights = {12,14,16,18,20}
+lane_y_starts = {20,37,54,71,88}
 
 animal_sprites={64,66,3,98,71}
 
@@ -123,7 +122,7 @@ ui = {
             0, 
             lane_y_starts[self.selected_lane], 
             20, 
-            lane_y_starts[self.selected_lane]+lane_heights[self.selected_lane], 
+            lane_y_starts[self.selected_lane]+16, 
             7
         )
     end

@@ -156,39 +156,20 @@ bg={
 }
 
 bg.draw = function(self)
+
     cls(0)
-    rectfill(0,0,127,20,12)
+
+    -- sky and sun
+    rectfill(0,0,127,19,12)
     line(0,19,127,19,10)
-    circfill(80,19,10,10)
+    circfill(85,18,10,10)
 
-    swap=-1
-    x_val=22
-    y_val=13
-    x_offset=-1
+    -- lanes
     y_offset=20
-
     for i=0,4 do
-        for j=0,6 do
-            if swap==-1 then
-                rectfill(
-                    (j*x_val)+x_offset,
-                    (i*y_val)+y_offset-i,
-                    (j*x_val)+x_val-1+x_offset,
-                    (i*y_val)+y_val+y_offset-1,
-                    11
-                )
-            else
-                rectfill(
-                    (j*x_val)+x_offset,
-                    (i*y_val)+y_offset-i,
-                    (j*x_val)+x_val-1+x_offset,
-                    (i*y_val)+y_val+y_offset-1,
-                    3
-                )
-            end
-            swap*=-1
+        for j=0,7 do
+            spr(132,j*16,(i*17)+y_offset,2,3)
         end
-        y_val+=1
     end
 end
 

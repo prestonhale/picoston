@@ -19,6 +19,9 @@ function ostrich:draw()
     if self.health<self.max_health then
         rect(self.x-5,self.y-5,self.x+6,self.y-3,7)
         length = convert(self.health,0,self.max_health,0,10)
+        if length < 0 then
+            length=0
+        end
         line(self.x-4,self.y-4,self.x+5,self.y-4,6)
         line(self.x-4,self.y-4,self.x-4+length,self.y-4,3)
     end

@@ -81,6 +81,9 @@ function enemy:draw()
     if self.health<100 then
         rect(self.x+4,self.y-5,self.x+15,self.y-3,7)
         length = convert(self.health,0,self.max_health,0,10)
+        if length < 0 then
+            length=0
+        end
         line(self.x+5,self.y-4,self.x+14,self.y-4,6)
         line(self.x+5,self.y-4,self.x+5+length,self.y-4,8)
     end

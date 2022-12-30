@@ -26,6 +26,9 @@ function elephant:draw()
     if self.health<self.max_health then
         rect(self.x+2,self.y-5,self.x+13,self.y-3,7)
         length = convert(self.health,0,self.max_health,0,10)
+        if length < 0 then
+            length=0
+        end
         line(self.x+3,self.y-4,self.x+12,self.y-4,6)
         line(self.x+3,self.y-4,self.x+3+length,self.y-4,3)
     end
