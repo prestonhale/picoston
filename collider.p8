@@ -24,11 +24,12 @@ end
 function collider:can_move(obj)
     local can_move = true
     for k,v in pairs(self.colliding_with) do
-        if not k.is_friendly then 
-            can_move = false
-        end
         if k.is_friendly and k.x>obj.x then
             can_move = false
+        end
+        if not k.is_friendly and not k.is_projectile then 
+            can_move = false
+            k.health-=obj.dmg
         end
     end
     return can_move

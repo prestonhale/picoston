@@ -9,7 +9,8 @@ ostrich=animal:new{
     timer=0,
     is_friendly=true,
     cost=1,
-    pwidth=6
+    pwidth=6,
+    dmg=2
 }
 
 function ostrich:draw()

@@ -16,11 +16,13 @@ elephant=animal:new{
     shadow=nil,
     is_friendly=true,
     cost=4,
-    pwidth=16
+    pwidth=16,
+    dmg=0.1
 }
 
 function elephant:update()
     local can_move = self.collider:can_move(self)
+
     if self.stomp_t_increase then
         self.curr_stomp_t+=1
         self.curr_anim_t+=1

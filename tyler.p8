@@ -16,7 +16,8 @@ monkey=animal:new{
     cost=1,
     poop=false,
     poopagain_t=0,
-    poopagain_t_max=25
+    poopagain_t_max=25,
+    dmg=0
 }
 
 function monkey:new(obj)
@@ -61,9 +62,9 @@ function monkey:update()
 end
 
 poop={
-    is_friendly=true,
+    is_projectile=true,
     pwidth=5,  
-    dmg=10
+    dmg=25
 }
 
 function poop:new(obj)
@@ -91,7 +92,7 @@ function poop:update()
 end
 
 function poop:do_damage(coll)
-    if coll.is_friendly then return end
+    if coll.is_friendly or coll.is_projectile then return end
     coll.health -= self.dmg
 end
 
