@@ -14,7 +14,6 @@ enemy = {
 
     -- not static ---
     sprite = 128,
-    colliding = {},
     health=100,
     x=127,
     y=0,
@@ -26,6 +25,7 @@ function enemy:new(e)
     e = e or {}
     setmetatable(e, self)
     self.__index = self
+    e.colliding = {}
     return e
 end
 
@@ -104,9 +104,9 @@ enemy_spawner = {
     draw = function(self)
     end,
     spawn_enemy = function(self)
-        local e = {lane_index = flr(rnd(5))+1}
-        e = enemy:new(e)
+        e = enemy:new()
         e.collider = collider:new()
+        e.lane_index = flr(rnd(5)+1)
         add(objects, e)
     end
 }

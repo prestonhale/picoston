@@ -46,7 +46,6 @@ function add_in_lane(animal_type, lane_index)
 end
 
 function add_at(animal_type,new_x,new_y,new_lane_index)
-   
     local new_animal = animal_type:new()
     new_animal.x = new_x
     new_animal.y = new_y

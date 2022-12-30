@@ -3,13 +3,13 @@ version 38
 __lua__
 
 collider = {
-    colliding_with = {}
 }
 
 function collider:new(obj)
-    obj = obj or {}
+    obj = {} or obj
     setmetatable(obj, self)
     self.__index = self
+    obj.colliding_with = {}
     return obj
 end
 

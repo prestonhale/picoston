@@ -51,6 +51,8 @@ function _update()
     for obj in all(objects) do
         obj:update()
     end
+
+    debug = stat(0)
 end
 
 function _draw()
@@ -67,7 +69,7 @@ function _draw()
     for obj in all(foreground) do
         obj:draw()
     end
-    print(poop,0,0)
+    print(debug)
 end
 
 function check_collisions()

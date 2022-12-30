@@ -52,19 +52,10 @@ function monkey:update()
     remove_if_out_of_bounds(self)
 end
 
-function add_monkey_in_lane(lane_index)
-    local monkey = monkey:new()
-    monkey.collider=collider:new()
-    monkey.y=get_lane_y(lane_index)
-    monkey.x=5
-    monkey.lane_index=lane_index
-    monkey.collider = collider:new()
-    add(objects,monkey)
-    
+poop={
+    is_friendly=true
+}
 
-end
-
-poop={}
 function poop:new(obj)
     obj = obj or {}
     setmetatable(obj, self)
@@ -78,11 +69,11 @@ end
 
 function poop:update()
    self.x+=1
+   self.collider:update()
 end
 
 function new_poop(new_x,lane_index)
     local poop = poop:new()
-    poop.collider=collider:new()
     poop.y=get_lane_y(lane_index)
     poop.x=new_x
     poop.lane_index=lane_index

@@ -12,7 +12,6 @@ scoreboard = {
     end,
     draw = function(self)
         spr(192, 0, 105, 2, 2)
-        print(points, 4, 108, 7)
     end
 }
 
