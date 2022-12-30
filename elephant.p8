@@ -23,10 +23,6 @@ elephant=animal:new{
 function elephant:update()
     local can_move = self.collider:can_move(self)
 
-    for k,v in pairs(self.collider.colliding_with) do
-        self.do_damage(self,k)
-    end
-
     if self.stomp_t_increase then
         self.curr_stomp_t+=1
         self.curr_anim_t+=1

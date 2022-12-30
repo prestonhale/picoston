@@ -29,6 +29,7 @@ function collider:can_move(obj)
         end
         if not k.is_friendly and not k.is_projectile then 
             can_move = false
+            k.health-=obj.dmg
         end
     end
     return can_move

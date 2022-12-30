@@ -16,7 +16,8 @@ monkey=animal:new{
     cost=1,
     poop=false,
     poopagain_t=0,
-    poopagain_t_max=25
+    poopagain_t_max=25,
+    dmg=0
 }
 
 function monkey:new(obj)
