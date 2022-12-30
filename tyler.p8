@@ -129,7 +129,8 @@ blue_whale=animal:new{
     pwidth=128,
     cost=0,
     dmg=999,
-    speed=1
+    speed=1,
+    health=10000
     
 }
 
@@ -163,7 +164,7 @@ function blue_whale:update()
     
    
 
-    self.y=.5*(sin(self.x/40))+get_lane_y(self.lane_index)+8
+    
     self.timer+=1
     self.collider:update()
     
