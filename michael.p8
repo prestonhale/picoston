@@ -155,7 +155,7 @@ bg={
     update=function(self)end
 }
 
-bg.draw = function(self)
+function bg:draw()
 
     cls(0)
 
