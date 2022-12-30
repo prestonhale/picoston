@@ -129,8 +129,9 @@ blue_whale=animal:new{
     pwidth=128,
     cost=0,
     dmg=999,
-    speed=1
-    
+    speed=1,
+    health=1000000,
+    max_health=1000000
 }
 
 function blue_whale:new(obj)
