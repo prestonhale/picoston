@@ -52,7 +52,7 @@ function _update()
         obj:update()
     end
 
-    debug = stat(0)
+    debug = stat(1)
 end
 
 function _draw()
