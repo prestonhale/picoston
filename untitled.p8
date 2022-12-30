@@ -20,7 +20,8 @@ __lua__
 
 objects = {}
 
-win = true
+win = false
+frame = 0
 
 speed = 1
 
@@ -47,6 +48,7 @@ function _init()
 end
 
 function _update()
+    frame+=1
     check_collisions()
 
     for obj in all(objects) do
@@ -68,7 +70,7 @@ function _draw()
     for obj in all(foreground) do
         obj:draw()
     end
-    print(#objects)
+    print(debug)
     check_win()
 end
 
@@ -108,10 +110,11 @@ end
 -- temporary to reduce memory leakage
 function remove_if_out_of_bounds(obj)
     if abs(64-obj.x)>80 or abs(64-obj.y)>80 then
-        win = true
+        -- win = true
         del(objects,obj)
     end
 end
+
 __gfx__
 00000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000000008888880000005444400
 0000000000000000000000000000000dd6600000eae000000000000000000000000000000000000000000000000000000000000000088888888880005f444400

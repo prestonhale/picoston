@@ -32,5 +32,8 @@ function collider:can_move(obj)
             k.health-=obj.dmg
         end
     end
+    if win then
+        can_move = true
+    end
     return can_move
 end

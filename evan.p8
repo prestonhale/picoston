@@ -23,10 +23,28 @@ end
 
 
 function check_win()
-    if win == true then 
+    if win == true then
+        rectfill(47,47,82,57,3) 
         print('you win!', 50,50,10)
-        --100 times
-        --randomly select lane
-        --randomly select animal
+        enemy_spawner.chance_to_spawn = 0
+        points=99
+        bee_giant.chance_to_spawn = 0.8
+        ostrich.chance_to_spawn = 0.6
+        elephant.chance_to_spawn = 0.2
+        monkey.chance_to_spawn = 0.5
+        blue_whale.chance_to_spawn = 0.02
+        if frame%5==0 then  
+            for animal in all(ANIMALS) do
+                if rnd(1)+.01 <= animal.chance_to_spawn then
+                    local lane = flr(rnd(5))+1
+                    add_in_lane(animal, lane)
+                end
+            end    
+       
+            
+            -- local animal = ANIMALS[flr(rnd(4))+1]
+            -- local lane = flr(rnd(5))+1
+            -- add_in_lane(animal, lane)
+        end
     end
 end

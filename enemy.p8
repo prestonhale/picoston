@@ -32,7 +32,7 @@ function enemy:new(e)
 end
 
 function enemy:do_damage(coll)
-    if not coll.is_friendly then return end
+    if not coll.is_friendly or win then return end
     coll.health -= self.dmg
 end
 
