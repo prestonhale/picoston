@@ -110,7 +110,10 @@ ui = {
             open_space = true
             for obj in all(objects) do
                 if obj.lane_index != nil and obj.lane_index == self.selected_lane and obj.x < 16 then
-                    open_space = false
+                    -- bees and blue whales will ignore this check
+                    if animal_sprites[self.selected_button] != 71 and animal_sprites[self.selected_button] != 66 then
+                        open_space = false
+                    end
                 end
             end
             if open_space then
