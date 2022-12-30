@@ -15,10 +15,12 @@ enemy = {
     -- not static ---
     sprite = 128,
     health=100,
+    max_health=100,
     x=127,
     y=0,
     sprite_timer=0,
-    lane_index=lane_index
+    lane_index=lane_index,
+    dmg=2
 }
 
 function enemy:new(e)
@@ -30,6 +32,8 @@ function enemy:new(e)
 end
 
 function enemy:do_damage(coll)
+    if not coll.is_friendly then return end
+    coll.health -= self.dmg
 end
 
 function enemy:update()
@@ -45,7 +49,7 @@ function enemy:update()
     end
 
     if can_move then
-        self.x -= 1
+        self.x -= 0.5
     end
 
     self.y = get_lane_y(self.lane_index)+3
@@ -75,16 +79,20 @@ end
 
 function enemy:draw()
     if self.health<100 then
-        rect(self.x+1,self.y-5,self.x+16,self.y-3,7)
-        length = convert(self.health,0,100,0,13)
-        line(self.x+2,self.y-4,self.x+2+length,self.y-4,8)
+        rect(self.x+4,self.y-5,self.x+15,self.y-3,7)
+        length = convert(self.health,0,self.max_health,0,9)
+        if length < 0 then
+            length=0
+        end
+        line(self.x+5,self.y-4,self.x+14,self.y-4,6)
+        line(self.x+5,self.y-4,self.x+5+length,self.y-4,8)
     end
     spr(self.sprite, self.x,self.y, 2, 2)
 end
 
 enemy_spawner = {
     -- config
-    chance_to_spawn = 0.03,
+    chance_to_spawn = 0.02,
     enemy_sprite = 128,
 
     -- state
@@ -92,7 +100,7 @@ enemy_spawner = {
     update = function(self)
         self.time_since_spawn +=1
 
-        if self.time_since_spawn < 10 then -- don't spawn too fast
+        if self.time_since_spawn < 20 then -- don't spawn too fast
             return
         end 
 

@@ -15,17 +15,34 @@ elephant=animal:new{
     curr_anim_t=0,
     shadow=nil,
     is_friendly=true,
-    cost=4,
-    pwidth=16
+    cost=3,
+    pwidth=16,
+    dmg=0.1,
+    health=800,
+    max_health=800
 }
+
+function elephant:draw()
+    if self.health<self.max_health then
+        rect(self.x+2,self.y-5,self.x+13,self.y-3,7)
+        length = convert(self.health,0,self.max_health,0,9)
+        if length < 0 then
+            length=0
+        end
+        line(self.x+3,self.y-4,self.x+12,self.y-4,6)
+        line(self.x+3,self.y-4,self.x+3+length,self.y-4,3)
+    end
+    spr(self.sprite,self.x,self.y,self.width,self.height)
+end
 
 function elephant:update()
     local can_move = self.collider:can_move(self)
+
     if self.stomp_t_increase then
         self.curr_stomp_t+=1
         self.curr_anim_t+=1
         if can_move then
-            self.x+=1
+            self.x+=0.5
         end
         if self.curr_stomp_t>=self.stomp_t then
             self.curr_stomp_t=self.stomp_t
@@ -48,6 +65,11 @@ function elephant:update()
             self.stomp_t_increase=true
         end
     end
+
+    if self.health <=0 then
+        del(objects, self)
+    end
+
     self.collider:update()
     remove_if_out_of_bounds(self)
 end
