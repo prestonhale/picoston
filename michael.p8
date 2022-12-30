@@ -2,37 +2,6 @@ pico-8 cartridge // http://www.pico-8.com
 version 38
 __lua__
 
-------------------
---- shadow code ---
-------------------
-
-function add_shadow(obj,x_offset,y_offset,w,h,col)
-    shadow_obj={
-        x=obj.x+x_offset,
-        y=get_lane_y(obj.lane_index)+y_offset,
-        xoff=x_offset,
-        yoff=y_offset,
-        width=w,
-        height=h,
-        color=col
-    }
-    obj.shadow=shadow_obj
-end
-
-function draw_shadow(obj)
-    if obj.shadow!=nil then
-        ovalfill(obj.shadow.x,obj.shadow.y,obj.shadow.x+obj.shadow.width,obj.shadow.y+obj.shadow.height,obj.shadow.color)
-    end
-end
-
-function move_shadow(obj)
-    if obj.shadow!=nil then
-        obj.shadow.x=obj.x
-        obj.shadow.x=obj.x+obj.shadow.xoff
-    end
-end
-
-
 -----------------
 --- grass obj ---
 -----------------

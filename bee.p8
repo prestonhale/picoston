@@ -13,10 +13,16 @@ bee_giant=animal:new{
     sprite=66,
     timer=0,
     cost=1,
-    pwidth=10
+    pwidth=10,
+    x_speed=2
 }
 
 function bee_giant:draw()
+    if self.x_speed==2 then
+        ovalfill(self.x,self.y+10,self.x+5,self.y+13,5)
+    else
+        ovalfill(self.x+1,self.y+8,self.x+5,self.y+10,5)
+    end
     sspr(((self.sprite% 16)*8), (flr(self.sprite/16)*8),16,16,self.x,self.y,8,8)
     if self.timer==2 then 
         self.sprite=68 
@@ -29,9 +35,11 @@ end
 
 function bee_giant:update()
     local can_move = true
+    self.x_speed=2
     for k,v in pairs(self.collider.colliding_with) do
         if not k.is_friendly and not k.is_projectile then 
             can_move = false
+            self.x_speed=1
         end
         self.do_damage(self,k)
     end
@@ -42,12 +50,7 @@ function bee_giant:update()
         self.y=(2*(sin(self.x/30))+get_lane_y(self.lane_index)+3)+1
     end
 
-    if not can_move then 
-        self.x+=1
-    else
-        self.x+=2
-    end    
-
+    self.x+=self.x_speed
 
     self.timer+=1
 
