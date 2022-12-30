@@ -70,6 +70,7 @@ function _draw()
         obj:draw()
     end
     print(debug)
+    print(#objects)
 end
 
 function check_collisions()

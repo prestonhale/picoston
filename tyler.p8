@@ -15,6 +15,8 @@ monkey=animal:new{
     pwidth=9,
     cost=1,
     poop=false,
+    poopagain_t=0,
+    poopagain_t_max=25
 }
 
 function monkey:new(obj)
@@ -38,14 +40,20 @@ end
 
 function monkey:update()
     local can_move = self.collider:can_move(self)
+    self.poopagain_t+=1
     if can_move then
         self.x+=1
     end
     if not can_move and not self.poop then
         new_poop(self.x,self.lane_index)
-        self.poop=true     
+        self.poop=true 
+        self.poopagain_t=0    
     end
     
+    if self.poopagain_t>=self.poopagain_t_max then
+        self.poop=false
+    end
+
     self.y=.5*(sin(self.x/40))+get_lane_y(self.lane_index)+8
     self.timer+=1
     self.collider:update()
@@ -53,7 +61,9 @@ function monkey:update()
 end
 
 poop={
-    is_friendly=true
+    is_friendly=true,
+    pwidth=5,  
+    dmg=10
 }
 
 function poop:new(obj)
@@ -64,12 +74,25 @@ function poop:new(obj)
 end
 
 function poop:draw()
-    rectfill(self.x+1,self.y+1,self.x+5,self.y+5,8)    
+   spr(70,self.x,self.y)   
 end
 
 function poop:update()
-   self.x+=1
-   self.collider:update()
+    
+    self.x+=2
+       for k,v in pairs(self.collider.colliding_with) do
+        if not k.is_friendly then 
+            self.do_damage(self,k)
+            del(objects,self)
+        end
+    end
+    self.collider:update()
+    remove_if_out_of_bounds(self)
+end
+
+function poop:do_damage(coll)
+    if coll.is_friendly then return end
+    coll.health -= self.dmg
 end
 
 function new_poop(new_x,lane_index)
