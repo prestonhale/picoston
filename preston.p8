@@ -109,7 +109,7 @@ ui = {
             -- don't spawn animal if something is already in the spawning space
             open_space = true
             for obj in all(objects) do
-                if obj.lane_index != nil and obj.lane_index == self.selected_lane and obj.x < 13 then
+                if obj.lane_index != nil and obj.lane_index == self.selected_lane and obj.x < 12 then
                     -- bees and blue whales will ignore this check
                     if animal_sprites[self.selected_button] != 71 and animal_sprites[self.selected_button] != 66 then
                         open_space = false
