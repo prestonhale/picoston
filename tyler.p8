@@ -17,7 +17,9 @@ monkey=animal:new{
     poop=false,
     poopagain_t=0,
     poopagain_t_max=25,
-    dmg=0
+    dmg=0,
+    health=30,
+    max_health=30
 }
 
 function monkey:new(obj)
@@ -28,6 +30,12 @@ function monkey:new(obj)
 end
 
 function monkey:draw()
+    if self.health<self.max_health then
+        rect(self.x-5,self.y-5,self.x+6,self.y-3,7)
+        length = convert(self.health,0,self.max_health,0,10)
+        line(self.x-4,self.y-4,self.x+5,self.y-4,6)
+        line(self.x-4,self.y-4,self.x-4+length,self.y-4,14)
+    end
     sspr(((self.sprite% 16)*8), (flr(self.sprite/16)*8),16,16,self.x,self.y,8,8)
     if self.timer==18 then 
         if self.sprite==98 then
@@ -57,6 +65,11 @@ function monkey:update()
 
     self.y=.5*(sin(self.x/40))+get_lane_y(self.lane_index)+8
     self.timer+=1
+
+    if self.health <=0 then
+        del(objects, self)
+    end
+
     self.collider:update()
     remove_if_out_of_bounds(self)
 end

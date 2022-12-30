@@ -41,7 +41,6 @@ LANE_Y_VALUES = {
 function _init()
     init_michael(objects)
     init_preston(objects)
-
     init_evan(objects)
 end
 
@@ -51,8 +50,6 @@ function _update()
     for obj in all(objects) do
         obj:update()
     end
-
-    debug = stat(0)
 end
 
 function _draw()
@@ -69,7 +66,6 @@ function _draw()
     for obj in all(foreground) do
         obj:draw()
     end
-    print(debug)
     print(#objects)
 end
 
