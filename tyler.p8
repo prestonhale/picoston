@@ -32,7 +32,7 @@ end
 function monkey:draw()
     if self.health<self.max_health then
         rect(self.x-5,self.y-5,self.x+6,self.y-3,7)
-        length = convert(self.health,0,self.max_health,0,10)
+        length = convert(self.health,0,self.max_health,0,9)
         if length < 0 then
             length=0
         end
