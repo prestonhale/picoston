@@ -128,8 +128,8 @@ blue_whale=animal:new{
     y=new_y,
     sprite=102,
     timer=0,
-    is_friendly=true,
-    pwidth=128,
+    is_friendly=true, --might need to change this back to true 
+    pwidth=115,
     cost=0,
     dmg=999,
     speed=1,
@@ -137,54 +137,51 @@ blue_whale=animal:new{
     max_health=1000000,
     high_y=0,
     lane_index=lane_index
+
 }
 
 function blue_whale:_init()
     local lane_y = get_lane_y(self.lane_index)
-    self.high_y=lane_y-12-60
-   
+    self.high_y=lane_y-12-120
+    self.collider=nil
 end
+
 
 function blue_whale:new(obj)
     obj = obj or {}
     setmetatable(obj, self)
-    self.__index = self
-    
+    self.__index = self  
     return obj
 end
 
+
 function blue_whale:draw()
-    sspr(((self.sprite% 16)*8), (flr(self.sprite/16)*8),48,16,self.x,self.high_y,140,32)
-    if self.timer==18 then 
-        if self.sprite==102 then
-            self.sprite=102
-        elseif self.sprite==102 then
-            self.sprite=102        
-        end
-        
-       
-    end
+    sspr(((self.sprite% 16)*8), (flr(self.sprite/16)*8),48,16,self.x-5,self.high_y,140,32)
+    -- if self.timer==18 then 
+    --     if self.sprite==102 then
+    --         self.sprite=102
+    --     elseif self.sprite==102 then
+    --         self.sprite=102        
+    --     end
+    -- end
 end
 
+
 function blue_whale:update()
-    local can_move = self.collider:can_move(self)
-    
-    --y_lane = get_lane_y()
-    if self.high_y > get_lane_y(self.lane_index) then 
-        self.high_y+=self.speed*3
+    if self.high_y < get_lane_y(self.lane_index)-12 then 
+        self.high_y+=self.speed*8
+    end    
+
+    if self.high_y>=get_lane_y(self.lane_index)-12 then
+        self.timer+=1
+        if not self.collider then self.collider=collider:new() end
+        self.collider:can_move(self)
     end
-    self.timer=0 
-    -- if self.y <= get_lane_y(self.lane_index) then--y_lane then 
-    --     --self.y=50
-    --     self.x+=self.speed
-    --end
 
+    if self.timer>=5 then 
+        self.x+=self.speed*4
+    end
     
-    
-   
-
-    
-    self.timer+=1
-    self.collider:update()
+    if self.collider then self.collider:update() end
     remove_if_out_of_bounds(self)
 end
