@@ -202,8 +202,16 @@ end
 ---------------------
 
 bg={
-    update=function(self)end
+    cloud_sprite=6,
+    cloud_width=8,
+    cloud_height=4,
+    cloud_x=0,
+    cloud_y=-18
 }
+
+function bg:update()
+    self.cloud_x+=0.1
+end
 
 function bg:draw()
 
@@ -211,8 +219,10 @@ function bg:draw()
 
     -- sky and sun
     rectfill(0,0,127,19,12)
-    line(0,19,127,19,10)
     circfill(85,18,10,10)
+
+    -- cloud
+    spr(self.cloud_sprite,self.cloud_x,self.cloud_y,self.cloud_width,self.cloud_height)
 
     -- lanes
     y_offset=20
