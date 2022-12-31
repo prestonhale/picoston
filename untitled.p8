@@ -21,6 +21,7 @@ __lua__
 objects = {}
 
 win = false
+-- game_over = true
 frame = 0
 
 speed = 1
@@ -58,7 +59,7 @@ function _update()
         obj:update()
     end
 
-    debug = stat(1)
+    -- debug = stat(1)
 end
 
 function _draw()
@@ -77,6 +78,7 @@ function _draw()
     end
     print(debug)
     check_win()
+    check_lose()
 end
 
 function check_collisions()

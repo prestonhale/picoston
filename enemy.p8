@@ -85,13 +85,14 @@ enemy_spawner = {
     -- config
     chance_to_spawn = 0.02,
     enemy_sprite = 128,
+    spawn_speed = 20,
 
     -- state
     time_since_spawn = 0,
     update = function(self)
         self.time_since_spawn +=1
 
-        if self.time_since_spawn < 20 then -- don't spawn too fast
+        if self.time_since_spawn < self.spawn_speed then -- don't spawn too fast
             return
         end 
 
