@@ -66,7 +66,12 @@ end
 
 grass={
     objs={},
-    update=function(self)end,
+    update=function(self)end
+}
+
+top_grass={
+    objs={},    
+    update=function(self)end
 }
 
 for i=0,30 do
@@ -77,6 +82,15 @@ for i=0,30 do
         y=rand_y
     }
     add(grass.objs,g)
+end
+
+for i=0,10 do
+    rand_x=flr(rnd(114))+8
+    g={
+        x=rand_x,
+        y=19
+    }
+    add(top_grass.objs,g)
 end
 
 function draw_pixel(x,y)
@@ -100,6 +114,15 @@ function grass:draw()
         draw_pixel(g.x-3,g.y+1)
         draw_pixel(g.x-4,g.y+2)
         draw_pixel(g.x-5,g.y+1)
+    end
+
+    for g in all(top_grass.objs) do
+        pset(g.x,g.y,11)
+        pset(g.x,g.y+1,11)
+
+        pset(g.x+2,g.y-1,11)
+        pset(g.x+2,g.y,11)
+        pset(g.x+2,g.y+1,11)
     end
 end
 
