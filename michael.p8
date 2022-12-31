@@ -2,13 +2,76 @@ pico-8 cartridge // http://www.pico-8.com
 version 38
 __lua__
 
+------------------
+--- health bar ---
+------------------
+
+health_bar={
+    foreground=false
+}
+
+function add_health_bar(obj,x_offset,y_offset,length,height,color)
+    local bar = health_bar:new()
+    bar.parent = obj
+    bar.x_offset = x_offset
+    bar.y_offset = y_offset
+    bar.length = length
+    bar.curr_length = length
+    bar.height = height
+    bar.color = color
+    add(objects,bar)
+end
+
+function health_bar:new(obj)
+    obj = obj or {}
+    setmetatable(obj, self)
+    self.__index = self
+    return obj
+end
+
+function health_bar:update()
+    if not self.parent.show_health then
+        del(objects, self)
+    end
+    self.curr_length = convert_range(self.parent.health,0,self.parent.max_health,1,self.length)
+end
+
+function health_bar:draw()
+    -- white border
+    rect(self.parent.x + self.x_offset - 1,
+        self.parent.y + self.y_offset - 1,
+        self.parent.x + self.x_offset + self.length,
+        self.parent.y + self.y_offset + self.height,
+        7
+    )
+    -- gray background
+    rectfill(self.parent.x + self.x_offset,
+        self.parent.y + self.y_offset,
+        self.parent.x + self.x_offset + self.length - 1,
+        self.parent.y + self.y_offset + self.height - 1,
+        6
+    )
+    -- health bar
+    rectfill(self.parent.x + self.x_offset,
+        self.parent.y + self.y_offset,
+        self.parent.x + self.x_offset + self.curr_length - 1,
+        self.parent.y + self.y_offset + self.height - 1,
+        self.color
+    )
+end
+
 -----------------
 --- grass obj ---
 -----------------
 
 grass={
     objs={},
-    update=function(self)end,
+    update=function(self)end
+}
+
+top_grass={
+    objs={},    
+    update=function(self)end
 }
 
 for i=0,30 do
@@ -19,6 +82,15 @@ for i=0,30 do
         y=rand_y
     }
     add(grass.objs,g)
+end
+
+for i=0,10 do
+    rand_x=flr(rnd(114))+8
+    g={
+        x=rand_x,
+        y=19
+    }
+    add(top_grass.objs,g)
 end
 
 function draw_pixel(x,y)
@@ -42,6 +114,15 @@ function grass:draw()
         draw_pixel(g.x-3,g.y+1)
         draw_pixel(g.x-4,g.y+2)
         draw_pixel(g.x-5,g.y+1)
+    end
+
+    for g in all(top_grass.objs) do
+        pset(g.x,g.y,11)
+        pset(g.x,g.y+1,11)
+
+        pset(g.x+2,g.y-1,11)
+        pset(g.x+2,g.y,11)
+        pset(g.x+2,g.y+1,11)
     end
 end
 
@@ -121,8 +202,16 @@ end
 ---------------------
 
 bg={
-    update=function(self)end
+    cloud_sprite=6,
+    cloud_width=8,
+    cloud_height=4,
+    cloud_x=0,
+    cloud_y=-18
 }
+
+function bg:update()
+    self.cloud_x+=0.1
+end
 
 function bg:draw()
 
@@ -130,8 +219,10 @@ function bg:draw()
 
     -- sky and sun
     rectfill(0,0,127,19,12)
-    line(0,19,127,19,10)
     circfill(85,18,10,10)
+
+    -- cloud
+    spr(self.cloud_sprite,self.cloud_x,self.cloud_y,self.cloud_width,self.cloud_height)
 
     -- lanes
     y_offset=20
