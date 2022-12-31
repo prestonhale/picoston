@@ -58,7 +58,7 @@ function _update()
         obj:update()
     end
 
-    -- debug = stat(1)
+    debug = stat(1)
 end
 
 function _draw()
@@ -106,7 +106,10 @@ function check_collisions()
     end
 end
 
---- helper functions ---
+------------------------
+--- utility functions ---
+------------------------
+
 function get_sprite_coords(spr_num)
     return (spr_num % 16) * 8, flr(spr_num \ 16) * 8
 end 
@@ -120,6 +123,12 @@ function remove_if_out_of_bounds(obj)
     if abs(64-obj.x)>80 or abs(64-obj.y)>80 then
         del(objects,obj)
     end
+end
+
+-- converts a value from one range of numbers to another
+function convert_range(val,s1,e1,s2,e2)
+	temp=(val-s1)/(e1-s1)
+	return temp*(e2-s2)+s2
 end
 
 __gfx__

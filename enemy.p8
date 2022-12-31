@@ -63,30 +63,21 @@ function enemy:update()
         self.sprite_timer = 0
     end
 
-    self.collider:update()
+    if self.health < self.max_health and not self.show_health then
+        self.show_health = true
+        add_health_bar(self,5,-4,9,1,8)
+    end
     
     if self.health <=0 then
+        self.show_health = false
         del(objects, self)
     end
 
+    self.collider:update()
     remove_if_out_of_bounds(self)
 end
 
-function convert(val,s1,e1,s2,e2)
-	prop=(val-s1)/(e1-s1)
-	return prop*(e2-s2)+s2
-end
-
 function enemy:draw()
-    if self.health<100 then
-        rect(self.x+4,self.y-5,self.x+15,self.y-3,7)
-        length = convert(self.health,0,self.max_health,0,9)
-        if length < 0 then
-            length=0
-        end
-        line(self.x+5,self.y-4,self.x+14,self.y-4,6)
-        line(self.x+5,self.y-4,self.x+5+length,self.y-4,8)
-    end
     spr(self.sprite, self.x,self.y, 2, 2)
 end
 

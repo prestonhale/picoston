@@ -27,7 +27,6 @@ function check_win()
     if gates_destroyed >= 5 then
         win = true
     end
-    debug = gates_destroyed
     if win == true then
         rectfill(47,47,82,57,3) 
         print('you win!', 50,50,10)

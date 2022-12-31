@@ -2,6 +2,64 @@ pico-8 cartridge // http://www.pico-8.com
 version 38
 __lua__
 
+------------------
+--- health bar ---
+------------------
+
+health_bar={
+    foreground=false
+}
+
+function add_health_bar(obj,x_offset,y_offset,length,height,color)
+    local bar = health_bar:new()
+    bar.parent = obj
+    bar.x_offset = x_offset
+    bar.y_offset = y_offset
+    bar.length = length
+    bar.curr_length = length
+    bar.height = height
+    bar.color = color
+    add(objects,bar)
+end
+
+function health_bar:new(obj)
+    obj = obj or {}
+    setmetatable(obj, self)
+    self.__index = self
+    return obj
+end
+
+function health_bar:update()
+    if not self.parent.show_health then
+        del(objects, self)
+    end
+    self.curr_length = convert_range(self.parent.health,0,self.parent.max_health,1,self.length)
+end
+
+function health_bar:draw()
+    -- white border
+    rect(self.parent.x + self.x_offset - 1,
+        self.parent.y + self.y_offset - 1,
+        self.parent.x + self.x_offset + self.length,
+        self.parent.y + self.y_offset + self.height,
+        7
+    )
+    -- gray background
+    rectfill(self.parent.x + self.x_offset,
+        self.parent.y + self.y_offset,
+        self.parent.x + self.x_offset + self.length - 1,
+        self.parent.y + self.y_offset + self.height - 1,
+        6
+    )
+    -- health bar
+    rectfill(self.parent.x + self.x_offset,
+        self.parent.y + self.y_offset,
+        self.parent.x + self.x_offset + self.curr_length - 1,
+        self.parent.y + self.y_offset + self.height - 1,
+        self.color
+    )
+end
+
 -----------------
 --- grass obj ---
 -----------------
