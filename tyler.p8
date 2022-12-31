@@ -134,36 +134,52 @@ blue_whale=animal:new{
     dmg=999,
     speed=1,
     health=1000000,
-    max_health=1000000
+    max_health=1000000,
+    high_y=0,
+    lane_index=lane_index
 }
+
+function blue_whale:_init()
+    local lane_y = get_lane_y(self.lane_index)
+    self.high_y=lane_y-12-60
+   
+end
 
 function blue_whale:new(obj)
     obj = obj or {}
     setmetatable(obj, self)
     self.__index = self
+    
     return obj
 end
 
 function blue_whale:draw()
-    sspr(((self.sprite% 16)*8), (flr(self.sprite/16)*8),48,16,self.x,self.y-12,140,32)
+    sspr(((self.sprite% 16)*8), (flr(self.sprite/16)*8),48,16,self.x,self.high_y,140,32)
     if self.timer==18 then 
         if self.sprite==102 then
             self.sprite=102
         elseif self.sprite==102 then
             self.sprite=102        
         end
-        self.speed+=3
-        self.timer=0 
-        self.x+=self.speed
+        
+       
     end
 end
 
 function blue_whale:update()
     local can_move = self.collider:can_move(self)
     
-    if can_move then
-        
+    --y_lane = get_lane_y()
+    if self.high_y > get_lane_y(self.lane_index) then 
+        self.high_y+=self.speed*3
     end
+    self.timer=0 
+    -- if self.y <= get_lane_y(self.lane_index) then--y_lane then 
+    --     --self.y=50
+    --     self.x+=self.speed
+    --end
+
+    
     
    
 
