@@ -51,64 +51,64 @@ function check_win()
     end
 end
 
--- function check_lose()
---     if game_over==true and win==false then
---         rectfill(39,47,84,57,0) 
---         print('game over!',43,50,8)
+function check_lose()
+    if game_over==true and win==false then
+        rectfill(39,47,84,57,0) 
+        print('game over!',43,50,8)
 
---         function enemy:update()
---             local can_move = true
---             for k,v in pairs(self.collider.colliding_with) do
---                 self.do_damage(self, k)
---                 if k.is_friendly then 
---                     can_move = false
---                 end
---                 if not k.is_friendly and k.x<self.x and not k.is_gate then
---                     can_move = false
---                 end
---             end
+        function enemy:update()
+            local can_move = true
+            for k,v in pairs(self.collider.colliding_with) do
+                self.do_damage(self, k)
+                if k.is_friendly then 
+                    can_move = false
+                end
+                if not k.is_friendly and k.x<self.x and not k.is_gate then
+                    can_move = false
+                end
+            end
         
---             if can_move then
---                 self.x -= 0.5
---             end
+            if can_move then
+                self.x -= 0.5
+            end
         
---             self.y = get_lane_y(self.lane_index)+3
---             self.sprite_timer += 1
---             -- if self.sprite_timer > 10 then
---             --     if self.sprite == self.sprite_1 then
---             --         self.sprite = self.sprite_2
---             --     elseif self.sprite == self.sprite_2 then
---             --         self.sprite = self.sprite_1 
---             --     end
---             --     self.sprite_timer = 0
---             -- end
+            self.y = get_lane_y(self.lane_index)+3
+            self.sprite_timer += 1
+            -- if self.sprite_timer > 10 then
+            --     if self.sprite == self.sprite_1 then
+            --         self.sprite = self.sprite_2
+            --     elseif self.sprite == self.sprite_2 then
+            --         self.sprite = self.sprite_1 
+            --     end
+            --     self.sprite_timer = 0
+            -- end
         
---             self.collider:update()
+            self.collider:update()
             
---             if self.health <=0 then
---                 del(objects, self)
---             end
+            if self.health <=0 then
+                del(objects, self)
+            end
 
---             function enemy:draw()
---                 -- if self.health<100 then
---                 --     rect(self.x+4,self.y-5,self.x+15,self.y-3,7)
---                 --     length = convert(self.health,0,self.max_health,0,9)
---                 --     if length < 0 then
---                 --         length=0
---                 --     end
---                 --     line(self.x+5,self.y-4,self.x+14,self.y-4,6)
---                 --     line(self.x+5,self.y-4,self.x+5+length,self.y-4,8)
---                 -- end
---                 if flipped then
---                     spr(self.sprite, self.x,self.y, 2, 2)
---                     flipped = false
---                 else
---                     spr(self.sprite, self.x, self.y, 2, 2, true)
---                     flipped = true
---                 end
---             end
+            function enemy:draw()
+                -- if self.health<100 then
+                --     rect(self.x+4,self.y-5,self.x+15,self.y-3,7)
+                --     length = convert(self.health,0,self.max_health,0,9)
+                --     if length < 0 then
+                --         length=0
+                --     end
+                --     line(self.x+5,self.y-4,self.x+14,self.y-4,6)
+                --     line(self.x+5,self.y-4,self.x+5+length,self.y-4,8)
+                -- end
+                if flipped then
+                    spr(self.sprite, self.x,self.y, 2, 2)
+                    flipped = false
+                else
+                    spr(self.sprite, self.x, self.y, 2, 2, true)
+                    flipped = true
+                end
+            end
         
---             remove_if_out_of_bounds(self)
---         end
---     end
--- end
+            remove_if_out_of_bounds(self)
+        end
+    end
+end

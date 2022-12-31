@@ -118,6 +118,9 @@ end
 -- temporary to reduce memory leakage
 function remove_if_out_of_bounds(obj)
     if abs(64-obj.x)>80 or abs(64-obj.y)>80 then
+        if not obj.is_friendly then
+            game_over = true
+        end
         del(objects,obj)
     end
 end
