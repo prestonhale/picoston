@@ -52,7 +52,7 @@ function add_at(animal_type,new_x,new_y,new_lane_index)
     new_animal.lane_index = new_lane_index
     new_animal.collider = collider:new()
     if new_animal._init then
-        new_animal._init()
+        new_animal:_init()
     end
     add(objects,new_animal)
 end
