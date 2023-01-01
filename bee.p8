@@ -37,7 +37,7 @@ function bee_giant:update()
     local can_move = true
     self.x_speed=2
     for k,v in pairs(self.collider.colliding_with) do
-        if not k.is_friendly and not k.is_projectile then 
+        if not k.is_friendly and not k.is_friendly_projectile then 
             can_move = false
             self.x_speed=1
         end

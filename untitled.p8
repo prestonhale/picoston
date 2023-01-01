@@ -59,7 +59,7 @@ function _update()
         obj:update()
     end
 
-    -- debug = stat(1)
+    debug = stat(1)
 end
 
 function _draw()
@@ -123,7 +123,7 @@ end
 -- temporary to reduce memory leakage
 function remove_if_out_of_bounds(obj)
     if abs(64-obj.x)>80 or abs(64-obj.y)>80 then
-        if not obj.is_friendly then
+        if not obj.is_friendly and not obj.is_friendly_projectile then
             game_over = true
         end
         del(objects,obj)

@@ -29,7 +29,7 @@ function animal:draw()
 end
 
 function animal:do_damage(coll)
-    if coll.is_friendly or coll.is_projectile then return end
+    if coll.is_friendly or coll.is_friendly_projectile then return end
     coll.health -= self.dmg
 end
 

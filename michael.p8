@@ -205,12 +205,15 @@ bg={
     cloud_sprite=6,
     cloud_width=8,
     cloud_height=4,
-    cloud_x=0,
+    cloud_x=-30,
     cloud_y=-18
 }
 
 function bg:update()
     self.cloud_x+=0.1
+    if self.cloud_x>130 then
+        self.cloud_x = -70
+    end
 end
 
 function bg:draw()
