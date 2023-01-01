@@ -76,9 +76,9 @@ function _draw()
     for obj in all(foreground) do
         obj:draw()
     end
-    print(debug)
     check_win()
     check_lose()
+    print(debug,1,99,0)
 end
 
 function check_collisions()
