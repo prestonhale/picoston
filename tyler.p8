@@ -192,7 +192,10 @@ function blue_whale:update()
     if self.high_y>=get_lane_y(self.lane_index)-12 then
         self.timer+=1
         if not self.collider then self.collider=collider:new() end
-        self.collider:can_move(self)
+        can_move, coll = self.collider:can_move(self)
+        if coll then
+            blue_whale:do_damage(coll)
+        end
     end
 
     if self.timer>=5 then 

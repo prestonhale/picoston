@@ -28,9 +28,12 @@ function ostrich:draw()
 end
 
 function ostrich:update()
-    local can_move = self.collider:can_move(self)
+    local can_move, coll = self.collider:can_move(self)
     if can_move then
         self.x+=0.5
+    end
+    if coll then
+        ostrich:do_damage(coll)
     end
     self.y=.5*(sin(self.x/40))+get_lane_y(self.lane_index)+8
     self.timer+=1

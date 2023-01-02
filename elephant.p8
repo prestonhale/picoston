@@ -27,7 +27,10 @@ function elephant:draw()
 end
 
 function elephant:update()
-    local can_move = self.collider:can_move(self)
+    local can_move, coll = self.collider:can_move(self)
+        if coll then
+            elephant:do_damage(coll)
+        end
 
     if self.stomp_t_increase then
         self.curr_stomp_t+=1
