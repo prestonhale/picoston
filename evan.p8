@@ -25,7 +25,7 @@ end
 
 gates_destroyed = 0
 function check_win()
-    if gates_destroyed >= 5 then
+    if gates_destroyed >= 5 and not game_over then
         win = true
     end
     if win == true then
@@ -107,7 +107,9 @@ function check_lose()
             end
 
             if frame%60 == 0 then
-                self.jumped = true
+                if rnd(1) > .2 then
+                    self.jumped = true
+                end
             end
 
             if self.jumped == true then
@@ -116,5 +118,12 @@ function check_lose()
                 self.y = get_lane_y(self.lane_index)+3
             end
         end  
+
+        for obj in all(objects) do
+            if obj.is_friendly then
+                obj.health = 0
+            end
+        end
+
     end
 end
