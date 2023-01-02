@@ -102,7 +102,7 @@ function poop:update()
     self.y_speed+=self.grav
 
     for k,v in pairs(self.collider.colliding_with) do
-        if not k.is_friendly then 
+        if not k.is_friendly and not k.is_friendly_projectile then 
             self.do_damage(self,k)
             del(objects,self)
         end
