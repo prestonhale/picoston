@@ -16,7 +16,7 @@ monkey=animal:new{
     cost=1,
     poop=false,
     poopagain_t=0,
-    poopagain_t_max=25,
+    poopagain_t_max=20,
     dmg=0,
     health=30,
     max_health=30
@@ -77,7 +77,7 @@ end
 poop={
     is_friendly_projectile=true,
     pwidth=5,  
-    dmg=25,
+    dmg=10,
     grav=0.1,
     angle=0.90
 }
