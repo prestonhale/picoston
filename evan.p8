@@ -117,7 +117,10 @@ function check_lose()
             else
                 self.y = get_lane_y(self.lane_index)+3
             end
-        end  
+        end 
+        
+        function add_in_lane()
+        end
 
         for obj in all(objects) do
             if obj.is_friendly then
