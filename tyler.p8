@@ -77,7 +77,9 @@ end
 poop={
     is_friendly_projectile=true,
     pwidth=5,  
-    dmg=25
+    dmg=25,
+    grav=0.1,
+    angle=0.90
 }
 
 function poop:new(obj)
@@ -88,13 +90,18 @@ function poop:new(obj)
 end
 
 function poop:draw()
-   spr(70,self.x,self.y)   
+    ovalfill(self.x+3,get_lane_y(self.lane_index)+13,self.x+6,get_lane_y(self.lane_index)+16,5)
+    spr(70,self.x,self.y)   
 end
 
 function poop:update()
     
-    self.x+=2
-       for k,v in pairs(self.collider.colliding_with) do
+    --self.x+=2
+    self.x+=self.x_speed
+    self.y+=self.y_speed
+    self.y_speed+=self.grav
+
+    for k,v in pairs(self.collider.colliding_with) do
         if not k.is_friendly then 
             self.do_damage(self,k)
             del(objects,self)
@@ -115,7 +122,20 @@ function new_poop(new_x,lane_index)
     poop.x=new_x
     poop.lane_index=lane_index
     poop.collider = collider:new()
-    add(objects,poop)
+    poop.x_final = get_closest_enemy_x(poop.x,lane_index)
+
+    -- if an enemy was found
+    if poop.x_final != -1 then
+
+        distance = poop.x_final - poop.x
+        velocity = sqrt( (distance*poop.grav*4) / 2*sin(poop.angle)*cos(poop.angle) )
+        debug=2*sin(poop.angle)*cos(poop.angle)
+
+        poop.x_speed = cos(poop.angle) * velocity
+        poop.y_speed = sin(poop.angle) * velocity * -1
+
+        add(objects,poop)
+    end
 end
 
 ------------------------------------------------

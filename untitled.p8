@@ -59,7 +59,7 @@ function _update()
         obj:update()
     end
 
-    debug = stat(1)
+    --debug = stat(1)
 end
 
 function _draw()
@@ -134,6 +134,24 @@ end
 function convert_range(val,s1,e1,s2,e2)
 	temp=(val-s1)/(e1-s1)
 	return temp*(e2-s2)+s2
+end
+
+-- given an x value, return the x value of the closest enemy in that lane (to the right)
+-- returns -1 if no enemy was found
+function get_closest_enemy_x(x_initial,l_index)
+    x_final = 1000000
+    for obj in all(objects) do
+        if obj.lane_index == l_index and not obj.is_friendly and not obj.is_friendly_projectile and obj.health > 0 then
+            if obj.x > x_initial and obj.x < x_final then
+                x_final = obj.x
+            end
+        end
+    end
+    if x_final < 1000000 then
+        return x_final
+    else
+        return -1
+    end
 end
 
 __gfx__
