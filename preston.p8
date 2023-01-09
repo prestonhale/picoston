@@ -209,4 +209,5 @@ function init_preston(objects)
     end
     add(objects, ui)
     add(objects, enemy_spawner)
+    add(objects, enemy_fat_spawner)
 end
