@@ -49,7 +49,7 @@ function enemy:update()
     end
 
     if can_move then
-        self.x -= 0.5
+        self.x -= 0.25
     end
 
     self.y = get_lane_y(self.lane_index)+3
