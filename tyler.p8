@@ -315,3 +315,8 @@ enemy_fat_spawner = {
         add(objects, e)
     end
 }
+
+function before_game()
+    cls()
+    print("press x to start game", 5, 20)
+end

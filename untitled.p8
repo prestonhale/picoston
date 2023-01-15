@@ -25,7 +25,7 @@ win = false
 frame = 0
 
 speed = 1
-
+game_start=false
 lane_offset = 20 -- height of the "sky" portion of map
 lane_height = 17
 
@@ -55,30 +55,40 @@ function _update()
     frame+=1
     check_collisions()
 
-    for obj in all(objects) do
-        obj:update()
+    if game_start==false then 
+       return
     end
-
+    if game_start==true then
+        for obj in all(objects) do
+            obj:update()
+        end
+    end
     --debug = stat(1)
 end
 
+
 function _draw()
-    local foreground = {}
-    for obj in all(objects) do
-        -- don't render yet if obj is tagged "foreground"
-        if obj.foreground then 
-            add(foreground, obj) 
-            return
+    if game_start==false then
+        before_game() 
+    end    
+    if game_start==true then
+        local foreground = {}
+        for obj in all(objects) do
+            -- don't render yet if obj is tagged "foreground"
+            if obj.foreground then 
+                add(foreground, obj) 
+                return
+            end
+            obj:draw()
         end
-        obj:draw()
+        -- draw foreground objects
+        for obj in all(foreground) do
+            obj:draw()
+        end
+        check_win()
+        check_lose()
+        print(debug,1,99,0)
     end
-    -- draw foreground objects
-    for obj in all(foreground) do
-        obj:draw()
-    end
-    check_win()
-    check_lose()
-    print(debug,1,99,0)
 end
 
 function check_collisions()
