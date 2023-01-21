@@ -54,7 +54,7 @@ end
 function _update()
     frame+=1
     check_collisions()
-
+   
     if game_start==false then 
        return
     end

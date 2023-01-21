@@ -319,4 +319,5 @@ enemy_fat_spawner = {
 function before_game()
     cls()
     print("press x to start game", 5, 20)
+    if btn(5) then game_start=true end
 end
